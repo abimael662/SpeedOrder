@@ -16,7 +16,6 @@ namespace SpeedOrder.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class V_Register : ContentPage
     {
-        Meseros _m;
         private SQLiteAsyncConnection conexion;
         public V_Register()
         {

@@ -4,7 +4,7 @@
              x:Class="SpeedOrder.View.V_Atendido">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="Aqui va atendido por el nombre del mesero"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>

@@ -73,6 +73,15 @@ namespace SpeedOrder.View
         {
             await PopupNavigation.Instance.PopAsync();
         }
+protected override bool OnBackButtonPressed()
+    {
+        if (PopupNavigation.Instance.PopupStack.Count > 0)
+        {
+            PopupNavigation.Instance.PopAsync();
+            return true;
+        }
+        return base.OnBackButtonPressed();
+    }
     }
 }
 /*

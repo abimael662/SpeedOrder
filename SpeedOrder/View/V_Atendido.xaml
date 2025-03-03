@@ -6,7 +6,7 @@
     <ScrollView>
         <StackLayout Padding="30">
             <Frame Padding="10" CornerRadius="5" BackgroundColor="#5F1890">
-                <Label Text="ORDEN a " HorizontalOptions="CenterAndExpand" />
+                <Label Text="ORDEN Preparada" HorizontalOptions="CenterAndExpand" />
             </Frame>
             <!--<Grid RowDefinitions="Auto,Auto,*">
                 <Label Grid.Row="0" LineHeight="1.5" FontAttributes="Bold" VerticalOptions="Start" HorizontalTextAlignment="Center" FontSize="{OnPlatform iOS='25', Android='20'}">

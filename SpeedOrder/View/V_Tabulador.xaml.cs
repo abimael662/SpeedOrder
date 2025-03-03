@@ -20,7 +20,7 @@ namespace SpeedOrder.View
             _m = m;
             V_Inicio vInicioPage = new V_Inicio(_m);
             this.Children.Add(vInicioPage);
-            this.Children.Add(new V_Menu());
+            this.Children.Add(new V_Menu(_m));
             this.Children.Add(new V_Mesas());
         }
         private async void OnImageButtonClicked(object sender, EventArgs e)

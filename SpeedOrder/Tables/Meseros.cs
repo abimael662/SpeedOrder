@@ -7,11 +7,16 @@ namespace SpeedOrder.Tables
     {
         [PrimaryKey, AutoIncrement]
         public int Id_Mesero { get; set; }
+        [MaxLength(20)]
         public string Nombre { get; set; }
+        [MaxLength(20)]
         public string Ape_paterno { get; set; }
+        [MaxLength(20)]
         public string Ape_materno { get; set; }
         public int Edad { get; set; }
+        [MaxLength(10)]
         public string Password { get; set; }
+        [Unique, MaxLength(50)]
         public string Email { get; set; }
     }
 
@@ -19,6 +24,7 @@ namespace SpeedOrder.Tables
     {
         [PrimaryKey, AutoIncrement]
         public int Id_Platillo { get; set; }
+        [MaxLength(20)]
         public string Nombre_Platillo { get; set; }
         public Double Precio_Platillo { get; set; }
     }
@@ -35,6 +41,7 @@ namespace SpeedOrder.Tables
     {
         [PrimaryKey, AutoIncrement]
         public int Id_Menu { get; set; }
+        [MaxLength(15)]
         public string Tipo {  get; set; }
     }
 
@@ -58,6 +65,7 @@ namespace SpeedOrder.Tables
     {
         [PrimaryKey, AutoIncrement]
         public int Id_Mesa { get; set; }
+        [MaxLength(20)]
         public string Tamano { get; set; }
     }
 
@@ -73,13 +81,14 @@ namespace SpeedOrder.Tables
     {
         [PrimaryKey, AutoIncrement]
         public int Id_Orden { get; set; }
+        [MaxLength(10)]
         public string Nombre_Cliente { get; set; }
         public DateTime Fecha {  get; set; }
         public Decimal Total {  get; set; }
         public Decimal Subtotal { get; set; }
     }
 
-    public class PLatillo_Orden 
+    public class Platillo_Orden 
     {
         [PrimaryKey, AutoIncrement]
         public int Id_Platillo_Orden { get; set; }

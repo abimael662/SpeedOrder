@@ -17,13 +17,13 @@
                             <StackLayout HorizontalOptions="CenterAndExpand">
                                 <Label Text="REGISTRARSE" FontSize="Title" FontAttributes="Bold"/>
                             </StackLayout>
-                            <StackLayout Margin="0,25,0,0">
+                            <StackLayout Margin="0" Padding="0">
                                 <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
                                     <StackLayout Orientation="Horizontal">
                                         <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7" BackgroundColor="#FFF">
                                             <Image Source="User.gif" IsAnimationPlaying="True" Aspect="AspectFill"/>
                                         </Frame>
-                                        <Entry x:Name="TxtNombre" Placeholder="Nombre:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0" />
+                                        <Entry x:Name="TxtNombre" MaxLength="20" Placeholder="Nombre:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0" />
                                     </StackLayout>
                                 </Frame>
                                 <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
@@ -31,7 +31,7 @@
                                         <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
                                             <Image Source="Individual.gif" IsAnimationPlaying="True" Aspect="AspectFill"/>
                                         </Frame>
-                                        <Entry x:Name="TxtAPaterno" Placeholder="Apellido Paterno:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
+                                        <Entry x:Name="TxtAPaterno" MaxLength="20" Placeholder="Apellido Paterno:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
                                     </StackLayout>
                                 </Frame>
                                 <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
@@ -39,7 +39,7 @@
                                         <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
                                             <Image Source="Individual.gif" IsAnimationPlaying="True" Aspect="AspectFill"/>
                                         </Frame>
-                                        <Entry x:Name="TxtAMaterno" Placeholder="Apellido Materno:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
+                                        <Entry x:Name="TxtAMaterno" MaxLength="20" Placeholder="Apellido Materno:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
                                     </StackLayout>
                                 </Frame>
                                 <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
@@ -47,7 +47,7 @@
                                         <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
                                             <Image Source="Calendar.gif" IsAnimationPlaying="True"/>
                                         </Frame>
-                                        <Entry x:Name="TxtEdad" Placeholder="Edad:" Keyboard="Numeric" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
+                                        <Entry x:Name="TxtEdad" MaxLength="2" Placeholder="Edad:" Keyboard="Numeric" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
                                     </StackLayout>
                                 </Frame>
                                 <Frame BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand" BackgroundColor="Black">
@@ -55,7 +55,7 @@
                                         <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7" BackgroundColor="#FFF">
                                             <Image Source="Password.gif" IsAnimationPlaying="True"/>
                                         </Frame>
-                                        <Entry x:Name="TxtPassword" Placeholder="Contraseña:" Keyboard="Numeric" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0" IsPassword="True"/>
+                                        <Entry x:Name="TxtPassword" Placeholder="Contraseña:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0" IsPassword="True" MaxLength="10"/>
                                     </StackLayout>
                                 </Frame>
                                 <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
@@ -63,7 +63,7 @@
                                         <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
                                             <Image Source="Email.gif" IsAnimationPlaying="True"/>
                                         </Frame>
-                                        <Entry x:Name="TxtEmail" Placeholder="Correo Electronico:" Keyboard="Email" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
+                                        <Entry x:Name="TxtEmail" MaxLength="50" Placeholder="Correo Electronico:" Keyboard="Email" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
                                     </StackLayout>
                                 </Frame>
                             </StackLayout>

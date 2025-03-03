@@ -10,8 +10,8 @@
             <StackLayout>
                 <Label Text="Platillos" FontSize="Large" HorizontalOptions="Center" TextColor="#000"/>
 
-                <Entry Placeholder="Nombre del Platillo:" x:Name="TxtPlatillo" Keyboard="Text" PlaceholderColor="#320755" TextColor="#190231"/>
-                <Entry Placeholder="Precio:" x:Name="TxtPrecio" Keyboard="Numeric" PlaceholderColor="#320755" TextColor="#190231"/>
+                <Entry Placeholder="Nombre del Platillo:" MaxLength="20" x:Name="TxtPlatillo" Keyboard="Text" PlaceholderColor="#320755" TextColor="#190231"/>
+                <Entry Placeholder="Precio:" MaxLength="4" x:Name="TxtPrecio" Keyboard="Numeric" PlaceholderColor="#320755" TextColor="#190231"/>
                 <Picker x:Name="TipoComida" TextColor="#190231"/>
 
                 <Button Text="Registrar" BackgroundColor="#CB53C1" TextColor="White" Clicked="BtnRegistrar_Clicked" CornerRadius="10"/>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpeedOrder.Tables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,11 @@ namespace SpeedOrder.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class V_Menu : ContentPage
     {
-        public V_Menu()
+        public Meseros _m;
+        public V_Menu(Meseros m)
         {
             InitializeComponent();
+            _m = m;
         }
 
         private void Desayunos_Clicked(object sender, EventArgs e)
@@ -49,7 +52,7 @@ namespace SpeedOrder.View
 
         private void BtnI_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new V_Atendido());
+            Navigation.PushAsync(new V_Atendido(_m));
         }
     }
 }

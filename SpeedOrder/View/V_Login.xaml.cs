@@ -22,28 +22,38 @@ namespace SpeedOrder.View
         }
         private async void Btn_Button_Clicked(object sender, EventArgs e)
         {
+            // Creamos la conexion a la base de datos
             var rutaBD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpeedOrder.db3");
             var db = new SQLiteConnection(rutaBD);
             db.CreateTable<Meseros>();
+
+            // Obtenemos los valores de los campos
             var email = TxtEmail.Text;
             var contra = TxtPassword.Text;
+
+            // Llamamos a la funcion Consulta
             IEnumerable<Meseros> resultado = Consulta(db, email, contra);
 
-
+            // Si el resultado es mayor a 0
             if (resultado.Count() > 0)
             {
+                // Obtenemos el primer valor
                 var users = (Meseros)resultado.FirstOrDefault();
-                //await Navigation.PushAsync(new V_Inicio());
+                // Navegamos a la siguiente ventana
                 await Navigation.PushAsync(new V_Tabulador(users));
+                // Limpiamos los campos de los valores llamando a la funcion Limpiar
+                Limpiar();
             }
             else
             {
+                // Llamamos al popup
                 await PopupNavigation.Instance.PushAsync(new V_AlertLogin());
                 //await DisplayAlert("Error", "Email o Contraseña Incorrectas", "Ok");
             }
         }
         public static IEnumerable<Meseros> Consulta(SQLiteConnection db, string email, string contra)
         {
+            // Hacemos la consulta
             return db.Query<Meseros>("SELECT * FROM Meseros WHERE Email = ? AND Password = ?", email, contra);
         }
 
@@ -54,6 +64,7 @@ namespace SpeedOrder.View
 
         private void TxtEmail_Focused(object sender, FocusEventArgs e)
         {
+            // Si el campo no esta vacio
             LblEmail.TranslationY = 0;
             LblEmail.FontSize = 14;
             LblEmail.TextColor = Color.FromHex("#C44C89");
@@ -61,6 +72,7 @@ namespace SpeedOrder.View
 
         private void TxtEmail_Unfocused(object sender, FocusEventArgs e)
         {
+            // Si el campo esta vacio
             if (string.IsNullOrWhiteSpace(TxtEmail.Text))
             {
                 LblEmail.TranslationY = 20;
@@ -71,6 +83,7 @@ namespace SpeedOrder.View
 
         private void TxtEmail_TextChanged(object sender, TextChangedEventArgs e)
         {
+            // Si el campo no esta vacio
             if (!string.IsNullOrWhiteSpace(TxtEmail.Text))
             {
                 LblEmail.TranslationY = 0;
@@ -81,6 +94,7 @@ namespace SpeedOrder.View
 
         private void TxtPassword_Focused(object sender, FocusEventArgs e)
         {
+            // Si el campo no esta vacio
             LblPassword.TranslationY = 0;
             LblPassword.FontSize = 14;
             LblPassword.TextColor = Color.FromHex("#C44C89");
@@ -88,6 +102,7 @@ namespace SpeedOrder.View
 
         private void TxtPassword_Unfocused(object sender, FocusEventArgs e)
         {
+            // Si el campo esta vacio
             if (string.IsNullOrWhiteSpace(TxtPassword.Text))
             {
                 LblPassword.TranslationY = 20;
@@ -95,15 +110,25 @@ namespace SpeedOrder.View
                 LblPassword.TextColor = Color.FromHex("#C44C89");
             }
         }
-
         private void TxtPassword_TextChanged(object sender, TextChangedEventArgs e)
         {
+            // Si el campo no esta vacio
             if (!string.IsNullOrWhiteSpace(TxtPassword.Text))
             {
                 LblPassword.TranslationY = 0;
                 LblPassword.FontSize = 14;
                 LblPassword.TextColor = Color.FromHex("#C44C89");
             }
+        }
+        public void Limpiar()
+        {
+            // Limpiamos los campos
+            TxtEmail.Text = string.Empty;
+            TxtPassword.Text = string.Empty;
+
+            // Podemos usar tambien estas lineas
+            /*TxtEmail.Text = "";
+            TxtPassword.Text = "";*/
         }
     }
 }

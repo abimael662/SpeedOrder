@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 x:Class="SpeedOrder.View.V_AlertRegister"
+                 BackgroundColor="Transparent">
+
+    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <Frame BackgroundColor="#400B4B" Padding="20" CornerRadius="10" HasShadow="True" WidthRequest="300" HeightRequest="120">
+            <StackLayout>
+                <Image Source="Error" IsAnimationPlaying="True" WidthRequest="50" HeightRequest="50" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,-20,0,0"/>
+                
+                <Label Text="¡Advertencia! Por Favor, complete todos los campos." FontSize="Small" HorizontalOptions="StartAndExpand" TextColor="#FFF"/>
+
+                <Button Text="Aceptar" BackgroundColor="#6D1D4E" TextColor="White" CornerRadius="10" WidthRequest="100" HorizontalOptions="EndAndExpand" Clicked="BtnCerrar_Clicked"/>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</popup:PopupPage>

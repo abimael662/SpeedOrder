@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpeedOrder.View.V_Menu"
+             IconImageSource="Platillos">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10">
+
+                <!--<Frame CornerRadius="10" Padding="0" Margin="5" HasShadow="True" >
+                    <Grid>
+                        <Image Source="Hamburguesa" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                        <BoxView BackgroundColor="#80000000" Opacity="0.3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                        <Button BackgroundColor="Transparent" x:Name="Todo" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Clicked="Todo_Clicked" />
+                        <Label Text="Todo" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10" />
+                    </Grid>
+                </Frame>-->
+                
+                <Frame CornerRadius="10" Padding="0" Margin="5" HasShadow="True" >
+                    <Grid>
+                        <Image Source="Desayuno" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                        <BoxView BackgroundColor="#80000000" Opacity="0.3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                        <Button BackgroundColor="Transparent" x:Name="Desayunos" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Clicked="Desayunos_Clicked" />
+                        <Label Text="Desayunos" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10" />
+                    </Grid>
+                </Frame>
+
+                <Grid ColumnDefinitions="*,*">
+                    <Frame CornerRadius="10" Padding="0" Margin="5" HasShadow="True" Grid.Column="0">
+                        <Grid>
+                            <Image Source="Comidas" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                            <BoxView BackgroundColor="#80000000" Opacity="0.3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                            <Button BackgroundColor="Transparent" x:Name="Comidas" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Clicked="Comidas_Clicked" />
+                            <Label Text="Comidas" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10"/>
+                        </Grid>
+                    </Frame>
+
+                    <Frame CornerRadius="10" Padding="0" Margin="5" HasShadow="True" Grid.Column="1">
+                        <Grid>
+                            <Image Source="Cenas" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                            <BoxView BackgroundColor="#80000000" Opacity="0.3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                            <Button BackgroundColor="Transparent" x:Name="Cenas" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Clicked="Cenas_Clicked" />
+                            <Label Text="Cenas" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10"/>
+                        </Grid>
+                    </Frame>
+                </Grid>
+
+                <Grid ColumnDefinitions="*,*">
+                    <Frame CornerRadius="10" Padding="0" Margin="5" HasShadow="True" Grid.Column="0">
+                        <Grid>
+                            <Image Source="Bebidas" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                            <BoxView BackgroundColor="#80000000" Opacity="0.3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                            <Button BackgroundColor="Transparent" x:Name="Bebidas" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Clicked="Bebidas_Clicked" />
+                            <Label Text="Bebidas" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10"/>
+                        </Grid>
+                    </Frame>
+
+                    <Frame CornerRadius="10" Padding="0" Margin="5" HasShadow="True" Grid.Column="1">
+                        <Grid>
+                            <Image Source="Postres" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                            <BoxView BackgroundColor="#80000000" Opacity="0.3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                            <Button BackgroundColor="Transparent" x:Name="Postres" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Clicked="Postres_Clicked" />
+                            <ContentView x:Name="contentViewContainer">
+                            </ContentView>
+                            <Label Text="Postres" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10"/>
+                        </Grid>
+                    </Frame>
+                </Grid>
+
+                <Button Text="Crear Pedido" x:Name="BtnI" BackgroundColor="#C44C89" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="15" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

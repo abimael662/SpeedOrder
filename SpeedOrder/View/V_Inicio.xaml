@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             IconImageSource="Inicio"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="SpeedOrder.View.V_Inicio">
+    <!--<Grid RowDefinitions="*,Auto">
+        <Image Grid.Row="0" Source="Gato"/>
+        <Frame Grid.Row="1" Margin="4,-35,4,25" CornerRadius="30" HeightRequest="300" HasShadow="False" BackgroundColor="#5F1890">
+            <Grid RowDefinitions="Auto,Auto,*">
+                <Label Grid.Row="0" LineHeight="1.5" FontAttributes="Bold" VerticalOptions="Start" HorizontalTextAlignment="Center" FontSize="{OnPlatform iOS='25', Android='20'}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span TextColor="White" x:Name="datos"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Grid>
+        </Frame>
+    </Grid>-->
+    <Grid>
+        <Image Source="Gato" x:Name="LogoInicio" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        <BoxView>
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                    <GradientStop Color="Transparent" Offset="0"/>
+                    <GradientStop Color="#000" Offset="0.7"/>
+                    <GradientStop Color="#000" Offset="1"/>
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+        <Grid HeightRequest="200" RowSpacing="40" VerticalOptions="EndAndExpand">
+            <StackLayout Spacing="10">
+                <Grid>
+                    <Frame Margin="4,-35,4,25" CornerRadius="30" HeightRequest="300" HasShadow="False" BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Start">
+                        <Grid RowDefinitions="Auto,Auto,*">
+                            <Label Grid.Row="0" LineHeight="1.5" FontAttributes="Bold" VerticalOptions="Start" HorizontalTextAlignment="Center" FontSize="{OnPlatform iOS='25', Android='20'}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span TextColor="White" x:Name="datos"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </Frame>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

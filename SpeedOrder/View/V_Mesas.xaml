@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             IconImageSource="Restaurante"
+             x:Class="SpeedOrder.View.V_Mesas">
+    <StackLayout Padding="10">
+
+        <Frame BackgroundColor="#5F1890" CornerRadius="10" Padding="10">
+            <Label Text="Organizador de Mesas" FontSize="Title" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#FFF"/>
+        </Frame>
+
+        <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
+            <Button Text="Crear Mesa" x:Name="RegisterTable"  BackgroundColor="#400B4B" CornerRadius="10" Clicked="RegisterTable_Clicked" />
+            <Button Text="Remover" x:Name="Remover" BackgroundColor="Red" TextColor="White" CornerRadius="10" Clicked="Remover_Clicked" />
+        </StackLayout>
+
+        <!--<StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
+            <Button Text="&#9632; Mesa" x:Name="Cuadrado" BackgroundColor="#400B4B" CornerRadius="10" Clicked="Cuadrado_Clicked" />
+            <Button Text="&#9711; Mesa" BackgroundColor="#FFDEED" TextColor="Black" x:Name="Circular" CornerRadius="10" Clicked="Circular_Clicked" />
+            <Button Text="Remover" BackgroundColor="Red" TextColor="White" x:Name="Remover" CornerRadius="10" />
+        </StackLayout>-->
+
+        <BoxView x:Name="Canvas" WidthRequest="302" HeightRequest="812" />
+        
+    </StackLayout>
+</ContentPage>

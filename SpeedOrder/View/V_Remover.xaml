@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 x:Class="SpeedOrder.View.V_Remover"
+                 BackgroundColor="Transparent">
+
+    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <Frame BackgroundColor="#FFDEED" Padding="20" CornerRadius="10" HasShadow="True" WidthRequest="250" HeightRequest="320">
+            <StackLayout>
+                <Label Text="Mesas" FontSize="Large" HorizontalOptions="Center" TextColor="#000"/>
+                
+                <Label Text="Selecciona una Mesa:" TextColor="Black"/>
+                <Picker x:Name="TxtBuscar" TextColor="#190231" SelectedIndexChanged="TxtBuscar_SelectedIndexChanged"/>
+                
+                <Entry Text="Numero de Mesa:" x:Name="TxtId" TextColor="#190231" IsReadOnly="True" PlaceholderColor="#190231"/>
+                
+                <Entry Text="Tamaño:" x:Name="TxtTam" TextColor="#190231" IsReadOnly="True" PlaceholderColor="#190231"/>
+
+                <Button Text="Elimnar" x:Name="BtnEliminar" BackgroundColor="#CB53C1" TextColor="White" Clicked="BtnEliminar_Clicked" CornerRadius="10"/>
+                <Button Text="Cerrar" BackgroundColor="#6D1D4E" TextColor="White" Clicked="Button_Clicked" CornerRadius="10"/>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</popup:PopupPage>

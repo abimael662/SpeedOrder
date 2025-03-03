@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpeedOrder.View.V_Register"
+             NavigationPage.HasNavigationBar="False">
+    <ScrollView>
+        <StackLayout Padding="0">
+            <Grid>
+                <StackLayout Padding="0" Margin="0">
+                    <Frame HeightRequest="200" HorizontalOptions="FillAndExpand" Padding="0">
+                        <Image Source="Gato" Aspect="AspectFill" Margin="0"/>
+                    </Frame>
+                </StackLayout>
+                <StackLayout Margin="15, 180, 15, 15">
+                    <Frame BackgroundColor="#5F1890" HasShadow="True" HeightRequest="570" HorizontalOptions="FillAndExpand" CornerRadius="15">
+                        <StackLayout>
+                            <StackLayout HorizontalOptions="CenterAndExpand">
+                                <Label Text="REGISTRARSE" FontSize="Title" FontAttributes="Bold"/>
+                            </StackLayout>
+                            <StackLayout Margin="0,25,0,0">
+                                <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7" BackgroundColor="#FFF">
+                                            <Image Source="User.gif" IsAnimationPlaying="True" Aspect="AspectFill"/>
+                                        </Frame>
+                                        <Entry x:Name="TxtNombre" Placeholder="Nombre:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0" />
+                                    </StackLayout>
+                                </Frame>
+                                <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
+                                            <Image Source="Individual.gif" IsAnimationPlaying="True" Aspect="AspectFill"/>
+                                        </Frame>
+                                        <Entry x:Name="TxtAPaterno" Placeholder="Apellido Paterno:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
+                                            <Image Source="Individual.gif" IsAnimationPlaying="True" Aspect="AspectFill"/>
+                                        </Frame>
+                                        <Entry x:Name="TxtAMaterno" Placeholder="Apellido Materno:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
+                                            <Image Source="Calendar.gif" IsAnimationPlaying="True"/>
+                                        </Frame>
+                                        <Entry x:Name="TxtEdad" Placeholder="Edad:" Keyboard="Numeric" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand" BackgroundColor="Black">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7" BackgroundColor="#FFF">
+                                            <Image Source="Password.gif" IsAnimationPlaying="True"/>
+                                        </Frame>
+                                        <Entry x:Name="TxtPassword" Placeholder="Contraseña:" Keyboard="Numeric" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0" IsPassword="True"/>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
+                                            <Image Source="Email.gif" IsAnimationPlaying="True"/>
+                                        </Frame>
+                                        <Entry x:Name="TxtEmail" Placeholder="Correo Electronico:" Keyboard="Email" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                            <Button Text="Registrarse" x:Name="BtnRegistrar" BackgroundColor="#320755" TextColor="White" CornerRadius="50" Margin="15" Clicked="BtnRegistrar_Clicked" />
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                <Label Text="¿Tienes Cuenta?" FontAttributes="Bold" VerticalTextAlignment="Center" TextColor="White"/>
+                                <Button Text="Iniciar Sesión" x:Name="BtnIniciarSesion" BackgroundColor="Transparent" BorderColor="Transparent" TextColor="#CB53C1" Clicked="BtnIniciarSesion_Clicked"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

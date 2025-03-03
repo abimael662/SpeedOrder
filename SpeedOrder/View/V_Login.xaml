@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpeedOrder.View.V_Login"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <StackLayout Padding="30">
+
+            <AbsoluteLayout>
+                <Frame x:Name="animatedFrame" Style="{StaticResource CircularImageStyle}" Margin="0,50,0,100">
+                    <Image Source="Gato" Aspect="AspectFill"/>
+                </Frame>
+            </AbsoluteLayout>
+
+            <Frame Padding="0" HasShadow="False" BackgroundColor="Transparent" CornerRadius="5">
+                <Grid>
+                    <Label x:Name="LblEmail" Text="Email" FontSize="18" TextColor="#C44C89" FontAttributes="Bold" Margin="2,5,0,0" VerticalOptions="Start" TranslationY="20" IsVisible="True"/>
+                    <Entry x:Name="TxtEmail" Margin="0,20,0,20" FontSize="18" Focused="TxtEmail_Focused" Unfocused="TxtEmail_Unfocused" TextChanged="TxtEmail_TextChanged"/>
+                </Grid>
+            </Frame>
+
+            <Frame Padding="0" HasShadow="False" BackgroundColor="Transparent" CornerRadius="5">
+                <Grid>
+                    <Label x:Name="LblPassword" Text="Password" FontSize="18" TextColor="#C44C89" FontAttributes="Bold" Margin="2,5,0,0" VerticalOptions="Start" TranslationY="20" IsVisible="True"/>
+                    <Entry x:Name="TxtPassword" Margin="0,20,0,20" FontSize="18" Focused="TxtPassword_Focused" Unfocused="TxtPassword_Unfocused" TextChanged="TxtPassword_TextChanged" IsPassword="True" />
+                </Grid>
+            </Frame>
+
+            <StackLayout Padding="0">
+                <Frame BackgroundColor="#5F1890" CornerRadius="10" HasShadow="True" Padding="10" HorizontalOptions="Start" VerticalOptions="Center">
+                    <Grid ColumnDefinitions="Auto,Auto" VerticalOptions="Center">
+                        <Image Source="Register.gif" IsAnimationPlaying="True" WidthRequest="30" HeightRequest="30" Margin="100,0,-10,0" Aspect="AspectFill" VerticalOptions="Center"/>
+                        <Label Text="Registrarse" TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="2,0,0,0"/>
+                    </Grid>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Registrar_Clicked"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </StackLayout>
+
+            <Button Text="Iniciar Sesión" Margin="0,20,0,20" Style="{StaticResource LoginButtonStyle}" Clicked="Btn_Button_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

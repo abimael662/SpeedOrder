@@ -18,9 +18,11 @@
             <Button Text="&#9632; Mesa" x:Name="Cuadrado" BackgroundColor="#400B4B" CornerRadius="10" Clicked="Cuadrado_Clicked" />
             <Button Text="&#9711; Mesa" BackgroundColor="#FFDEED" TextColor="Black" x:Name="Circular" CornerRadius="10" Clicked="Circular_Clicked" />
             <Button Text="Remover" BackgroundColor="Red" TextColor="White" x:Name="Remover" CornerRadius="10" />
-        </StackLayout>-->
+        </StackLayout>
+        <BoxView x:Name="Canvas" WidthRequest="302" HeightRequest="812">
+        </BoxView>-->
 
-        <BoxView x:Name="Canvas" WidthRequest="302" HeightRequest="812" />
-        
+        <Grid x:Name="Canvas" HeightRequest="812" BackgroundColor="LightGray" Padding="0">
+        </Grid>
     </StackLayout>
 </ContentPage>

@@ -18,7 +18,13 @@
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <Image Source="{Binding TipoPlatillo}" x:Name="ImagenPlatillo" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Column="0"/>
+                                            <Image Source="{Binding .}"
+                                                   x:Uid="ImgMesas"
+                                                   x:Name="ImgMesas"
+                                                   Aspect="AspectFill" 
+                                                   HorizontalOptions="FillAndExpand" 
+                                                   VerticalOptions="FillAndExpand" 
+                                                   Grid.Column="0"/>
 
                                             <StackLayout Grid.Column="1" Padding="0">
                                                 <Grid ColumnDefinitions="*,*">

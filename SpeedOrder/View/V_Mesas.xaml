@@ -10,7 +10,7 @@
         </Frame>
 
         <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
-            <Button Text="Crear Mesa" x:Name="RegisterTable"  BackgroundColor="#400B4B" CornerRadius="10" Clicked="RegisterTable_Clicked" />
+            <Button Text="Crear Mesa" x:Name="RegisterTable"  BackgroundColor="#400B4B" TextColor="White" CornerRadius="10" Clicked="RegisterTable_Clicked" />
             <Button Text="Remover" x:Name="Remover" BackgroundColor="Red" TextColor="White" CornerRadius="10" Clicked="Remover_Clicked" />
         </StackLayout>
 

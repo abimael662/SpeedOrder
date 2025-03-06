@@ -13,11 +13,11 @@ namespace SpeedOrder.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class V_Menu : ContentPage
     {
-        public Meseros _m;
-        public V_Menu(Meseros m)
+        //public Meseros _m;
+        public V_Menu()
         {
             InitializeComponent();
-            _m = m;
+            //_m = m;
         }
 
         private void Desayunos_Clicked(object sender, EventArgs e)
@@ -52,7 +52,8 @@ namespace SpeedOrder.View
 
         private void BtnI_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new V_Atendido(_m));
+            //Navigation.PushAsync(new V_Atendido(_m));
+            Navigation.PushAsync(new V_Atendido());
         }
 
         private void Todos_Clicked(object sender, EventArgs e)

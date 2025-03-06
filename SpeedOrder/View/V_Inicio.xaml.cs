@@ -14,12 +14,11 @@ namespace SpeedOrder.View
     public partial class V_Inicio : ContentPage
     {
         //public Meseros _m;
-        public V_Inicio(Meseros m)
+        public V_Inicio()
         {
             InitializeComponent();
-            //_m = m;
-            datos.Text = "Bienvenid@ " + m.Nombre + " " + m.Ape_paterno + " " + m.Ape_materno + " a Speed Order \n" +
-                "¡Listo para comenzar!";
+            /*_m = m;
+            datos.Text = "Bienvenid@ " + m.Nombre + " " + m.Ape_paterno + " " + m.Ape_materno + " a Speed Order \n" + "¡Listo para comenzar!";*/
         }
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,8 +42,8 @@ namespace SpeedOrder.View
                 var users = (Meseros)resultado.FirstOrDefault();
                 // Navegamos a la siguiente ventana
                 //await Navigation.PushAsync(new V_MenuDesplegable(users));
-                
-                await Navigation.PushAsync(new V_Tabulador(users));
+                await Navigation.PushAsync(new V_IceCream());
+                //await Navigation.PushAsync(new V_Tabulador(users));
                 // Limpiamos los campos de los valores llamando a la funcion Limpiar
                 Limpiar();
                 Password();
@@ -151,6 +152,15 @@ namespace SpeedOrder.View
             // Podemos usar tambien estas lineas
             /*TxtEmail.Text = "";
             TxtPassword.Text = "";*/
+        }
+
+        private void VerPassword_Clicked(object sender, EventArgs e)
+        {
+            TxtPassword.IsPassword = !TxtPassword.IsPassword;
+            /*if (TxtPassword.IsPassword)
+                VerPassword.Source = "invisible.png";
+            else
+                VerPassword.Source = "ojo.png";*/
         }
     }
 }

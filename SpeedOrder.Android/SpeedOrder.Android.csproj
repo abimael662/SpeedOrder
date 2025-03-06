@@ -140,8 +140,14 @@
     <AndroidResource Include="Resources\drawable\Error.gif" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\exit.gif" />
+    <AndroidResource Include="Resources\drawable\Exit.gif" />
     <AndroidResource Include="Resources\drawable\setting.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\House.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Eye.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

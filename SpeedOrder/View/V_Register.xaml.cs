@@ -71,7 +71,8 @@ namespace SpeedOrder.View
             // Insertamos el objeto en la base de datos
             await conexion.CreateTableAsync<Meseros>();
             await conexion.InsertAsync(m);
-            await Navigation.PushAsync(new V_Tabulador(m));
+            //await Navigation.PushAsync(new V_Tabulador(m));
+            await Navigation.PushAsync(new V_Login());
             // Limpiamos los campos llamando al metodo Limpiar
             Limpiar();
         }

@@ -37,7 +37,8 @@ namespace SpeedOrder.View
         public Ticket t;
         public Atender a;
         public Platillo_Orden po;
-        public V_Atendido(Meseros m)
+        //public V_Atendido(Meseros m)
+        public V_Atendido()
         {
             InitializeComponent();
             var rutaBD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpeedOrder.db3");
@@ -51,8 +52,8 @@ namespace SpeedOrder.View
             _db.CreateTableAsync<Ticket>().Wait();
             _db.CreateTableAsync<Atender>().Wait();
             _db.CreateTableAsync<Platillo_Orden>().Wait();
-            _m = m;
-            TxtMesero.Text = $"{m.Nombre} {m.Ape_paterno} {m.Ape_materno}" ?? "Sin Nombre";
+            /*_m = m;
+            TxtMesero.Text = $"{m.Nombre} {m.Ape_paterno} {m.Ape_materno}" ?? "Sin Nombre";*/
         }
         protected async override void OnAppearing()
         {
@@ -71,12 +72,14 @@ namespace SpeedOrder.View
                 var foto = FotoList.FirstOrDefault(f => f.Name == platillo.Tipo);
 
                 if (foto != null)
-                { 
-                    ListaPlatillos.ItemsSource = _fotos;
+                {
+                    var img = ImageSource.FromFile(foto.Photo);
+                    ListaPlatillos.ItemsSource = (System.Collections.IEnumerable)img;
+                    //ListaPlatillos.ItemsSource = _platillo.Concat(_fotos).ToList();
+                    //ListaPlatillos.ItemsSource = _fotos;
                 }
             }
         }
-        
         private async void PDF_Clicked(object sender, EventArgs e)
         {
             using (var memoryStream = new MemoryStream())

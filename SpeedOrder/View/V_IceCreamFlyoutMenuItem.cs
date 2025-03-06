@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace SpeedOrder.View
 {
-    public class V_MenuDesplegableFlyoutMenuItem
+
+    public class V_IceCreamFlyoutMenuItem
     {
-        public V_MenuDesplegableFlyoutMenuItem()
+        public V_IceCreamFlyoutMenuItem()
         {
-            TargetType = typeof(V_MenuDesplegableFlyoutMenuItem);
+            TargetType = typeof(V_IceCreamFlyoutMenuItem);
         }
         public int Id { get; set; }
         public string Title { get; set; }

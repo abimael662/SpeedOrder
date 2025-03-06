@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace SpeedOrder.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class V_MenuDesplegable : FlyoutPage
+    public partial class V_IceCream : FlyoutPage
     {
-        public V_MenuDesplegable()
+        public V_IceCream()
         {
             InitializeComponent();
             FlyoutPage.ListView.ItemSelected += ListView_ItemSelected;
@@ -20,7 +20,7 @@ namespace SpeedOrder.View
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var item = e.SelectedItem as V_MenuDesplegableFlyoutMenuItem;
+            var item = e.SelectedItem as V_IceCreamFlyoutMenuItem;
             if (item == null)
                 return;
 

@@ -4,9 +4,9 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              android:TabbedPage.ToolbarPlacement="Bottom"
              xmlns:local="clr-namespace:SpeedOrder.View"
-             NavigationPage.HasNavigationBar="False"
              x:Class="SpeedOrder.View.V_Tabulador">
-    <!--<local:V_Inicio/>
+    <local:V_Inicio/>
     <local:V_Menu/>
-    <local:V_Mesas/>-->
+    <local:V_Mesas/>
+    <local:V_Ajustes/>
 </TabbedPage>

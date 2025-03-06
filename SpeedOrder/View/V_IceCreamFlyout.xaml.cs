@@ -13,32 +13,32 @@ using Xamarin.Forms.Xaml;
 namespace SpeedOrder.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class V_MenuDesplegableFlyout : ContentPage
+    public partial class V_IceCreamFlyout : ContentPage
     {
         public ListView ListView;
 
-        public V_MenuDesplegableFlyout()
+        public V_IceCreamFlyout()
         {
             InitializeComponent();
 
-            BindingContext = new V_MenuDesplegableFlyoutViewModel();
+            BindingContext = new V_IceCreamFlyoutViewModel();
             ListView = MenuItemsListView;
         }
 
-        private class V_MenuDesplegableFlyoutViewModel : INotifyPropertyChanged
+        class V_IceCreamFlyoutViewModel : INotifyPropertyChanged
         {
-            public ObservableCollection<V_MenuDesplegableFlyoutMenuItem> MenuItems { get; set; }
-
-            public V_MenuDesplegableFlyoutViewModel()
+            public ObservableCollection<V_IceCreamFlyoutMenuItem> MenuItems { get; set; }
+            
+            public V_IceCreamFlyoutViewModel()
             {
-                MenuItems = new ObservableCollection<V_MenuDesplegableFlyoutMenuItem>(new[]
+                MenuItems = new ObservableCollection<V_IceCreamFlyoutMenuItem>(new[]
                 {
-                    new V_MenuDesplegableFlyoutMenuItem { Id = 0, Title = "Inicio", Icono = "Inicio", TargetType = typeof(V_Tabulador) },
-                    new V_MenuDesplegableFlyoutMenuItem { Id = 1, Title = "Configuración", Icono = "Settings", TargetType = typeof(V_Ajustes)},
-                    new V_MenuDesplegableFlyoutMenuItem { Id = 2, Title = "Salir", Icono = "Exit" }
+                    new V_IceCreamFlyoutMenuItem { Id = 0, Title = "Inicio", Icono = "House", TargetType = typeof(V_Tabulador) },
+                    new V_IceCreamFlyoutMenuItem { Id = 1, Title = "Ajustes", Icono = "Setting", TargetType = typeof(V_Ajustes) },
+                    new V_IceCreamFlyoutMenuItem { Id = 2, Title = "Logout", Icono = "Exit", TargetType = typeof(V_Login) }
                 });
             }
-
+            
             #region INotifyPropertyChanged Implementation
             public event PropertyChangedEventHandler PropertyChanged;
             void OnPropertyChanged([CallerMemberName] string propertyName = "")

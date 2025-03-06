@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace SpeedOrder.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class V_MenuDesplegableDetail : ContentPage
+    public partial class V_IceCreamDetail : ContentPage
     {
-        public V_MenuDesplegableDetail()
+        public V_IceCreamDetail()
         {
             InitializeComponent();
         }

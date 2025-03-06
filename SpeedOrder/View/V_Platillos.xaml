@@ -18,9 +18,8 @@
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <Image Source="{Binding .}"
-                                                   x:Uid="ImgMesas"
-                                                   x:Name="ImgMesas"
+                                            <Image Source="{Binding Foto}"
+                                                x:Name="ImgMesas"
                                                    Aspect="AspectFill" 
                                                    HorizontalOptions="FillAndExpand" 
                                                    VerticalOptions="FillAndExpand" 

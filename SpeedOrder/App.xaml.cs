@@ -10,7 +10,7 @@ namespace SpeedOrder
         public App()
         {
             InitializeComponent();
-
+            
             //MainPage = new MainPage();
             MainPage = new NavigationPage(new View.V_Login());
         }

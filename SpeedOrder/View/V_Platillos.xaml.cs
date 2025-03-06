@@ -38,6 +38,8 @@ namespace SpeedOrder.View
             base.OnAppearing();
         }
         /*
+        public string Fotos { get; set; }
+
         public async void ActualizarImagen()
         {
             var platillo = MenuList.FirstOrDefault(m => m.Tipo == "Comidas" || m.Tipo == "Desayunos" || m.Tipo == "Cenas" || m.Tipo == "Bebidas" || m.Tipo == "Postres");
@@ -46,113 +48,32 @@ namespace SpeedOrder.View
                 var registros = await _db.Table<Tipo_Menu>().Where(tm => tm.Id_Menu == platillo.Id_Menu).ToListAsync();
                 var Ids = registros.Select(r => r.Id_Platillo).ToList();
                 _platillo = await _db.Table<Platillo>().Where(p => Ids.Contains(p.Id_Platillo)).ToListAsync();
+
+
+
                 if (platillo.Tipo == "Comidas")
                 {
-                    ImgMesas.Source = ImageSource.FromFile("Comidas.png");
+                    Fotos = ("Comidas.png");
 
                 }
                 else if (platillo.Tipo == "Desayunos")
                 {
-                    ImgMesas.Source = ImageSource.FromFile("Comidas.png");
+                    Fotos = ("Desayuno.png");
                 }
                 else if (platillo.Tipo == "Cenas")
                 {
-                    ImgMesas.Source = ImageSource.FromFile("Comidas.png");
+                    Fotos = ("Cenas.png");
                 }
                 else if (platillo.Tipo == "Bebidas")
                 {
-                    ImgMesas.Source = ImageSource.FromFile("Comidas.png");
+                    Fotos = ("Bebidas.png");
                 }
                 else
                 {
-                    ImgMesas.Source = ImageSource.FromFile("Comidas.png");
+                    Fotos = ("Postres.png");
                 }
             }            
-            ListaPlatillos = TPlatillos;
+            ListaPlatillos.ItemsSource = TPlatillos;
         }*/
     }
 }
-/*
- *             List<string> Fotos = new List<string>
-            {
-                "Comidas.png",
-                "Desayuno.png",
-                "Cenas.png",
-                "Bebidas.png",
-                "Postres.png"
-            };
-
-            var index = Fotos.IndexOf(platillo.Tipo);
-            if (platillo != null)
-            {
-                var imagen = (Image)ListaPlatillos.FindByName("ImagenPlatillo");
-
-                if (imagen != null)
-                {
-                    var registros = await _db.Table<Tipo_Menu>().Where(tm => tm.Id_Menu == platillo.Id_Menu).ToListAsync();
-                    var Ids = registros.Select(r => r.Id_Platillo).ToList();
-                    _platillo = await _db.Table<Platillo>().Where(p => Ids.Contains(p.Id_Platillo)).ToListAsync();
-
-                    var imagenes = new Dictionary<string, string>
-            {
-                { "Comidas", "Comidas.png" },
-                { "Desayunos", "Desayuno.png" },
-                { "Cenas", "Cenas.png" },
-                { "Bebidas", "Bebidas.png" },
-                { "Postres", "Postres.png" }
-            };
-
-                    if (imagenes.ContainsKey(platillo.Tipo))
-                    {
-                        imagen.Source = ImageSource.FromResource(imagenes[platillo.Tipo]);
-                    }
-                }
-            }
-
-        public async void ActualizarImagen()
-        {
-            var platillo = MenuList.FirstOrDefault(m => m.Tipo == "Comidas" || m.Tipo == "Desayunos" || m.Tipo == "Cenas" || m.Tipo == "Bebidas" || m.Tipo == "Postres");
-
-            if (platillo != null)
-            {
-                var imagen = (Image)ListaPlatillos.FindByName("ImagenPlatillo");
-
-                if (imagen != null)
-                {
-                    var registros = await _db.Table<Tipo_Menu>().Where(tm => tm.Id_Menu == platillo.Id_Menu).ToListAsync();
-                    var Ids = registros.Select(r => r.Id_Platillo).ToList();
-                    _platillo = await _db.Table<Platillo>().Where(p => Ids.Contains(p.Id_Platillo)).ToListAsync();
-                    if (platillo.Tipo == "Comidas")
-                    {
-                        imagen.Source = ImageSource.FromResource("Comidas.png");
-                    }
-                    else if (platillo.Tipo == "Desayunos")
-                    {
-                        imagen.Source = "Desayuno.png";
-                    }
-                    else if (platillo.Tipo == "Cenas")
-                    {
-                        imagen.Source = "Cenas.png";
-                    }
-                    else if (platillo.Tipo == "Bebidas")
-                    {
-                        imagen.Source = ImageSource.FromResource("Bebidas.png");
-                    }
-                    else
-                    {
-                        imagen.Source = "Postres.png";
-                    }
-                }
-            }
-        }
-        public void Imagenes()
-        {
-            var imagenes = new List<string>
-            {
-                "Bebidas.png",
-                "Desayuno.png",
-                "Comidas.png",
-                "Cenas.png",
-                "Postres.png"
-            };
-        }*/

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpeedOrder.View.V_MenuDesplegableFlyout"
+             Title="Flyout">
+  <StackLayout>
+        <ListView x:Name="MenuItemsListView" SeparatorVisibility="None" HasUnevenRows="true" ItemsSource="{Binding MenuItems}">
+            <ListView.Header>
+                <Grid BackgroundColor="#5F1890" RowDefinitions="200,*">
+                    <Image Source="Inicio" Aspect="AspectFill" WidthRequest="200" VerticalOptions="Fill" IsAnimationPlaying="True" />
+                    <StackLayout Padding="0,20,0,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Image Source="hamburguesa" HeightRequest="100" />
+                        <Label Text="Hola Mundo" FontSize="Small" HorizontalTextAlignment="Center" TextColor="White" />
+                    </StackLayout>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ContentView>
+                            <Grid ColumnDefinitions="Auto,*">
+                                <Frame CornerRadius="100" HeightRequest="30" WidthRequest="30" Margin="5" >
+                                    <Image Source="{Binding Icono}" Aspect="AspectFill" HeightRequest="20" WidthRequest="20" IsAnimationPlaying="True" />
+                                </Frame>
+                                <Label Grid.Column="1" Text="{Binding Title}" TextColor="White"  VerticalOptions="CenterAndExpand" FontSize="18" />
+                            </Grid>
+                        </ContentView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

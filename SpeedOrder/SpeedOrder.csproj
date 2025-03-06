@@ -12,6 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="itext.bouncy-castle-fips-adapter" Version="9.1.0" />
+    <PackageReference Include="itext7" Version="9.1.0" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="9.1.0" />
     <PackageReference Include="QRCoder" Version="1.6.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
@@ -21,6 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="View\V_Ajustes.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="View\V_AlertLogin.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -52,6 +58,15 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\V_Menu.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\V_MenuDesplegable.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\V_MenuDesplegableDetail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\V_MenuDesplegableFlyout.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\V_Mesas.xaml">

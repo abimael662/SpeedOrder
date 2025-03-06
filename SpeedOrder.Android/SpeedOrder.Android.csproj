@@ -73,6 +73,8 @@
   <ItemGroup>
     <Compile Include="Conexion.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="PdfDocumentAdapter.cs" />
+    <Compile Include="Printer_Android.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -136,6 +138,10 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Error.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\exit.gif" />
+    <AndroidResource Include="Resources\drawable\setting.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

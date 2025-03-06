@@ -40,9 +40,12 @@ namespace SpeedOrder.View
                 // Obtenemos el primer valor
                 var users = (Meseros)resultado.FirstOrDefault();
                 // Navegamos a la siguiente ventana
+                //await Navigation.PushAsync(new V_MenuDesplegable(users));
+                
                 await Navigation.PushAsync(new V_Tabulador(users));
                 // Limpiamos los campos de los valores llamando a la funcion Limpiar
                 Limpiar();
+                Password();
             }
             else
             {
@@ -51,6 +54,24 @@ namespace SpeedOrder.View
                 //await DisplayAlert("Error", "Email o Contraseña Incorrectas", "Ok");
             }
         }
+
+        private void Password()
+        {
+            if (string.IsNullOrWhiteSpace(TxtPassword.Text))
+            {
+                LblPassword.TranslationY = 20;
+                LblPassword.FontSize = 18;
+                LblPassword.TextColor = Color.FromHex("#C44C89");
+            }
+
+            if (string.IsNullOrWhiteSpace(TxtEmail.Text))
+            {
+                LblEmail.TranslationY = 20;
+                LblEmail.FontSize = 18;
+                LblEmail.TextColor = Color.FromHex("#C44C89");
+            }
+        }
+
         public static IEnumerable<Meseros> Consulta(SQLiteConnection db, string email, string contra)
         {
             // Hacemos la consulta
@@ -125,6 +146,7 @@ namespace SpeedOrder.View
             // Limpiamos los campos
             TxtEmail.Text = string.Empty;
             TxtPassword.Text = string.Empty;
+
 
             // Podemos usar tambien estas lineas
             /*TxtEmail.Text = "";

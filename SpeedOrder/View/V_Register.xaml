@@ -4,18 +4,28 @@
              x:Class="SpeedOrder.View.V_Register"
              NavigationPage.HasNavigationBar="False">
     <ScrollView>
+        <!--<StackLayout Padding="0" BackgroundColor="#CB53C1">-->
         <StackLayout Padding="0">
             <Grid>
+                <BoxView>
+                    <BoxView.Background>
+                        <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                            <GradientStop Color="#000" Offset="0.2"/>
+                            <GradientStop Color="#C44C89" Offset="0.7"/>
+                            <GradientStop Color="#CB53C1" Offset="1"/>
+                        </LinearGradientBrush>
+                    </BoxView.Background>
+                </BoxView>
                 <StackLayout Padding="0" Margin="0">
                     <Frame HeightRequest="200" HorizontalOptions="FillAndExpand" Padding="0">
-                        <Image Source="Gato" Aspect="AspectFill" Margin="0"/>
+                        <Image Source="LONASPEEDORDER" Aspect="AspectFill" Margin="0"/>
                     </Frame>
                 </StackLayout>
                 <StackLayout Margin="15, 180, 15, 15">
                     <Frame BackgroundColor="#5F1890" HasShadow="True" HeightRequest="570" HorizontalOptions="FillAndExpand" CornerRadius="15">
                         <StackLayout>
                             <StackLayout HorizontalOptions="CenterAndExpand">
-                                <Label Text="REGISTRARSE" FontSize="Title" FontAttributes="Bold"/>
+                                <Label Text="REGISTRARSE" TextColor="#FFFFFF"  FontSize="Title" FontAttributes="Bold"/>
                             </StackLayout>
                             <StackLayout Margin="0" Padding="0">
                                 <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">

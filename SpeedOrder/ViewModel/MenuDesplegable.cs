@@ -13,13 +13,20 @@ namespace SpeedOrder.ViewModel
     {
         public List<Meseros> Datos { get; set; }
 
-        Page page { get; }
+        //Page page { get; }
 
-        public async Task Ver()
+        /*public async Task Ver(Meseros m)
         {
-            await page.Navigation.PushAsync(new V_Inicio());
+            await page.Navigation.PushAsync(new V_Tabulador());
+        }*/
+
+        private async Task Ver(Meseros m)
+        {
+            var page = new V_Inicio();
+            page.BindingContext = m;
+            await page.Navigation.PushAsync(page);
         }
 
-        public ICommand ComandoVer => new Command<Meseros>(async (m) => await Ver());
+        public ICommand ComandoVer => new Command<Meseros>(async (m) => await Ver(m));
     }
 }

@@ -8,5 +8,5 @@
     <local:V_Inicio/>
     <local:V_Menu/>
     <local:V_Mesas/>
-    <local:V_Ajustes/>
+    <local:V_Atendido/>
 </TabbedPage>

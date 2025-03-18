@@ -4,11 +4,11 @@
              x:Class="SpeedOrder.View.V_Login"
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
-        <StackLayout Padding="30">
-
+        <!--<StackLayout Padding="30" BackgroundColor="#190231">-->
+        <StackLayout Padding="30" BackgroundColor="#320755">
             <AbsoluteLayout>
                 <Frame x:Name="animatedFrame" Style="{StaticResource CircularImageStyle}" Margin="0,50,0,100">
-                    <Image Source="Gato" Aspect="AspectFill"/>
+                    <Image Source="MAELDEVS" Aspect="AspectFill"/>
                 </Frame>
             </AbsoluteLayout>
 
@@ -25,7 +25,7 @@
                     <Entry x:Name="TxtPassword" Keyboard="Text" Margin="0,20,0,20" FontSize="18" Focused="TxtPassword_Focused" Unfocused="TxtPassword_Unfocused" TextChanged="TxtPassword_TextChanged" IsPassword="True" MaxLength="10" />
                     <Grid Grid.Row="0" Grid.Column="0" Padding="0,0,3,0" HeightRequest="27" HorizontalOptions="End" IsClippedToBounds="True" VerticalOptions="Center" WidthRequest="35">
                         <!--<ImageButton WidthRequest="3" HeightRequest="3" x:Name="VerPassword" Clicked="VerPassword_Clicked" BackgroundColor="Transparent" Source="Eye.gif" Margin="1"/>-->
-                        <Image WidthRequest="30" HeightRequest="30" x:Name="VerPassword" Source="Eye.gif" IsAnimationPlaying="True" Margin="-4">
+                        <Image WidthRequest="30" HeightRequest="30" x:Name="VerPassword" Source="Purueba" IsAnimationPlaying="True" Margin="-4">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="VerPassword_Clicked"/>
                             </Image.GestureRecognizers>

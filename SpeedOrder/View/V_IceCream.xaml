@@ -4,14 +4,14 @@
              x:Class="SpeedOrder.View.V_IceCream"
             NavigationPage.HasNavigationBar="False"
              xmlns:pages="clr-namespace:SpeedOrder.View">
-  <FlyoutPage.Flyout>
-    <pages:V_IceCreamFlyout x:Name="FlyoutPage" />
-  </FlyoutPage.Flyout>
-  <FlyoutPage.Detail>
-    <NavigationPage>
-      <x:Arguments>
-        <pages:V_Tabulador />
-      </x:Arguments>
-    </NavigationPage>
-  </FlyoutPage.Detail>
+    <FlyoutPage.Flyout>
+        <pages:V_IceCreamFlyout x:Name="FlyoutPage" />
+    </FlyoutPage.Flyout>
+    <FlyoutPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <pages:V_Tabulador />
+            </x:Arguments>
+        </NavigationPage>
+    </FlyoutPage.Detail>
 </FlyoutPage>

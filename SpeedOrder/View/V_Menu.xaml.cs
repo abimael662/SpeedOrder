@@ -13,12 +13,18 @@ namespace SpeedOrder.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class V_Menu : ContentPage
     {
+        //private int id_Mesero;
+
         //public Meseros _m;
         public V_Menu()
         {
             InitializeComponent();
-            //_m = m;
         }
+        /*
+        public V_Menu(int id_Mesero)
+        {
+            this.id_Mesero = id_Mesero;
+        }*/
 
         private void Desayunos_Clicked(object sender, EventArgs e)
         {

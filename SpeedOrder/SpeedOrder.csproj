@@ -12,15 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="itext.bouncy-castle-fips-adapter" Version="9.1.0" />
-    <PackageReference Include="itext7" Version="9.1.0" />
-    <PackageReference Include="itext7.bouncy-castle-adapter" Version="9.1.0" />
     <PackageReference Include="QRCoder" Version="1.6.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2662" />
     <PackageReference Include="Xamarin.Essentials" Version="1.8.1" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
+    <PackageReference Include="XamiTextSharpLGPLv2" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>

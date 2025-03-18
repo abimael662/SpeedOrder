@@ -23,36 +23,25 @@ namespace SpeedOrder.View
         }
         private async void Btn_Button_Clicked(object sender, EventArgs e)
         {
-            // Creamos la conexion a la base de datos
             var rutaBD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpeedOrder.db3");
             var db = new SQLiteConnection(rutaBD);
             db.CreateTable<Meseros>();
 
-            // Obtenemos los valores de los campos
             var email = TxtEmail.Text;
             var contra = TxtPassword.Text;
 
-            // Llamamos a la funcion Consulta
             IEnumerable<Meseros> resultado = Consulta(db, email, contra);
 
-            // Si el resultado es mayor a 0
             if (resultado.Count() > 0)
             {
-                // Obtenemos el primer valor
                 var users = (Meseros)resultado.FirstOrDefault();
-                // Navegamos a la siguiente ventana
-                //await Navigation.PushAsync(new V_MenuDesplegable(users));
                 await Navigation.PushAsync(new V_IceCream());
-                //await Navigation.PushAsync(new V_Tabulador(users));
-                // Limpiamos los campos de los valores llamando a la funcion Limpiar
                 Limpiar();
                 Password();
             }
             else
             {
-                // Llamamos al popup
                 await PopupNavigation.Instance.PushAsync(new V_AlertLogin());
-                //await DisplayAlert("Error", "Email o Contraseña Incorrectas", "Ok");
             }
         }
 

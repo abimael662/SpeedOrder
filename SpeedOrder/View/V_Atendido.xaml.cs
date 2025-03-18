@@ -1,6 +1,5 @@
-﻿using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Org.BouncyCastle.Crypto.Digests;
 using SpeedOrder.Models;
 using SpeedOrder.Tables;
@@ -24,12 +23,10 @@ namespace SpeedOrder.View
     {
         public readonly SQLiteAsyncConnection _db;
         public ObservableCollection<Platillo> TPlatillos;
-        //public ObservableCollection<Foto> TFoto;
         private List<Platillo> _platillo = new List<Platillo>();
         public List<Tables.Menu> MenuList = Menus.Datos();
         public List<Foto> FotoList = ListFotos.Datos();
         private List<Foto> _fotos = new List<Foto>();
-        //public List<Foto> Fot = Fotos.Datos();*/
         public Gestion g;
         public Meseros _m;
         public Orden o;
@@ -37,7 +34,6 @@ namespace SpeedOrder.View
         public Ticket t;
         public Atender a;
         public Platillo_Orden po;
-        //public V_Atendido(Meseros m)
         public V_Atendido()
         {
             InitializeComponent();
@@ -52,8 +48,6 @@ namespace SpeedOrder.View
             _db.CreateTableAsync<Ticket>().Wait();
             _db.CreateTableAsync<Atender>().Wait();
             _db.CreateTableAsync<Platillo_Orden>().Wait();
-            /*_m = m;
-            TxtMesero.Text = $"{m.Nombre} {m.Ape_paterno} {m.Ape_materno}" ?? "Sin Nombre";*/
         }
         protected async override void OnAppearing()
         {
@@ -62,7 +56,7 @@ namespace SpeedOrder.View
             ListaPlatillos.ItemsSource = _platillo;
             base.OnAppearing();
         }
-        
+
         public void ActualizarImagen()
         {
             var platillo = MenuList.FirstOrDefault(m => m.Tipo == "Comidas" || m.Tipo == "Desayunos" || m.Tipo == "Cenas" || m.Tipo == "Bebidas" || m.Tipo == "Postres");
@@ -75,55 +69,71 @@ namespace SpeedOrder.View
                 {
                     var img = ImageSource.FromFile(foto.Photo);
                     ListaPlatillos.ItemsSource = (System.Collections.IEnumerable)img;
-                    //ListaPlatillos.ItemsSource = _platillo.Concat(_fotos).ToList();
-                    //ListaPlatillos.ItemsSource = _fotos;
                 }
             }
         }
         private async void PDF_Clicked(object sender, EventArgs e)
         {
-            using (var memoryStream = new MemoryStream())
+            float width = 80 * 2.835f;
+            float height = 200 * 2.835f;
+            var customSize = new iTextSharp.text.Rectangle(width, height);
+
+            // Crear un MemoryStream para almacenar el PDF en memoria
+            using (MemoryStream memoryStream = new MemoryStream())
             {
-                var writer = new PdfWriter(memoryStream);
-                var pdf = new PdfDocument(writer);
-                var document = new Document(pdf);
+                Document document = new Document(customSize);
+                PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+                document.Open();
 
-                var nombreMesero = TxtMesero.Text ?? "Sin Nombre";
-                var nombreCliente = TxtCliente.Text ?? "Sin Cliente";
-
-                document.Add(new Paragraph("Atendido por: " + nombreMesero));
-                document.Add(new Paragraph("Cliente: " + nombreCliente));
-                document.Add(new Paragraph("Platillos:"));
-
-                // Aquí puedes agregar los platillos a la lista si los tienes
-                /*
-                foreach (var platillo in ListaPlatillos.ItemsSource)
-                {
-                    var nombrePlatillo = platillo.Nombre_Platillo;
-                    var precioPlatillo = platillo.Precio_Platillo.ToString("C");
-                    document.Add(new Paragraph($"{nombrePlatillo} - {precioPlatillo}"));
-                }
-                */
+                // Agregar contenido al PDF
+                document.Add(new Paragraph($"Mesero: {TxtMesero.Text} \n Cliente:{TxtCliente.Text} años"));
+                document.Add(new Paragraph("Comida: \n$25 Soda\n$250 Sopa"));
 
                 document.Close();
+                writer.Close();
 
-                await PrintPDF(memoryStream);
+                // Convertir el MemoryStream a un array de bytes
+                byte[] pdfBytes = memoryStream.ToArray();
+
+                // Enviar a imprimir
+                await PrintPDF(pdfBytes);
             }
         }
-
-        private async Task PrintPDF(MemoryStream memoryStream)
+        private async Task PrintPDF(byte[] pdfData)
         {
-            byte[] pdfData = memoryStream.ToArray();
-
-            var pdfPrinter = DependencyService.Get<IPdfPrinter>();
-            if (pdfPrinter != null)
+            try
             {
-                await pdfPrinter.PrinterPDF(pdfData);
+                DependencyService.Get<IPrintService>().PrintPDF(pdfData);
+                await Application.Current.MainPage.DisplayAlert("Impresión", "Documento enviado a la impresora", "OK");
             }
-            else
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "No se encontró un servicio de impresión.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", $"Error al imprimir: {ex.Message}", "OK");
             }
         }
     }
 }
+
+/*float width = 80 * 2.835f;
+            float height = 200 * 2.835f;
+            var customSize = new iTextSharp.text.Rectangle(width, height);
+            Document document = new Document(customSize);
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                PdfWriter.GetInstance(document, memoryStream);
+                document.Open();
+                document.Add(new Paragraph("Esta es una prueba para saber si sirve el text para imprimir"));
+                document.Close();
+
+                byte[] pdfData = memoryStream.ToArray();
+                var pdfPrinter = DependencyService.Get<IPdfPrinter>();
+                if (pdfPrinter != null)
+                {
+                    await pdfPrinter.PrinterPDF(pdfData);
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "No se encontró un servicio de impresión.", "OK");
+                }
+            }*/

@@ -14,6 +14,7 @@ namespace SpeedOrder.Tables
         [MaxLength(20)]
         public string Ape_materno { get; set; }
         public int Edad { get; set; }
+        //public DateTime Fecha_Nacimiento { get; set; }
         [MaxLength(10)]
         public string Password { get; set; }
         [Unique, MaxLength(50)]

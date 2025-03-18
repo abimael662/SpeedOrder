@@ -66,11 +66,14 @@
                         </Grid>
                     </Frame>
                 </Grid>
-
-                <Grid ColumnDefinitions="*,*">
+                
+                <Button Text="Todos" x:Name="Todos" FontSize="20" FontAttributes="Bold" BackgroundColor="#C44C89" HorizontalOptions="Center" WidthRequest="300" VerticalOptions="Center" CornerRadius="15" Clicked="Todos_Clicked" />
+                
+                <!--<Grid ColumnDefinitions="*,*">
                     <Button Text="Crear Pedido" x:Name="BtnI" BackgroundColor="#C44C89" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="15" Clicked="BtnI_Clicked" />
                     <Button Text="Todos" x:Name="Todos" BackgroundColor="#C44C89" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="15" Clicked="Todos_Clicked" />
-                </Grid>
+                </Grid>-->
+                
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

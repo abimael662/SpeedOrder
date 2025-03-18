@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SpeedOrder.Models
 {
-    public interface IPdfPrinter
+    public interface IPrintService
     {
-        Task PrinterPDF(byte[] pdfData);
+        void PrintPDF(byte[] pdfData);
     }
 }
-

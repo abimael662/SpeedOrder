@@ -12,7 +12,7 @@
             <Frame Padding="0" HasShadow="False" CornerRadius="5" BackgroundColor="Transparent">
                 <Grid>
                     <Label x:Name="LblMesero" Text="Atendido por: " FontSize="18" TextColor="#C44C89" FontAttributes="Bold" Margin="2,5,0,0" VerticalOptions="Start"/>
-                    <Entry x:Name="TxtMesero" Margin="0,20,0,20" FontSize="18" IsEnabled="False" PlaceholderColor="#5F1890" TextColor="#5F1890" />
+                    <Entry x:Name="TxtMesero" Margin="0,20,0,20" FontSize="18" PlaceholderColor="#5F1890" TextColor="#5F1890" />
                 </Grid>
             </Frame>
 

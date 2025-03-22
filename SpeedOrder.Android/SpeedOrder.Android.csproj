@@ -161,6 +161,8 @@
     <AndroidResource Include="Resources\drawable\SPEEDORDER.png" />
     <AndroidResource Include="Resources\drawable\LONASPEEDORDER.png" />
     <AndroidResource Include="Resources\drawable\Purueba.gif" />
+    <AndroidResource Include="Resources\drawable\abierto.png" />
+    <AndroidResource Include="Resources\drawable\esconder.png" />
     <Content Include="Resources\drawable\Splash.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -33,7 +33,7 @@ namespace SpeedOrder.View
         {
             // Validamos que los campos no esten vacios
             if (string.IsNullOrEmpty(TxtNombre.Text) || string.IsNullOrEmpty(TxtAPaterno.Text) ||
-                string.IsNullOrEmpty(TxtAMaterno.Text) || string.IsNullOrEmpty(TxtEdad.Text) ||
+                string.IsNullOrEmpty(TxtAMaterno.Text) || TxtEdad.Date == null || TxtEdad.Date == DateTime.MinValue ||
                 string.IsNullOrEmpty(TxtPassword.Text) || string.IsNullOrEmpty(TxtEmail.Text))
             {
                 await PopupNavigation.Instance.PushAsync(new V_AlertRegister());
@@ -53,17 +53,32 @@ namespace SpeedOrder.View
             string nombre = TxtNombre.Text.Trim();
             string apePaterno = TxtAPaterno.Text.Trim();
             string apeMaterno = TxtAMaterno.Text.Trim();
-            string edad = TxtEdad.Text.Trim();
+            //string edad = TxtEdad.Text.Trim();
+            string edad = TxtEdad.Date.ToString("yyyy-MM-dd");
             string password = TxtPassword.Text.Trim();
             string email = TxtEmail.Text.Trim();
 
-            // Convertimos y asignamos los valores al objeto
+            int edadNumerica = DateTime.Now.Year - TxtEdad.Date.Year;
+            if (DateTime.Now < TxtEdad.Date.AddYears(edadNumerica)) edadNumerica--;
+
+            if (edadNumerica < 18)
+            {
+                await PopupNavigation.Instance.PushAsync(new V_ErrorEdad());
+                return;
+            }
+
+            if (TxtPassword.Text != TxtConfirmar.Text)
+            {
+                await DisplayAlert("Error", "La contraseña debe ser la misma", "Aceptar");
+                return;
+            }
             var m = new Meseros
             {
                 Nombre = nombre,
                 Ape_paterno = apePaterno,
                 Ape_materno = apeMaterno,
-                Edad = Convert.ToInt16(edad),
+                //Edad = Convert.ToInt16(edad),
+                Edad = edadNumerica,
                 Password = password,
                 Email = email,
             };
@@ -88,9 +103,18 @@ namespace SpeedOrder.View
             TxtNombre.Text = "";
             TxtAPaterno.Text = "";
             TxtAMaterno.Text = "";
-            TxtEdad.Text = "";
+            TxtEdad.Date = DateTime.Today; // Establece la fecha del DatePicker al día actual
             TxtPassword.Text = "";
             TxtEmail.Text = "";
+        }
+
+        private void VerPassword_Clicked(object sender, EventArgs e)
+        {
+            TxtConfirmar.IsPassword = !TxtConfirmar.IsPassword;
+            if (TxtConfirmar.IsPassword)
+                VerPassword.Source = "esconder";
+            else
+                VerPassword.Source = "abierto";
         }
     }
 }

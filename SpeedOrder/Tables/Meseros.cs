@@ -14,7 +14,7 @@ namespace SpeedOrder.Tables
         [MaxLength(20)]
         public string Ape_materno { get; set; }
         public int Edad { get; set; }
-        //public DateTime Fecha_Nacimiento { get; set; }
+        //public DateTime Edad { get; set; }
         [MaxLength(10)]
         public string Password { get; set; }
         [Unique, MaxLength(50)]
@@ -68,6 +68,8 @@ namespace SpeedOrder.Tables
         public int Id_Mesa { get; set; }
         [MaxLength(20)]
         public string Tamano { get; set; }
+        //Prueba
+        public string Tipo { get; set; }
     }
 
     public class Ticket
@@ -97,5 +99,4 @@ namespace SpeedOrder.Tables
         public int Id_Platillo { get; set; }
         public int Cantidad { get; set; }
     }
-
 }

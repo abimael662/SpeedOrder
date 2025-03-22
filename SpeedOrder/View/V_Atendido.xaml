@@ -23,6 +23,9 @@
                     <Entry x:Name="TxtCliente" MaxLength="10" Margin="0,20,0,20" FontSize="18" />
                 </Grid>
             </Frame>
+
+            <Button Text="Imprimir" x:Name="PDF"  Clicked="PDF_Clicked" BackgroundColor="#C44C89" TextColor="White" CornerRadius="10"/>
+            
             <ListView x:Name="ListaPlatillos" VerticalOptions="FillAndExpand" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="Gray">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -38,7 +41,7 @@
                                                 </Grid.ColumnDefinitions>
 
                                                 <Image Source="{Binding Photo}" x:Name="ImgFoto" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Column="0"/>
-                                                
+
                                                 <StackLayout Grid.Column="1" Padding="0">
                                                     <Grid ColumnDefinitions="*,*">
                                                         <CheckBox Grid.Column="0"/>
@@ -61,7 +64,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Imprimir" x:Name="PDF"  Clicked="PDF_Clicked" BackgroundColor="#C44C89" TextColor="White" CornerRadius="10"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

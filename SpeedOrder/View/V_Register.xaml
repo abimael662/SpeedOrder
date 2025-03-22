@@ -22,7 +22,7 @@
                     </Frame>
                 </StackLayout>
                 <StackLayout Margin="15, 180, 15, 15">
-                    <Frame BackgroundColor="#5F1890" HasShadow="True" HeightRequest="570" HorizontalOptions="FillAndExpand" CornerRadius="15">
+                    <Frame BackgroundColor="#5F1890" HasShadow="True" HeightRequest="620" HorizontalOptions="FillAndExpand" CornerRadius="15">
                         <StackLayout>
                             <StackLayout HorizontalOptions="CenterAndExpand">
                                 <Label Text="REGISTRARSE" TextColor="#FFFFFF"  FontSize="Title" FontAttributes="Bold"/>
@@ -57,7 +57,8 @@
                                         <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
                                             <Image Source="Calendar.gif" IsAnimationPlaying="True"/>
                                         </Frame>
-                                        <Entry x:Name="TxtEdad" MaxLength="2" Placeholder="Edad:" Keyboard="Numeric" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
+                                        <!--<Entry x:Name="TxtEdad" MaxLength="2" Placeholder="Edad:" Keyboard="Numeric" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>-->
+                                        <DatePicker x:Name="TxtEdad" TextColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
                                     </StackLayout>
                                 </Frame>
                                 <Frame BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand" BackgroundColor="Black">
@@ -66,6 +67,17 @@
                                             <Image Source="Password.gif" IsAnimationPlaying="True"/>
                                         </Frame>
                                         <Entry x:Name="TxtPassword" Placeholder="Contraseña:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0" IsPassword="True" MaxLength="10"/>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand" BackgroundColor="Black">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7" BackgroundColor="#FFF">
+                                            <Image Source="Password.gif" IsAnimationPlaying="True"/>
+                                        </Frame>
+                                        <Entry x:Name="TxtConfirmar" Placeholder="Confirmar Contraseña:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,-20,0" IsPassword="True" MaxLength="10"/>
+                                        <Frame WidthRequest="30" HeightRequest="30" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7" BackgroundColor="#FFF">
+                                            <ImageButton WidthRequest="3" HeightRequest="3" x:Name="VerPassword" Clicked="VerPassword_Clicked" BackgroundColor="Transparent" Source="esconder"/>
+                                        </Frame>
                                     </StackLayout>
                                 </Frame>
                                 <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">

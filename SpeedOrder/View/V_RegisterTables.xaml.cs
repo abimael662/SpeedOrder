@@ -38,7 +38,8 @@ namespace SpeedOrder.View
 
             m = new Mesa
             {
-                Tamano = TxtTam.SelectedItem?.ToString()
+                Tamano = TxtTam.SelectedItem?.ToString(),
+                Tipo = TxtMesa.SelectedItem?.ToString()
             };
 
             await _db.InsertAsync(m);

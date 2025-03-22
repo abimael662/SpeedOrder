@@ -1,4 +1,6 @@
-﻿using SpeedOrder.Tables;
+﻿using iTextSharp.text;
+using SpeedOrder.Tables;
+using SpeedOrder.ViewModel;
 using SQLite;
 using System;
 using System.Collections;
@@ -12,24 +14,27 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static SQLite.TableMapping;
+using static Xamarin.Essentials.Permissions;
 
 namespace SpeedOrder.View
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class V_Platillos : ContentPage
-	{
-		public readonly SQLiteAsyncConnection _db;
-		public ObservableCollection<Platillo> TPlatillos;
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class V_Platillos : ContentPage
+    {
+        public readonly SQLiteAsyncConnection _db;
+        public ObservableCollection<Platillo> TPlatillos;
         private List<Platillo> _platillo = new List<Platillo>();
         public List<Tables.Menu> MenuList = Menus.Datos();
-        public V_Platillos ()
-		{
-			InitializeComponent();
+        public string Foto { get; set; }
+        public V_Platillos()
+        {
+            InitializeComponent();
             var rutaBD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpeedOrder.db3");
             _db = new SQLiteAsyncConnection(rutaBD);
             _db.CreateTableAsync<Platillo>().Wait();
             _db.CreateTableAsync<Tipo_Menu>().Wait();
         }
+        
         protected async override void OnAppearing()
         {
             var Registros = await _db.Table<Platillo>().ToListAsync();
@@ -37,43 +42,40 @@ namespace SpeedOrder.View
             ListaPlatillos.ItemsSource = _platillo;
             base.OnAppearing();
         }
-        /*
-        public string Fotos { get; set; }
-
+        
         public async void ActualizarImagen()
         {
             var platillo = MenuList.FirstOrDefault(m => m.Tipo == "Comidas" || m.Tipo == "Desayunos" || m.Tipo == "Cenas" || m.Tipo == "Bebidas" || m.Tipo == "Postres");
 
-            if (platillo != null) {
+            if (platillo != null)
+            {
                 var registros = await _db.Table<Tipo_Menu>().Where(tm => tm.Id_Menu == platillo.Id_Menu).ToListAsync();
                 var Ids = registros.Select(r => r.Id_Platillo).ToList();
                 _platillo = await _db.Table<Platillo>().Where(p => Ids.Contains(p.Id_Platillo)).ToListAsync();
 
-
-
                 if (platillo.Tipo == "Comidas")
                 {
-                    Fotos = ("Comidas.png");
-
+                    Foto = "Comidas";
                 }
                 else if (platillo.Tipo == "Desayunos")
                 {
-                    Fotos = ("Desayuno.png");
+                    Foto = "Desayuno";
                 }
                 else if (platillo.Tipo == "Cenas")
                 {
-                    Fotos = ("Cenas.png");
+                    Foto = "Cenas";
                 }
                 else if (platillo.Tipo == "Bebidas")
                 {
-                    Fotos = ("Bebidas.png");
+                    Foto = "Bebidas";
                 }
                 else
                 {
-                    Fotos = ("Postres.png");
+                    Foto = "Postres";
                 }
-            }            
-            ListaPlatillos.ItemsSource = TPlatillos;
-        }*/
+            }
+            /*TPlatillos = new ObservableCollection<Platillo>(_platillo);
+            ListaPlatillos.ItemsSource = TPlatillos;*/
+        }
     }
 }

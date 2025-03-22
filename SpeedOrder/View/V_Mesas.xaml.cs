@@ -17,6 +17,7 @@ namespace SpeedOrder.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class V_Mesas : ContentPage
     {
+        private double scale = 1; // Control de escala
         public readonly SQLiteAsyncConnection _db;
         private List<Mesa> _mesa = new List<Mesa>();
         public Mesa m;
@@ -30,9 +31,6 @@ namespace SpeedOrder.View
         private async void RegisterTable_Clicked(object sender, EventArgs e)
         {
             await PopupNavigation.Instance.PushAsync(new V_RegisterTables());
-
-            // Pequeña espera para asegurarse de que la mesa se haya guardado en la BD antes de refrescar
-            await Task.Delay(500);
             Mesas();
         }
 
@@ -40,57 +38,80 @@ namespace SpeedOrder.View
         {
             await PopupNavigation.Instance.PushAsync(new V_Remover());
         }
-
         public async void Mesas()
         {
             _mesa = await _db.Table<Mesa>().ToListAsync();
 
-            // Limpiar el Grid antes de agregar las nuevas mesas
-            Device.BeginInvokeOnMainThread(() => Canvas.Children.Clear());
+            Canvas.Children.Clear();
 
-            int columnas = 2; // Número de mesas por fila
-            int filas = (_mesa.Count + columnas - 1) / columnas; // Calcula cuántas filas se necesitan
-
-            Canvas.RowDefinitions.Clear();
-            Canvas.ColumnDefinitions.Clear();
-
-            for (int i = 0; i < filas; i++)
-                Canvas.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-
-            for (int i = 0; i < columnas; i++)
-                Canvas.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-
-            int index = 0;
             foreach (var mesa in _mesa)
             {
-                Image mesaImage = new Image
+                string mesaName = "Mesa_" + mesa.Id_Mesa;
+
+                if (!Canvas.Children.Any(view => view.AutomationId == mesaName))
                 {
-                    Source = "Redonda.png",
-                    HeightRequest = 50,
-                    WidthRequest = 50,
-                    HorizontalOptions = LayoutOptions.FillAndExpand,
-                    VerticalOptions = LayoutOptions.FillAndExpand
-                };
+                    var boxView = new BoxView
+                    {
+                        Color = mesa.Tipo == "Circular" ? Color.Red : Color.Blue,
+                        WidthRequest = 100,
+                        HeightRequest = 100,
+                        HorizontalOptions = LayoutOptions.Start,
+                        VerticalOptions = LayoutOptions.Start,
+                        AutomationId = mesaName
+                    };
 
-                int fila = index / columnas;
-                int columna = index % columnas;
+                    if (mesa.Tipo == "Circular")
+                        boxView.CornerRadius = 50;
+                    else
+                        boxView.CornerRadius = 0;
 
-                // Agregar imagen al Grid en la posición correspondiente
-                Device.BeginInvokeOnMainThread(() => Canvas.Children.Add(mesaImage, columna, fila));
+                    Canvas.Children.Add(boxView);
 
-                index++;
+                    var panGesture = new PanGestureRecognizer();
+                    panGesture.PanUpdated += (s, args) => OnPanUpdated(s, args);
+                    boxView.GestureRecognizers.Add(panGesture);
+
+                    var pinchGesture = new PinchGestureRecognizer();
+                    pinchGesture.PinchUpdated += (s, args) => OnPinchUpdated(s, args);
+                    boxView.GestureRecognizers.Add(pinchGesture);
+                }
             }
         }
-
-        /*
-        public async void Mesas()
+        private void OnPanUpdated(object sender, PanUpdatedEventArgs args)
         {
-            _mesa = await _db.Table<Mesa>().ToListAsync();
-
-            if (_mesa.Count > 0 )
+            if (sender is BoxView boxView)
             {
-                ImgMesa.Source = "Redonda.png";
+                switch (args.StatusType)
+                {
+                    case GestureStatus.Running:
+                        double gridWidth = Canvas.Width;
+                        double gridHeight = Canvas.Height;
+                        double boxWidth = boxView.WidthRequest * boxView.Scale;
+                        double boxHeight = boxView.HeightRequest * boxView.Scale;
+
+                        double newX = Math.Max(0, Math.Min(boxView.TranslationX + args.TotalX, gridWidth - boxWidth));
+                        double newY = Math.Max(0, Math.Min(boxView.TranslationY + args.TotalY, gridHeight - boxHeight));
+
+                        boxView.TranslationX = newX;
+                        boxView.TranslationY = newY;
+                        break;
+                }
             }
-        }*/
+        }
+        private void OnPinchUpdated(object sender, PinchGestureUpdatedEventArgs args)
+        {
+            if (sender is BoxView boxView)
+            {
+                if (args.Status == GestureStatus.Running)
+                {
+                    double newScale = Math.Max(0.5, Math.Min(scale * args.Scale, 2.5));
+                    boxView.Scale = newScale;
+                }
+                else if (args.Status == GestureStatus.Completed)
+                {
+                    scale = boxView.Scale;
+                }
+            }
+        }
     }
 }

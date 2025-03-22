@@ -73,7 +73,7 @@ namespace SpeedOrder.View
         {
             await PopupNavigation.Instance.PopAsync();
         }
-protected override bool OnBackButtonPressed()
+        protected override bool OnBackButtonPressed()
     {
         if (PopupNavigation.Instance.PopupStack.Count > 0)
         {

@@ -1,5 +1,6 @@
 ﻿using Rg.Plugins.Popup.Services;
 using SpeedOrder.Tables;
+using SpeedOrder.ViewModel;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace SpeedOrder.View
         public V_Login()
         {
             InitializeComponent();
+            BindingContext = new LoginViewModel();
         }
         private async void Btn_Button_Clicked(object sender, EventArgs e)
         {

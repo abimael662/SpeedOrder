@@ -10,7 +10,7 @@ using Xamarin.Forms;
 namespace SpeedOrder.ViewModel
 {
     class MenuDesplegable
-    {
+    {/*
         public List<Meseros> Datos { get; set; }
 
         //Page page { get; }
@@ -18,7 +18,7 @@ namespace SpeedOrder.ViewModel
         /*public async Task Ver(Meseros m)
         {
             await page.Navigation.PushAsync(new V_Tabulador());
-        }*/
+        }
 
         private async Task Ver(Meseros m)
         {
@@ -27,6 +27,6 @@ namespace SpeedOrder.ViewModel
             await page.Navigation.PushAsync(page);
         }
 
-        public ICommand ComandoVer => new Command<Meseros>(async (m) => await Ver(m));
+        public ICommand ComandoVer => new Command<Meseros>(async (m) => await Ver(m));*/
     }
 }

@@ -84,17 +84,3 @@ namespace SpeedOrder.View
     }
     }
 }
-/*
-        private async void BtnRegistrar_Clicked(object sender, System.EventArgs e)
-        {
-            p = new Platillo
-            {
-                Nombre_Platillo = TxtPlatillo.Text,
-                Precio_Platillo = Convert.ToDouble(TxtPrecio.Text)
-            };
-
-            await _db.InsertAsync(p);
-            await DisplayAlert("Éxito", "Platillo registrado correctamente", "OK");
-            await PopupNavigation.Instance.PopAsync(); // Cierra el popup
-        }
-        */

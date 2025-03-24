@@ -17,7 +17,7 @@ namespace SpeedOrder.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class V_Mesas : ContentPage
     {
-        private double scale = 1; // Control de escala
+        private double scale = 1;
         public readonly SQLiteAsyncConnection _db;
         private List<Mesa> _mesa = new List<Mesa>();
         public Mesa m;
@@ -74,6 +74,13 @@ namespace SpeedOrder.View
                     var pinchGesture = new PinchGestureRecognizer();
                     pinchGesture.PinchUpdated += (s, args) => OnPinchUpdated(s, args);
                     boxView.GestureRecognizers.Add(pinchGesture);
+
+                    var tapGesture = new TapGestureRecognizer();
+                    tapGesture.Tapped += async (s, args) =>
+                    {
+                        await Navigation.PushAsync(new V_Atendido());
+                    };
+                    boxView.GestureRecognizers.Add(tapGesture);
                 }
             }
         }

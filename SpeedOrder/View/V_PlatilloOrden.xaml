@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="SpeedOrder.View.V_PlatilloOrden">
+    
+    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <Frame BackgroundColor="#FFDEED" Padding="20" CornerRadius="10" HasShadow="True" WidthRequest="250" HeightRequest="300">
+            <StackLayout>
+                <Label Text="Mesas" FontSize="Large" HorizontalOptions="Center" TextColor="#000"/>
+
+                <Label Text="Id_Platillo:" TextColor="#000" x:Name="TxtIdPlatillo"/>
+                <Label Text="Id_Orden:" TextColor="#000" x:Name="TxtIdOrden"/>
+                <Label Text="Tipo Mesa:" TextColor="#000"/>
+
+                <Entry Placeholder="Cantidad:" x:Name="TxtCantidad" Keyboard="Numeric"/>
+
+                <Button Text="Registrar" Clicked="BtnRegistrar_Clicked" BackgroundColor="#CB53C1" TextColor="White"  CornerRadius="10"/>
+                <Button Text="Cerrar" Clicked="BtnCerrar_Clicked" BackgroundColor="#6D1D4E" TextColor="White" CornerRadius="10"/>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</popup:PopupPage>

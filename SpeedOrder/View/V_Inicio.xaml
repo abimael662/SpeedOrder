@@ -19,7 +19,7 @@
         </Frame>
     </Grid>-->
     <Grid>
-        <Image Source="Gato" x:Name="LogoInicio" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        <Image Source="MAELDEVS" x:Name="LogoInicio" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
         <BoxView>
             <BoxView.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">

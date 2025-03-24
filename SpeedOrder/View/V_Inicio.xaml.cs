@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static SpeedOrder.ViewModel.LoginViewModel;
 
 namespace SpeedOrder.View
 {
@@ -27,7 +28,7 @@ namespace SpeedOrder.View
         public V_Inicio()
         {
             InitializeComponent();
-            var mesero = BindingContext as Meseros;
+            /*var mesero = BindingContext as Meseros;
 
             if (mesero != null)
             {
@@ -38,8 +39,7 @@ namespace SpeedOrder.View
             {
                 datos.Text = "Bienvenid@ a Speed Order \n" +
                              "¡Listo para comenzar!";
-            }
+            }*/
         }
-
     }
 }

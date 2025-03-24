@@ -1,6 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Org.BouncyCastle.Crypto.Digests;
+using Rg.Plugins.Popup.Services;
 using SpeedOrder.Models;
 using SpeedOrder.Tables;
 using SQLite;
@@ -90,7 +91,7 @@ namespace SpeedOrder.View
                 PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
                 document.Open();
 
-                var imagen = ImageSource.FromFile("Resources/drawable/MAELDEVS.png");
+                /*var imagen = ImageSource.FromFile("Resources/drawable/MAELDEVS.png");
 
                 iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(imagen.ToString());
                 img.BorderWidth = 0;
@@ -99,7 +100,7 @@ namespace SpeedOrder.View
                 percentage = 150 / img.Width;
                 img.ScalePercent(percentage * 100);
 
-                document.Add(img);
+                document.Add(img);*/
 
                 /*string imagePath = @"C:\Users\abima\source\repos\SpeedOrder\SpeedOrder.Android\Resources\drawable\MAELDEVS.png";
                 iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(imagePath);
@@ -149,6 +150,12 @@ namespace SpeedOrder.View
             {
                 await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Error", $"Error al imprimir: {ex.Message}", "OK");
             }
+        }
+
+        private async void TxtCantidad_Clicked(object sender, EventArgs e)
+        {
+            var platillo = (Platillo)ListaPlatillos.SelectedItem;
+            await PopupNavigation.Instance.PushAsync(new V_PlatilloOrden(platillo));
         }
     }
 }

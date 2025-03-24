@@ -69,7 +69,7 @@ namespace SpeedOrder.View
 
             if (TxtPassword.Text != TxtConfirmar.Text)
             {
-                await DisplayAlert("Error", "La contraseña debe ser la misma", "Aceptar");
+                await PopupNavigation.Instance.PushAsync(new V_Password());
                 return;
             }
             var m = new Meseros

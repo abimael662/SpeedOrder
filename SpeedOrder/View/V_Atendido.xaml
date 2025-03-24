@@ -16,7 +16,6 @@
                 </Grid>
             </Frame>
 
-
             <Frame Padding="0" HasShadow="False" CornerRadius="5" BackgroundColor="Transparent">
                 <Grid>
                     <Label x:Name="LblCliente" Text="Nombre del Cliente:" FontSize="18" TextColor="#C44C89" FontAttributes="Bold" Margin="2,5,0,0" VerticalOptions="Start"/>
@@ -52,7 +51,7 @@
                                                         <Frame Grid.Column="0" HasShadow="True" BackgroundColor="#CB53C1" Padding="0">
                                                             <Label Text="{Binding Nombre_Platillo}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White" Padding="0"/>
                                                         </Frame>
-                                                        <Button Grid.Column="1" Text="+" BackgroundColor="#5F1890" x:Name="{Binding Nombre_PLatillo}" HorizontalOptions="End" VerticalOptions="Center" />
+                                                        <Button Grid.Column="1" Text="+" TextColor="White" BackgroundColor="#5F1890" x:Name="TxtCantidad" Clicked="TxtCantidad_Clicked" HorizontalOptions="End" VerticalOptions="Center" />
                                                     </Grid>
                                                 </StackLayout>
                                             </Grid>

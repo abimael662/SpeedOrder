@@ -28,7 +28,7 @@
                 <Button Grid.Column="1" Text="QR" x:Name="QR"  Clicked="QR_Clicked" BackgroundColor="#C44C89" TextColor="White" CornerRadius="10" VerticalOptions="CenterAndExpand" />
             </Grid>
 
-            <ListView x:Name="ListaPlatillos" VerticalOptions="FillAndExpand" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="Gray"  ItemSelected="ListaPlatillos_ItemSelected">
+            <ListView x:Name="ListaPlatillos" VerticalOptions="FillAndExpand" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="Gray">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -42,7 +42,7 @@
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
 
-                                                <Image Source="{Binding Photo}" x:Name="ImgFoto" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Column="0"/>
+                                                <Image Source="{Binding Photo}" x:Name="ImgFoto" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
 
                                                 <StackLayout Grid.Column="1" Padding="0">
                                                     <Grid ColumnDefinitions="*,*">

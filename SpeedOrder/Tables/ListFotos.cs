@@ -6,6 +6,7 @@ namespace SpeedOrder.Tables
 {
     class ListFotos
     {
+        /*
         static public List<Foto> fotos { get; set; }
         public static List<Foto> Datos()
         {
@@ -18,6 +19,6 @@ namespace SpeedOrder.Tables
         new Foto() { Id = 5, Name = "Postres", Photo = "Postres.png" }
     };
             return fotos;
-        }
+        }*/
     }
 }

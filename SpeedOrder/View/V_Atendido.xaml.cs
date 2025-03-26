@@ -31,8 +31,7 @@ namespace SpeedOrder.View
         public ObservableCollection<Platillo> TPlatillos;
         private List<Platillo> _platillo = new List<Platillo>();
         public List<Tables.Menu> MenuList = Menus.Datos();
-        public List<Foto> FotoList = ListFotos.Datos();
-        private List<Foto> _fotos = new List<Foto>();
+        //public List<Foto> FotoList = ListFotos.Datos();
         public Gestion g;
         public Meseros _m;
         public Orden o;
@@ -40,11 +39,11 @@ namespace SpeedOrder.View
         public Ticket t;
         public Atender a;
         public Platillo_Orden po;
-        private Platillo PlatilloSeleccionado;
+        //private Platillo PlatilloSeleccionado;
         private float total = 0;
         private string nombre;
         private double precio = 0;
-        int IdMesa;
+        private int IdMesa;
         public V_Atendido(int Id_Mesa)
         {
             InitializeComponent();
@@ -67,21 +66,6 @@ namespace SpeedOrder.View
             _platillo = Registros.ToList();
             ListaPlatillos.ItemsSource = _platillo;
             base.OnAppearing();
-        }
-        public void ActualizarImagen()
-        {
-            var platillo = MenuList.FirstOrDefault(m => m.Tipo == "Comidas" || m.Tipo == "Desayunos" || m.Tipo == "Cenas" || m.Tipo == "Bebidas" || m.Tipo == "Postres");
-
-            if (platillo != null)
-            {
-                var foto = FotoList.FirstOrDefault(f => f.Name == platillo.Tipo);
-
-                if (foto != null)
-                {
-                    var img = ImageSource.FromFile(foto.Photo);
-                    ListaPlatillos.ItemsSource = (System.Collections.IEnumerable)img;
-                }
-            }
         }
         private async void PDF_Clicked(object sender, EventArgs e)
         {
@@ -148,7 +132,7 @@ namespace SpeedOrder.View
                 await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Error", $"Error al imprimir: {ex.Message}", "OK");
             }
         }
-
+        /*
         private void ListaPlatillos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
@@ -156,7 +140,7 @@ namespace SpeedOrder.View
 
             PlatilloSeleccionado = e.SelectedItem as Platillo;
             ListaPlatillos.SelectedItem = null;
-        }
+        }*/
         private async void TxtCantidad_Clicked(object sender, EventArgs e)
         {
             var button = sender as Button;

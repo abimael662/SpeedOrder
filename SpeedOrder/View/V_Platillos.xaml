@@ -23,7 +23,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Image Source="{Binding Foto}"
+                                <Image Source="{Binding Photo}"
                                Aspect="AspectFill" 
                                HorizontalOptions="FillAndExpand" 
                                VerticalOptions="FillAndExpand"
@@ -33,7 +33,7 @@
 
                                 <StackLayout Grid.Column="1" Padding="10">
                                     <Grid ColumnDefinitions="*,*" VerticalOptions="Center">
-                                        <CheckBox Grid.Column="0"/>
+                                        <CheckBox Grid.Column="0" IsChecked="{Binding Disponible}"/>
                                         <Label Text="Agotado" 
                                        TextColor="Black" 
                                        Margin="30,5,0,0"/>

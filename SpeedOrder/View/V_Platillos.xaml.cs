@@ -41,41 +41,20 @@ namespace SpeedOrder.View
             _platillo = Registros.ToList();
             ListaPlatillos.ItemsSource = _platillo;
             base.OnAppearing();
-        }
-        
-        public async void ActualizarImagen()
+        }/*
+        public void ActualizarImagen()
         {
-            var platillo = MenuList.FirstOrDefault(m => m.Tipo == "Comidas" || m.Tipo == "Desayunos" || m.Tipo == "Cenas" || m.Tipo == "Bebidas" || m.Tipo == "Postres");
-
-            if (platillo != null)
+            var menu = MenuList.FirstOrDefault(m => m.Tipo == "Comidas" || m.Tipo == "Desayunos" || m.Tipo == "Cenas" || m.Tipo == "Bebidas" || m.Tipo == "Postres");
+            foreach (var platillo in _platillo)
             {
-                var registros = await _db.Table<Tipo_Menu>().Where(tm => tm.Id_Menu == platillo.Id_Menu).ToListAsync();
-                var Ids = registros.Select(r => r.Id_Platillo).ToList();
-                _platillo = await _db.Table<Platillo>().Where(p => Ids.Contains(p.Id_Platillo)).ToListAsync();
-
-                if (platillo.Tipo == "Comidas")
+                var foto = FotoList.FirstOrDefault(f => f.Name == menu.Tipo);
+                if (foto != null)
                 {
-                    Foto = "Comidas";
-                }
-                else if (platillo.Tipo == "Desayunos")
-                {
-                    Foto = "Desayuno";
-                }
-                else if (platillo.Tipo == "Cenas")
-                {
-                    Foto = "Cenas";
-                }
-                else if (platillo.Tipo == "Bebidas")
-                {
-                    Foto = "Bebidas";
-                }
-                else
-                {
-                    Foto = "Postres";
+                    platillo.Photo = foto.Photo;
                 }
             }
-            /*TPlatillos = new ObservableCollection<Platillo>(_platillo);
-            ListaPlatillos.ItemsSource = TPlatillos;*/
-        }
+            ListaPlatillos.ItemsSource = null;
+            ListaPlatillos.ItemsSource = _platillo;
+        }*/
     }
 }

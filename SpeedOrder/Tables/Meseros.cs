@@ -28,7 +28,8 @@ namespace SpeedOrder.Tables
         [MaxLength(20)]
         public string Nombre_Platillo { get; set; }
         public Double Precio_Platillo { get; set; }
-        //Extra
+        //Extras
+        public string Photo { get; set; }
         public bool Disponible { get; set; }
     }
 
@@ -63,7 +64,6 @@ namespace SpeedOrder.Tables
         public int Id_Mesero { get; set; }
         public int Id_Mesa { get; set; }
     }
-
     public class Mesa
     {
         [PrimaryKey, AutoIncrement]
@@ -73,7 +73,6 @@ namespace SpeedOrder.Tables
         //Prueba
         public string Tipo { get; set; }
     }
-
     public class Ticket
     {
         [PrimaryKey, AutoIncrement]
@@ -102,10 +101,11 @@ namespace SpeedOrder.Tables
         public int Id_Platillo { get; set; }
         public int Cantidad { get; set; }
     }
+    /*
     public class Foto
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Photo { get; set; }
-    }
+    }*/
 }

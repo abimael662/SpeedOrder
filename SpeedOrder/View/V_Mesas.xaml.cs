@@ -97,7 +97,6 @@ namespace SpeedOrder.View
                     var tapGesture = new TapGestureRecognizer();
                     tapGesture.Tapped += async (s, args) =>
                     {
-
                         await Navigation.PushAsync(new V_Atendido(mesa.Id_Mesa));
                     };
                     boxView.GestureRecognizers.Add(tapGesture);
@@ -140,10 +139,11 @@ namespace SpeedOrder.View
                 }
             }
         }
+        /*
         protected async override void OnAppearing()
         {
             var mesa = await _db.Table<Mesa>().ToListAsync();
             base.OnAppearing();
-        }
+        }*/
     }
 }

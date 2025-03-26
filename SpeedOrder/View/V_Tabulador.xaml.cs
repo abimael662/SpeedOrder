@@ -14,9 +14,6 @@ namespace SpeedOrder.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class V_Tabulador : TabbedPage
     {
-        private int id_Mesero;
-
-        //Meseros _m;
         public V_Tabulador()
         {
             InitializeComponent();

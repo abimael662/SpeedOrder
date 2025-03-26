@@ -33,7 +33,6 @@ namespace SpeedOrder.View
             await PopupNavigation.Instance.PushAsync(new V_RegisterTables());
             Mesas();
         }
-
         private async void Remover_Clicked(object sender, EventArgs e)
         {
             await PopupNavigation.Instance.PushAsync(new V_Remover());
@@ -46,10 +45,30 @@ namespace SpeedOrder.View
 
             foreach (var mesa in _mesa)
             {
-                string mesaName = "Mesa_" + mesa.Id_Mesa;
+                string mesaName = "Mesa " + mesa.Id_Mesa;
 
                 if (!Canvas.Children.Any(view => view.AutomationId == mesaName))
                 {
+                    var label = new Label
+                    {
+                        Text = mesa.Id_Mesa.ToString(),
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center,
+                        FontSize = 12,
+                        FontAttributes = FontAttributes.Bold
+                    };
+
+                    var boxView = new Frame
+                    {
+                        BackgroundColor = mesa.Tipo == "Circular" ? Color.Red : Color.Blue,
+                        WidthRequest = mesa.Tamano == "Grande" ? 100 : mesa.Tamano == "Mediana" ? 50 : 25,
+                        HeightRequest = mesa.Tamano == "Grande" ? 100 : mesa.Tamano == "Mediana" ? 50 : 25,
+                        HorizontalOptions = LayoutOptions.Start,
+                        VerticalOptions = LayoutOptions.Start,
+                        AutomationId = mesaName,
+                        Content = label
+                    };
+                    /*
                     var boxView = new BoxView
                     {
                         Color = mesa.Tipo == "Circular" ? Color.Red : Color.Blue,
@@ -59,9 +78,9 @@ namespace SpeedOrder.View
                         VerticalOptions = LayoutOptions.Start,
                         AutomationId = mesaName
                     };
-
+                    */
                     if (mesa.Tipo == "Circular")
-                        boxView.CornerRadius = 50;
+                        boxView.CornerRadius = 100;
                     else
                         boxView.CornerRadius = 0;
 
@@ -78,7 +97,8 @@ namespace SpeedOrder.View
                     var tapGesture = new TapGestureRecognizer();
                     tapGesture.Tapped += async (s, args) =>
                     {
-                        await Navigation.PushAsync(new V_Atendido());
+
+                        await Navigation.PushAsync(new V_Atendido(mesa.Id_Mesa));
                     };
                     boxView.GestureRecognizers.Add(tapGesture);
                 }
@@ -86,7 +106,7 @@ namespace SpeedOrder.View
         }
         private void OnPanUpdated(object sender, PanUpdatedEventArgs args)
         {
-            if (sender is BoxView boxView)
+            if (sender is Frame boxView)
             {
                 switch (args.StatusType)
                 {
@@ -107,7 +127,7 @@ namespace SpeedOrder.View
         }
         private void OnPinchUpdated(object sender, PinchGestureUpdatedEventArgs args)
         {
-            if (sender is BoxView boxView)
+            if (sender is Frame boxView)
             {
                 if (args.Status == GestureStatus.Running)
                 {
@@ -119,6 +139,11 @@ namespace SpeedOrder.View
                     scale = boxView.Scale;
                 }
             }
+        }
+        protected async override void OnAppearing()
+        {
+            var mesa = await _db.Table<Mesa>().ToListAsync();
+            base.OnAppearing();
         }
     }
 }

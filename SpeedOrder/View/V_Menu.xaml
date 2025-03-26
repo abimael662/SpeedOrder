@@ -7,15 +7,6 @@
         <ScrollView>
             <StackLayout Padding="10">
 
-                <!--<Frame CornerRadius="10" Padding="0" Margin="5" HasShadow="True" >
-                    <Grid>
-                        <Image Source="Hamburguesa" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
-                        <BoxView BackgroundColor="#80000000" Opacity="0.3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-                        <Button BackgroundColor="Transparent" x:Name="Todo" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Clicked="Todo_Clicked" />
-                        <Label Text="Todo" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10" />
-                    </Grid>
-                </Frame>-->
-                
                 <Frame CornerRadius="10" Padding="0" Margin="5" HasShadow="True" >
                     <Grid>
                         <Image Source="Desayuno" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />

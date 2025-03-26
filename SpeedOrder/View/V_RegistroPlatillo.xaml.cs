@@ -48,7 +48,8 @@ namespace SpeedOrder.View
             p = new Platillo
             {
                 Nombre_Platillo = TxtPlatillo.Text,
-                Precio_Platillo = Convert.ToDouble(TxtPrecio.Text)
+                Precio_Platillo = Convert.ToDouble(TxtPrecio.Text),
+                Disponible = TxtDisponible.IsChecked
             };
 
             await _db.InsertAsync(p);

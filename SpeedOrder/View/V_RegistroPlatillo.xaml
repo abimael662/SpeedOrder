@@ -6,13 +6,22 @@
                  BackgroundColor="Transparent">
 
     <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-        <Frame BackgroundColor="#FFDEED" Padding="20" CornerRadius="10" HasShadow="True" WidthRequest="250" HeightRequest="300">
+        <Frame BackgroundColor="#FFDEED" Padding="20" CornerRadius="10" HasShadow="True" WidthRequest="250" HeightRequest="350">
             <StackLayout>
                 <Label Text="Platillos" FontSize="Large" HorizontalOptions="Center" TextColor="#000"/>
 
                 <Entry Placeholder="Nombre del Platillo:" MaxLength="20" x:Name="TxtPlatillo" Keyboard="Text" PlaceholderColor="#320755" TextColor="#190231"/>
                 <Entry Placeholder="Precio:" MaxLength="4" x:Name="TxtPrecio" Keyboard="Numeric" PlaceholderColor="#320755" TextColor="#190231"/>
                 <Picker x:Name="TipoComida" TextColor="#190231"/>
+
+                <Frame BackgroundColor="Transparent" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                    <StackLayout Orientation="Horizontal">
+                        <Grid ColumnDefinitions="*,Auto" HorizontalOptions="Center">
+                            <Label Grid.Column="0" Text="Agotado" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black"/>
+                            <CheckBox Grid.Column="1" x:Name="TxtDisponible" />
+                        </Grid>
+                    </StackLayout>
+                </Frame>
 
                 <Button Text="Registrar" BackgroundColor="#CB53C1" TextColor="White" Clicked="BtnRegistrar_Clicked" CornerRadius="10"/>
                 <Button Text="Cerrar" BackgroundColor="#6D1D4E" TextColor="White" Clicked="BtnCerrar_Clicked" CornerRadius="10"/>

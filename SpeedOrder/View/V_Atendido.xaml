@@ -23,9 +23,12 @@
                 </Grid>
             </Frame>
 
-            <Button Text="Imprimir" x:Name="PDF"  Clicked="PDF_Clicked" BackgroundColor="#C44C89" TextColor="White" CornerRadius="10"/>
-            
-            <ListView x:Name="ListaPlatillos" VerticalOptions="FillAndExpand" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="Gray">
+            <Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="CenterAndExpand">
+                <Button Grid.Column="0" Text="Imprimir" x:Name="PDF"  Clicked="PDF_Clicked" BackgroundColor="#C44C89" TextColor="White" CornerRadius="10" VerticalOptions="CenterAndExpand" />
+                <Button Grid.Column="1" Text="QR" x:Name="QR"  Clicked="QR_Clicked" BackgroundColor="#C44C89" TextColor="White" CornerRadius="10" VerticalOptions="CenterAndExpand" />
+            </Grid>
+
+            <ListView x:Name="ListaPlatillos" VerticalOptions="FillAndExpand" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="Gray"  ItemSelected="ListaPlatillos_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -43,7 +46,7 @@
 
                                                 <StackLayout Grid.Column="1" Padding="0">
                                                     <Grid ColumnDefinitions="*,*">
-                                                        <CheckBox Grid.Column="0"/>
+                                                        <CheckBox Grid.Column="0" IsChecked="{Binding Disponible}"/>
                                                         <Label Text="Agotado" TextColor="Black" Margin="30,5,0,0"/>
                                                         <Label Text="{Binding Precio_Platillo, StringFormat='${0:F2}'}" TextColor="#000" HorizontalOptions="End" Grid.Column="1" FontSize="20"/>
                                                     </Grid>
@@ -51,7 +54,14 @@
                                                         <Frame Grid.Column="0" HasShadow="True" BackgroundColor="#CB53C1" Padding="0">
                                                             <Label Text="{Binding Nombre_Platillo}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White" Padding="0"/>
                                                         </Frame>
-                                                        <Button Grid.Column="1" Text="+" TextColor="White" BackgroundColor="#5F1890" x:Name="TxtCantidad" Clicked="TxtCantidad_Clicked" HorizontalOptions="End" VerticalOptions="Center" />
+                                                        <Button Grid.Column="1" 
+                                                            Text="+" 
+                                                            TextColor="White" 
+                                                            BackgroundColor="#5F1890"  
+                                                            Clicked="TxtCantidad_Clicked" 
+                                                            CommandParameter="{Binding Id_Platillo}" 
+                                                            HorizontalOptions="End" 
+                                                            VerticalOptions="Center" />
                                                     </Grid>
                                                 </StackLayout>
                                             </Grid>
@@ -63,6 +73,9 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Frame Padding="0" HasShadow="True" BorderColor="Black">
+                <Image x:Name="imagenQR"/>
+            </Frame>
         </StackLayout>
     </ScrollView>
 </ContentPage>

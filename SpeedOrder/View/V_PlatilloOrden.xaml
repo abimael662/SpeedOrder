@@ -5,17 +5,16 @@
              x:Class="SpeedOrder.View.V_PlatilloOrden">
     
     <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-        <Frame BackgroundColor="#FFDEED" Padding="20" CornerRadius="10" HasShadow="True" WidthRequest="250" HeightRequest="300">
+        <Frame BackgroundColor="#FFDEED" Padding="20" CornerRadius="10" HasShadow="True" WidthRequest="250" HeightRequest="150">
             <StackLayout>
-                <Label Text="Mesas" FontSize="Large" HorizontalOptions="Center" TextColor="#000"/>
+                <Label Text="Cantidad" FontSize="Large" HorizontalOptions="Center" TextColor="#000"/>
 
-                <Label Text="Id_Platillo:" TextColor="#000" x:Name="TxtIdPlatillo"/>
-                <Label Text="Id_Orden:" TextColor="#000" x:Name="TxtIdOrden"/>
-                <Label Text="Tipo Mesa:" TextColor="#000"/>
+                <Label Text="Id_Platillo:" TextColor="#000" x:Name="TxtIdPlatillo" IsVisible="False"/>
+                <Label Text="Id_Orden:" TextColor="#000" x:Name="TxtIdOrden" IsVisible="False"/>
 
                 <Entry Placeholder="Cantidad:" x:Name="TxtCantidad" Keyboard="Numeric"/>
 
-                <Button Text="Registrar" Clicked="BtnRegistrar_Clicked" BackgroundColor="#CB53C1" TextColor="White"  CornerRadius="10"/>
+                <Button Text="Solicitar" Clicked="BtnRegistrar_Clicked" BackgroundColor="#CB53C1" TextColor="White"  CornerRadius="10"/>
                 <Button Text="Cerrar" Clicked="BtnCerrar_Clicked" BackgroundColor="#6D1D4E" TextColor="White" CornerRadius="10"/>
             </StackLayout>
         </Frame>

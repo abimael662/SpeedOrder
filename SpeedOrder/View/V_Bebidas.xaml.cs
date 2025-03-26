@@ -52,6 +52,9 @@ namespace SpeedOrder.View
             }
             base.OnAppearing();
         }
+        public void Actualizar()
+        {
 
+        }
     }
 }

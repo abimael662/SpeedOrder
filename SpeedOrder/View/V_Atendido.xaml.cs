@@ -1,6 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Org.BouncyCastle.Crypto.Digests;
+using QRCoder;
 using Rg.Plugins.Popup.Services;
 using SpeedOrder.Models;
 using SpeedOrder.Tables;
@@ -39,7 +40,12 @@ namespace SpeedOrder.View
         public Ticket t;
         public Atender a;
         public Platillo_Orden po;
-        public V_Atendido()
+        private Platillo PlatilloSeleccionado;
+        private float total = 0;
+        private string nombre;
+        private double precio = 0;
+        int IdMesa;
+        public V_Atendido(int Id_Mesa)
         {
             InitializeComponent();
             var rutaBD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpeedOrder.db3");
@@ -53,6 +59,7 @@ namespace SpeedOrder.View
             _db.CreateTableAsync<Ticket>().Wait();
             _db.CreateTableAsync<Atender>().Wait();
             _db.CreateTableAsync<Platillo_Orden>().Wait();
+            IdMesa = Id_Mesa;
         }
         protected async override void OnAppearing()
         {
@@ -61,7 +68,6 @@ namespace SpeedOrder.View
             ListaPlatillos.ItemsSource = _platillo;
             base.OnAppearing();
         }
-
         public void ActualizarImagen()
         {
             var platillo = MenuList.FirstOrDefault(m => m.Tipo == "Comidas" || m.Tipo == "Desayunos" || m.Tipo == "Cenas" || m.Tipo == "Bebidas" || m.Tipo == "Postres");
@@ -83,36 +89,14 @@ namespace SpeedOrder.View
             float height = 200 * 2.835f;
             var customSize = new iTextSharp.text.Rectangle(width, height);
 
-            float total = 0;
-
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 Document document = new Document(customSize);
                 PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
                 document.Open();
 
-                /*var imagen = ImageSource.FromFile("Resources/drawable/MAELDEVS.png");
-
-                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(imagen.ToString());
-                img.BorderWidth = 0;
-                img.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
-                float percentage = 0.0f;
-                percentage = 150 / img.Width;
-                img.ScalePercent(percentage * 100);
-
-                document.Add(img);*/
-
-                /*string imagePath = @"C:\Users\abima\source\repos\SpeedOrder\SpeedOrder.Android\Resources\drawable\MAELDEVS.png";
-                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(imagePath);
-                imagen.BorderWidth = 0;
-                imagen.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
-                float percentage = 0.0f;
-                percentage = 150 / imagen.Width;
-                imagen.ScalePercent(percentage * 100);
-
-                document.Add(imagen);*/
-
                 iTextSharp.text.Font font = FontFactory.GetFont(FontFactory.TIMES_ITALIC, 6);
+                iTextSharp.text.Font sub = FontFactory.GetFont(FontFactory.TIMES_ITALIC, 4);
 
                 Paragraph title = new Paragraph("TICKET DE COMPRA")
                 {
@@ -120,16 +104,29 @@ namespace SpeedOrder.View
                 };
 
                 document.Add(title);
+                Paragraph spe = new Paragraph("SPEED ORDER", sub);
+                spe.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                document.Add(spe);
 
                 string creationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); 
-                document.Add(new Paragraph($"Fecha de Creación: {creationDate}", font));
+                document.Add(new Paragraph($"Fecha y Hora: {creationDate}", font));
+                document.Add(new Paragraph($"No.Ticket: ", font));
 
-                document.Add(new Paragraph($"Mesa: ", font));
+                document.Add(new Paragraph($"Mesa: {IdMesa}", font));
                 document.Add(new Paragraph($"Mesero: \n{TxtMesero.Text} \nCliente: \n{TxtCliente.Text}", font));
-                document.Add(new Paragraph($"Comida: \n$25 Soda\n$250 Sopa", font));
-                document.Add(new Paragraph($"Total: {total}", font));
+                //document.Add(new Paragraph($"Comida: \n$25 Soda\n$250 Sopa", font));
+                foreach (var platillo in _platillo)
+                {
+                    nombre = platillo.Nombre_Platillo;
+                    precio = platillo.Precio_Platillo;
+                    document.Add(new Paragraph($"{nombre} - ${precio}", font));
+                    total += Convert.ToInt32(platillo.Precio_Platillo);
+                }
 
-                document.Add(new Paragraph("Gracias por su compra", font));
+                document.Add(new Paragraph($"Total: ${total}", font));
+                Paragraph paragraph = new Paragraph("Gracias por su compra", font);
+                paragraph.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                document.Add(paragraph);
 
                 document.Close();
                 writer.Close();
@@ -152,10 +149,41 @@ namespace SpeedOrder.View
             }
         }
 
+        private void ListaPlatillos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+
+            PlatilloSeleccionado = e.SelectedItem as Platillo;
+            ListaPlatillos.SelectedItem = null;
+        }
         private async void TxtCantidad_Clicked(object sender, EventArgs e)
         {
-            var platillo = (Platillo)ListaPlatillos.SelectedItem;
-            await PopupNavigation.Instance.PushAsync(new V_PlatilloOrden(platillo));
+            var button = sender as Button;
+            if (button?.CommandParameter is int idPlatillo)
+            {
+                await PopupNavigation.Instance.PushAsync(new V_PlatilloOrden(idPlatillo));
+            }
+            else
+            {
+                await DisplayAlert("Error", "No se pudo obtener el ID del platillo.", "OK");
+            }
+        }
+
+        private void QR_Clicked(object sender, EventArgs e)
+        {
+            string creationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string mesero = TxtMesero.Text;
+            string cliente = TxtCliente.Text;
+            string comida = nombre;
+            string cadena = $"Fecha de Creación: {creationDate}\nMesa:{IdMesa} \nMesero: {mesero}\nCliente: {cliente}\nComida: \n{comida}\nTotal: {total}\nGracias por su compra";
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(cadena, QRCodeGenerator.ECCLevel.Q);
+            PngByteQRCode qRCode = new PngByteQRCode(qrCodeData);
+            byte[] qrCodeBytes = qRCode.GetGraphic(20);
+            var stream = new MemoryStream(qrCodeBytes);
+            imagenQR.Source = ImageSource.FromStream(() => new MemoryStream(qrCodeBytes));
         }
     }
 }

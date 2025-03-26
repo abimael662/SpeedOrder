@@ -56,12 +56,6 @@ namespace SpeedOrder.View
             Navigation.PushAsync(new V_Platillos());
         }
 
-        private void BtnI_Clicked(object sender, EventArgs e)
-        {
-            //Navigation.PushAsync(new V_Atendido(_m));
-            Navigation.PushAsync(new V_Atendido());
-        }
-
         private void Todos_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new V_Platillos());

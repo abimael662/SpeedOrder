@@ -25,13 +25,13 @@ namespace SpeedOrder.View
         private List<Platillo> _platillo = new List<Platillo>();
         public Gestion _g;
         public Meseros _m;
-        public Orden _o;
+        public Orden o;
         public Mesa _ms;
         public Ticket _t;
         public Platillo _p;
         public Atender _a;
         public Platillo_Orden po;
-        public V_PlatilloOrden (Platillo p)
+        public V_PlatilloOrden (int idPlatillo)
 		{
 			InitializeComponent ();
             var rutaBD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpeedOrder.db3");
@@ -45,14 +45,13 @@ namespace SpeedOrder.View
             _db.CreateTableAsync<Ticket>().Wait();
             _db.CreateTableAsync<Atender>().Wait();
             _db.CreateTableAsync<Platillo_Orden>().Wait();
-            _p = p;
-            TxtIdPlatillo.Text = p.Id_Platillo.ToString();
+            //_p = p;
+            TxtIdPlatillo.Text = idPlatillo.ToString();
         }
         private async void BtnRegistrar_Clicked(object sender, System.EventArgs e)
 		{
             po = new Platillo_Orden
             {
-                Id_Orden = Convert.ToInt32(TxtIdOrden.Text),
                 Id_Platillo = Convert.ToInt32(TxtIdPlatillo.Text),
                 Cantidad = Convert.ToInt32(TxtCantidad.Text)
             };

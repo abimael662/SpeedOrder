@@ -14,15 +14,7 @@
             <Button Text="Remover" x:Name="Remover" BackgroundColor="Red" TextColor="White" CornerRadius="10" Clicked="Remover_Clicked" />
         </StackLayout>
 
-        <!--<StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
-            <Button Text="&#9632; Mesa" x:Name="Cuadrado" BackgroundColor="#400B4B" CornerRadius="10" Clicked="Cuadrado_Clicked" />
-            <Button Text="&#9711; Mesa" BackgroundColor="#FFDEED" TextColor="Black" x:Name="Circular" CornerRadius="10" Clicked="Circular_Clicked" />
-            <Button Text="Remover" BackgroundColor="Red" TextColor="White" x:Name="Remover" CornerRadius="10" />
-        </StackLayout>
-        <BoxView x:Name="Canvas" WidthRequest="302" HeightRequest="812">
-        </BoxView>-->
-
-        <Grid x:Name="Canvas" HeightRequest="812" BackgroundColor="LightGray" Padding="0">
+        <Grid x:Name="Canvas" HeightRequest="900" BackgroundColor="LightGray" Padding="0" Margin="0,0,0,10">
         </Grid>
     </StackLayout>
 </ContentPage>

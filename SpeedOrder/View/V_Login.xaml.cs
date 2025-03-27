@@ -21,7 +21,6 @@ namespace SpeedOrder.View
         public V_Login()
         {
             InitializeComponent();
-            BindingContext = new LoginViewModel();
         }
         private async void Btn_Button_Clicked(object sender, EventArgs e)
         {
@@ -37,6 +36,7 @@ namespace SpeedOrder.View
             if (resultado.Count() > 0)
             {
                 var users = (Meseros)resultado.FirstOrDefault();
+                App.ViewModelGlobal.Correo = email;
                 await Navigation.PushAsync(new V_IceCream());
                 Limpiar();
                 Password();

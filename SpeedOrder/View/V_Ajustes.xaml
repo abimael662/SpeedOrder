@@ -2,7 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SpeedOrder.View.V_Ajustes"
+             xmlns:local="clr-namespace:SpeedOrder.ViewModel"
+             x:DataType="local:LoginViewModel"
              BackgroundColor="#000000088">
+    <ContentPage.BindingContext>
+        <local:LoginViewModel/>
+    </ContentPage.BindingContext>
     <StackLayout>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -27,13 +32,13 @@
             <Frame BackgroundColor="Transparent" Grid.Row="1" Grid.Column="0" WidthRequest="50" Margin="0" Padding="0">
                 <Image Source="user"  />
             </Frame>
-            <Label Text="Eleazar Abimael Martinez Villanueva" FontSize="Medium" TextColor="White" FontAttributes="Bold" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,3,0,0" />
+            <Label Text="" x:Name="TxtNombre" FontSize="Medium" TextColor="White" FontAttributes="Bold" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,3,0,0" />
 
             <Frame BackgroundColor="Transparent" Grid.Row="3" Grid.RowSpan="2" Grid.Column="0" WidthRequest="50" Margin="0" Padding="0">
                 <Image Source="Email"  />
             </Frame>
             <Label Text="Correo Electronico" IsEnabled="False" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" TextColor="White" />
-            <Label Text="abimaelmartinez245@gmail.com" x:Name="Correo" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" TextColor="White" />
+            <Label Text="{Binding Correo}" x:Name="Correo" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" TextColor="White" />
 
             <Frame BackgroundColor="Transparent" Grid.Row="5" Grid.RowSpan="2" Grid.Column="0" WidthRequest="50" Margin="0" Padding="0">
                 <Image Source="Platillos"  />

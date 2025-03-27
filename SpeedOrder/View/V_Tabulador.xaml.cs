@@ -17,32 +17,7 @@ namespace SpeedOrder.View
         public V_Tabulador()
         {
             InitializeComponent();
-            //InitializeComponent();
-            /*  _m = m;
-              V_Inicio vInicioPage = new V_Inicio(_m);
-              this.Children.Add(vInicioPage);
-              this.Children.Add(new V_Menu(_m));
-              this.Children.Add(new V_Mesas());*/
+            BindingContext = App.ViewModelGlobal;
         }
-        /*
-        public V_Tabulador(int id_Mesero)
-        {
-            this.id_Mesero = id_Mesero;
-            ConfigurarPestañas();
-        }
-
-        private void ConfigurarPestañas()
-        {
-            this.Children.Add(new V_Inicio(id_Mesero));
-            this.Children.Add(new V_Menu(id_Mesero));
-            this.Children.Add(new V_Mesas());
-        }*/
-
-
-        /*
-        private async void OnImageButtonClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new V_Login());
-        }*/
     }
 }

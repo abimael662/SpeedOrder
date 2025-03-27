@@ -1,45 +1,51 @@
 ﻿using SpeedOrder.Tables;
+using SQLite;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static SpeedOrder.ViewModel.LoginViewModel;
 
 namespace SpeedOrder.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class V_Inicio : ContentPage
     {
-        private int id_Mesero;
+        public readonly SQLiteAsyncConnection _db;
+        public Meseros _mesero;
 
-        //public Meseros _m;
-        /*
-        public V_Inicio(Meseros m)
-        {
-            InitializeComponent();
-            //_m = m;
-            datos.Text = "Bienvenid@ " + m.Nombre + " " + m.Ape_paterno + " " + m.Ape_materno + " a Speed Order \n" +
-                "¡Listo para comenzar!";
-        }*/
         public V_Inicio()
         {
             InitializeComponent();
-            /*var mesero = BindingContext as Meseros;
+            BindingContext = App.ViewModelGlobal;
+            var rutaBD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpeedOrder.db3");
+            _db = new SQLiteAsyncConnection(rutaBD);
+        }
 
-            if (mesero != null)
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            var correo = App.ViewModelGlobal.Correo;
+
+            if (!string.IsNullOrEmpty(correo))
             {
-                datos.Text = $"Bienvenid@ {mesero.Nombre} {mesero.Ape_paterno} {mesero.Ape_materno} a Speed Order \n" +
-                             "¡Listo para comenzar!";
+                _mesero = (await _db.Table<Meseros>().FirstOrDefaultAsync(m => m.Email == correo));
+
+                if (_mesero != null)
+                {
+                    datos.Text = $"Bienvenid@ {_mesero.Nombre} {_mesero.Ape_paterno} {_mesero.Ape_materno} a Speed Order \n" +
+                                 "¡Listo para comenzar!";
+                }
+                else
+                {
+                    datos.Text = "Correo no encontrado. Verifica tus credenciales.";
+                }
             }
             else
             {
-                datos.Text = "Bienvenid@ a Speed Order \n" +
-                             "¡Listo para comenzar!";
-            }*/
+                datos.Text = "No se ha proporcionado correo.";
+            }
         }
     }
 }

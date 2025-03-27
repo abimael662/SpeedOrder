@@ -21,6 +21,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.TizenSpecific;
 using Xamarin.Forms.Xaml;
+using static Xamarin.Forms.Internals.Profile;
 
 namespace SpeedOrder.View
 {
@@ -31,22 +32,22 @@ namespace SpeedOrder.View
         public ObservableCollection<Platillo> TPlatillos;
         private List<Platillo> _platillo = new List<Platillo>();
         public List<Tables.Menu> MenuList = Menus.Datos();
-        //public List<Foto> FotoList = ListFotos.Datos();
         public Gestion g;
-        public Meseros _m;
+        public Meseros _mesero;
         public Orden o;
         public Mesa ms;
         public Ticket t;
         public Atender a;
         public Platillo_Orden po;
-        //private Platillo PlatilloSeleccionado;
+        private Platillo PlatilloSeleccionado;
         private float total = 0;
         private string nombre;
         private double precio = 0;
-        private int IdMesa;
+        int IdMesa;
         public V_Atendido(int Id_Mesa)
         {
             InitializeComponent();
+            BindingContext = App.ViewModelGlobal;
             var rutaBD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpeedOrder.db3");
             _db = new SQLiteAsyncConnection(rutaBD);
             _db.CreateTableAsync<Platillo>().Wait();
@@ -54,7 +55,6 @@ namespace SpeedOrder.View
             _db.CreateTableAsync<Gestion>().Wait();
             _db.CreateTableAsync<Meseros>().Wait();
             _db.CreateTableAsync<Orden>().Wait();
-            _db.CreateTableAsync<Mesa>().Wait();
             _db.CreateTableAsync<Ticket>().Wait();
             _db.CreateTableAsync<Atender>().Wait();
             _db.CreateTableAsync<Platillo_Orden>().Wait();
@@ -65,6 +65,21 @@ namespace SpeedOrder.View
             var Registros = await _db.Table<Platillo>().ToListAsync();
             _platillo = Registros.ToList();
             ListaPlatillos.ItemsSource = _platillo;
+            var correo = App.ViewModelGlobal.Correo;
+
+            if (!string.IsNullOrEmpty(correo))
+            {
+                _mesero = (await _db.Table<Meseros>().FirstOrDefaultAsync(m => m.Email == correo));
+
+                if (_mesero != null)
+                {
+                    TxtMesero.Text = $"{_mesero.Nombre} {_mesero.Ape_paterno} {_mesero.Ape_materno}";
+                }
+            }
+            else
+            {
+                TxtMesero.Text = "No se ha proporcionado correo.";
+            }
             base.OnAppearing();
         }
         private async void PDF_Clicked(object sender, EventArgs e)
@@ -132,7 +147,7 @@ namespace SpeedOrder.View
                 await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Error", $"Error al imprimir: {ex.Message}", "OK");
             }
         }
-        /*
+
         private void ListaPlatillos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
@@ -140,7 +155,7 @@ namespace SpeedOrder.View
 
             PlatilloSeleccionado = e.SelectedItem as Platillo;
             ListaPlatillos.SelectedItem = null;
-        }*/
+        }
         private async void TxtCantidad_Clicked(object sender, EventArgs e)
         {
             var button = sender as Button;
@@ -160,7 +175,7 @@ namespace SpeedOrder.View
             string mesero = TxtMesero.Text;
             string cliente = TxtCliente.Text;
             string comida = nombre;
-            string cadena = $"Fecha de Creación: {creationDate}\nMesa:{IdMesa} \nMesero: {mesero}\nCliente: {cliente}\nComida: \n{comida}\nTotal: {total}\nGracias por su compra";
+            string cadena = $"Fecha de Creación: {creationDate}\nMesa: {IdMesa} \nMesero: {mesero}\nCliente: {cliente}\nComida: \n{comida}\nTotal: {total}\nGracias por su compra";
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
 
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(cadena, QRCodeGenerator.ECCLevel.Q);

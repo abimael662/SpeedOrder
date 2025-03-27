@@ -16,6 +16,7 @@ namespace SpeedOrder.View
         {
             InitializeComponent();
             FlyoutPage.ListView.ItemSelected += ListView_ItemSelected;
+            BindingContext = App.ViewModelGlobal;
         }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)

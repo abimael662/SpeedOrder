@@ -68,10 +68,8 @@ namespace SpeedOrder.Tables
     {
         [PrimaryKey, AutoIncrement]
         public int Id_Mesa { get; set; }
-        [MaxLength(20)]
-        public string Tamano { get; set; }
-        //Prueba
         public string Tipo { get; set; }
+        public string Tamano { get; set; }
     }
     public class Ticket
     {
@@ -96,16 +94,8 @@ namespace SpeedOrder.Tables
     {
         [PrimaryKey, AutoIncrement]
         public int Id_Platillo_Orden { get; set; }
-        [AutoIncrement]
         public int Id_Orden { get; set; }
         public int Id_Platillo { get; set; }
         public int Cantidad { get; set; }
     }
-    /*
-    public class Foto
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Photo { get; set; }
-    }*/
 }

@@ -3,21 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              IconImageSource="Inicio"
              NavigationPage.HasNavigationBar="False"
+             xmlns:local="clr-namespace:SpeedOrder.ViewModel"
+             x:DataType="local:LoginViewModel"
              x:Class="SpeedOrder.View.V_Inicio">
-    <!--<Grid RowDefinitions="*,Auto">
-        <Image Grid.Row="0" Source="Gato"/>
-        <Frame Grid.Row="1" Margin="4,-35,4,25" CornerRadius="30" HeightRequest="300" HasShadow="False" BackgroundColor="#5F1890">
-            <Grid RowDefinitions="Auto,Auto,*">
-                <Label Grid.Row="0" LineHeight="1.5" FontAttributes="Bold" VerticalOptions="Start" HorizontalTextAlignment="Center" FontSize="{OnPlatform iOS='25', Android='20'}">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span TextColor="White" x:Name="datos"/>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-            </Grid>
-        </Frame>
-    </Grid>-->
+    <ContentPage.BindingContext>
+        <local:LoginViewModel/>
+    </ContentPage.BindingContext>
     <Grid>
         <Image Source="MAELDEVS" x:Name="LogoInicio" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
         <BoxView>
@@ -29,6 +20,7 @@
                 </LinearGradientBrush>
             </BoxView.Background>
         </BoxView>
+        <Label Text="{Binding Correo}" x:Name="TxtNombre" IsVisible="False"/>
         <Grid HeightRequest="200" RowSpacing="40" VerticalOptions="EndAndExpand">
             <StackLayout Spacing="10">
                 <Grid>
@@ -37,7 +29,7 @@
                             <Label Grid.Row="0" LineHeight="1.5" FontAttributes="Bold" VerticalOptions="Start" HorizontalTextAlignment="Center" FontSize="{OnPlatform iOS='25', Android='20'}">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span TextColor="White" x:Name="datos"/>
+                                        <Span TextColor="White" Text="{Binding Correo}" x:Name="datos"/>
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>

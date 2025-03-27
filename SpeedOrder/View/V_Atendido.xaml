@@ -8,11 +8,10 @@
             <Frame Padding="10" CornerRadius="5" BackgroundColor="#5F1890">
                 <Label Text="ORDEN A ATENDER" HorizontalOptions="CenterAndExpand" TextColor="White"/>
             </Frame>
-
             <Frame Padding="0" HasShadow="False" CornerRadius="5" BackgroundColor="Transparent">
                 <Grid>
                     <Label x:Name="LblMesero" Text="Atendido por: " FontSize="18" TextColor="#C44C89" FontAttributes="Bold" Margin="2,5,0,0" VerticalOptions="Start"/>
-                    <Entry x:Name="TxtMesero" Margin="0,20,0,20" FontSize="18" PlaceholderColor="#5F1890" TextColor="#5F1890" />
+                    <Entry x:Name="TxtMesero" Margin="0,20,0,20" FontSize="18"  TextColor="White" IsReadOnly="True" />
                 </Grid>
             </Frame>
 
@@ -24,11 +23,11 @@
             </Frame>
 
             <Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="CenterAndExpand">
-                <Button Grid.Column="0" Text="Imprimir" x:Name="PDF"  Clicked="PDF_Clicked" BackgroundColor="#C44C89" TextColor="White" CornerRadius="10" VerticalOptions="CenterAndExpand" />
+                <Button Grid.Column="0" Text="Imprimir" x:Name="PDF" Clicked="PDF_Clicked" BackgroundColor="#C44C89" TextColor="White" CornerRadius="10" VerticalOptions="CenterAndExpand" />
                 <Button Grid.Column="1" Text="QR" x:Name="QR"  Clicked="QR_Clicked" BackgroundColor="#C44C89" TextColor="White" CornerRadius="10" VerticalOptions="CenterAndExpand" />
             </Grid>
 
-            <ListView x:Name="ListaPlatillos" VerticalOptions="FillAndExpand" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="Gray">
+            <ListView x:Name="ListaPlatillos" VerticalOptions="FillAndExpand" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="Gray"  ItemSelected="ListaPlatillos_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

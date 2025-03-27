@@ -55,12 +55,12 @@
                                            TextColor="White"
                                            Padding="0" />
                                         </Frame>
-                                        <Button Grid.Column="1" 
+                                        <!--<Button Grid.Column="1" 
                                         Text="+" 
                                         BackgroundColor="#5F1890" 
                                         Command="{Binding AgregarCommand}"
                                         HorizontalOptions="End" 
-                                        VerticalOptions="Center"/>
+                                        VerticalOptions="Center"/>-->
                                     </Grid>
                                 </StackLayout>
                             </Grid>
@@ -70,11 +70,11 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button Text="Generar Cuenta" 
+        <!--<Button Text="Generar Cuenta" 
                 x:Name="BtnI" 
                 BackgroundColor="#C44C89" 
                 HorizontalOptions="Center" 
                 VerticalOptions="Center" 
-                CornerRadius="15" />
+                CornerRadius="15" />-->
     </StackLayout>
 </ContentPage>

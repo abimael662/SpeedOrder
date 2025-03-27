@@ -2,7 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SpeedOrder.View.V_Login"
+             xmlns:local="clr-namespace:SpeedOrder.ViewModel"
+             x:DataType="local:LoginViewModel"
              NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <local:LoginViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <!--<StackLayout Padding="30" BackgroundColor="#190231">-->
         <StackLayout Padding="30" BackgroundColor="#320755">
@@ -15,7 +20,7 @@
             <Frame Padding="0" HasShadow="False" BackgroundColor="Transparent" CornerRadius="5">
                 <Grid>
                     <Label x:Name="LblEmail" Text="Email" FontSize="18" TextColor="#C44C89" FontAttributes="Bold" Margin="2,5,0,0" VerticalOptions="Start" TranslationY="20" IsVisible="True"/>
-                    <Entry x:Name="TxtEmail" MaxLength="50" Margin="0,20,0,20" Keyboard="Email" FontSize="18" Focused="TxtEmail_Focused" Unfocused="TxtEmail_Unfocused" TextChanged="TxtEmail_TextChanged"/>
+                    <Entry x:Name="TxtEmail" MaxLength="50" Margin="0,20,0,20" Keyboard="Email" FontSize="18" Focused="TxtEmail_Focused" Unfocused="TxtEmail_Unfocused" TextChanged="TxtEmail_TextChanged" Text="{Binding Correo, Mode=TwoWay}" />
                 </Grid>
             </Frame>
 
@@ -24,7 +29,6 @@
                     <Label x:Name="LblPassword" Text="Password" FontSize="18" TextColor="#C44C89" FontAttributes="Bold" Margin="2,5,0,0" VerticalOptions="Start" TranslationY="20" IsVisible="True"/>
                     <Entry x:Name="TxtPassword" Keyboard="Text" Margin="0,20,0,20" FontSize="18" Focused="TxtPassword_Focused" Unfocused="TxtPassword_Unfocused" TextChanged="TxtPassword_TextChanged" IsPassword="True" MaxLength="10" />
                     <Grid Grid.Row="0" Grid.Column="0" Padding="0,0,3,0" HeightRequest="27" HorizontalOptions="End" IsClippedToBounds="True" VerticalOptions="Center" WidthRequest="35">
-                        <!--<ImageButton WidthRequest="3" HeightRequest="3" x:Name="VerPassword" Clicked="VerPassword_Clicked" BackgroundColor="Transparent" Source="Eye.gif" Margin="1"/>-->
                         <Image WidthRequest="30" HeightRequest="30" x:Name="VerPassword" Source="Purueba" IsAnimationPlaying="True" Margin="-4">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="VerPassword_Clicked"/>

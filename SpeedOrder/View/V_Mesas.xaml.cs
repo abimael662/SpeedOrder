@@ -24,6 +24,7 @@ namespace SpeedOrder.View
         public V_Mesas()
         {
             InitializeComponent();
+            BindingContext = App.ViewModelGlobal;
             var rutaBD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpeedOrder.db3");
             _db = new SQLiteAsyncConnection(rutaBD);
             _db.CreateTableAsync<Mesa>().Wait();
@@ -31,7 +32,10 @@ namespace SpeedOrder.View
         private async void RegisterTable_Clicked(object sender, EventArgs e)
         {
             await PopupNavigation.Instance.PushAsync(new V_RegisterTables());
-            Mesas();
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                Mesas();
+            });
         }
         private async void Remover_Clicked(object sender, EventArgs e)
         {
@@ -61,8 +65,8 @@ namespace SpeedOrder.View
                     var boxView = new Frame
                     {
                         BackgroundColor = mesa.Tipo == "Circular" ? Color.Red : Color.Blue,
-                        WidthRequest = mesa.Tamano == "Grande" ? 100 : mesa.Tamano == "Mediana" ? 50 : 25,
-                        HeightRequest = mesa.Tamano == "Grande" ? 100 : mesa.Tamano == "Mediana" ? 50 : 25,
+                        WidthRequest = mesa.Tamano == "Grande" ? 50 : mesa.Tamano == "Mediana" ? 35 : 20,
+                        HeightRequest = mesa.Tamano == "Grande" ? 50 : mesa.Tamano == "Mediana" ? 35 : 20,
                         HorizontalOptions = LayoutOptions.Start,
                         VerticalOptions = LayoutOptions.Start,
                         AutomationId = mesaName,
@@ -97,6 +101,7 @@ namespace SpeedOrder.View
                     var tapGesture = new TapGestureRecognizer();
                     tapGesture.Tapped += async (s, args) =>
                     {
+                        //await Navigation.PushAsync(new V_Atendido());
                         await Navigation.PushAsync(new V_Atendido(mesa.Id_Mesa));
                     };
                     boxView.GestureRecognizers.Add(tapGesture);
@@ -139,11 +144,10 @@ namespace SpeedOrder.View
                 }
             }
         }
-        /*
-        protected async override void OnAppearing()
+        protected override void OnAppearing()
         {
-            var mesa = await _db.Table<Mesa>().ToListAsync();
             base.OnAppearing();
-        }*/
+            Mesas();
+        }
     }
 }

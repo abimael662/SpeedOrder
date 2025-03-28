@@ -1,31 +1,27 @@
 ﻿using Rg.Plugins.Popup.Pages;
-using Rg.Plugins.Popup.Services;
 using SpeedOrder.Tables;
 using SQLite;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace SpeedOrder.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class V_Ajustes : ContentPage
+    public partial class V_EliminarCuenta : PopupPage
     {
         public readonly SQLiteAsyncConnection _db;
         public Meseros _mesero;
-        public V_Ajustes()
+
+        public V_EliminarCuenta()
         {
             InitializeComponent();
             BindingContext = App.ViewModelGlobal;
             var rutaBD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpeedOrder.db3");
             _db = new SQLiteAsyncConnection(rutaBD);
         }
+
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -33,7 +29,7 @@ namespace SpeedOrder.View
 
             if (!string.IsNullOrEmpty(correo))
             {
-                _mesero = (await _db.Table<Meseros>().FirstOrDefaultAsync(m => m.Email == correo));
+                _mesero = await _db.Table<Meseros>().FirstOrDefaultAsync(m => m.Email == correo);
 
                 if (_mesero != null)
                 {
@@ -49,14 +45,33 @@ namespace SpeedOrder.View
                 TxtNombre.Text = "No se ha proporcionado correo.";
             }
         }
-        private async void TxtEdit_Clicked(object sender, EventArgs e)
-        {
-            await PopupNavigation.Instance.PushAsync(new V_EditarPerfil());
-        }
 
-        private async void TxtDelete_Clicked(object sender, EventArgs e)
+        private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
-            await PopupNavigation.Instance.PushAsync(new V_EliminarCuenta());
+            var correo = App.ViewModelGlobal.Correo;
+            _mesero = await _db.Table<Meseros>().FirstOrDefaultAsync(m => m.Email == correo);
+
+            if (_mesero == null)
+            {
+                await DisplayAlert("Error", "No se encontró la cuenta.", "OK");
+                return;
+            }
+
+            if (_mesero.Password == TxtPassword.Text)
+            {
+                var result = await DisplayAlert("Eliminar cuenta", "¿Estás seguro de que deseas eliminar tu cuenta?", "Sí", "No");
+
+                if (result) // Solo eliminar si el usuario presiona "Sí"
+                {
+                    await _db.DeleteAsync(_mesero);
+                    await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
+                    Application.Current.MainPage = new NavigationPage(new V_Login());
+                }
+            }
+            else
+            {
+                await DisplayAlert("Error", "Contraseña incorrecta. Inténtalo de nuevo.", "OK");
+            }
         }
     }
 }

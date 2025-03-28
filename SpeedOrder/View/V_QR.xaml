@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 x:Class="SpeedOrder.View.V_QR">
+    <Frame BackgroundColor="Transparent" Padding="20" HasShadow="True" WidthRequest="250" HeightRequest="250" CornerRadius="10">
+        <StackLayout Padding="0" Margin="0">
+            <Label Text="Código QR" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+            <Image x:Name="QRImage" HeightRequest="400" WidthRequest="400" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+            <Button Text="Cerrar" BackgroundColor="#ff0000" Clicked="Cerrar_Clicked" CornerRadius="10" />
+        </StackLayout>
+    </Frame>
+</popup:PopupPage>

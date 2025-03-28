@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:local="clr-namespace:SpeedOrder.ViewModel"
+             x:DataType="local:LoginViewModel"
+             x:Class="SpeedOrder.View.V_EditarPerfil"
+             Title="Editar Perfil">
+    <ContentPage.BindingContext>
+        <local:LoginViewModel/>
+    </ContentPage.BindingContext>
+    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <Frame BackgroundColor="#5F1890" Padding="20" CornerRadius="10" HasShadow="True" WidthRequest="300" HeightRequest="580">
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout HorizontalOptions="CenterAndExpand">
+                        <Label Text="Actializar Cuenta" TextTransform="Uppercase" TextColor="#FFFFFF"  FontSize="Title" FontAttributes="Bold"/>
+                    </StackLayout>
+                    <StackLayout Margin="0" Padding="0">
+                        <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                            <StackLayout Orientation="Horizontal">
+                                <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7" BackgroundColor="#FFF">
+                                    <Image Source="User.gif" IsAnimationPlaying="True" Aspect="AspectFill"/>
+                                </Frame>
+                                <Entry x:Name="TxtNombre" MaxLength="20" Placeholder="Nombre(s):" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"  />
+                            </StackLayout>
+                        </Frame>
+                        <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                            <StackLayout Orientation="Horizontal">
+                                <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
+                                    <Image Source="Individual.gif" IsAnimationPlaying="True" Aspect="AspectFill"/>
+                                </Frame>
+                                <Entry x:Name="TxtAPaterno" MaxLength="20" Placeholder="Apellido Paterno:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0" />
+                            </StackLayout>
+                        </Frame>
+                        <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                            <StackLayout Orientation="Horizontal">
+                                <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
+                                    <Image Source="Individual.gif" IsAnimationPlaying="True" Aspect="AspectFill"/>
+                                </Frame>
+                                <Entry x:Name="TxtAMaterno" MaxLength="20" Placeholder="Apellido Materno:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0" />
+                            </StackLayout>
+                        </Frame>
+                        <Frame BackgroundColor="#000" BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                            <StackLayout Orientation="Horizontal">
+                                <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
+                                    <Image Source="Email.gif" IsAnimationPlaying="True"/>
+                                </Frame>
+                                <Entry x:Name="TxtEmail" MaxLength="50" Keyboard="Email" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0" />
+                            </StackLayout>
+                        </Frame>
+                        <Frame BorderColor="Black" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand" BackgroundColor="Black">
+                            <StackLayout Orientation="Horizontal">
+                                <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7" BackgroundColor="#FFF">
+                                    <Image Source="Password.gif" IsAnimationPlaying="True"/>
+                                </Frame>
+                                <Entry x:Name="TxtPassword" Placeholder="Contraseña:" Keyboard="Text" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0" IsPassword="True" MaxLength="10" IsReadOnly="True" />
+                            </StackLayout>
+                        </Frame>
+                        <Button Text="Cambiar Contraseña" x:Name="BtnPassword" Clicked="BtnPassword_Clicked" BackgroundColor="#320755" TextColor="White" CornerRadius="50" Margin="15" />
+                    </StackLayout>
+                    <Button Text="Actualizar Datos" x:Name="BtnActualizar" BackgroundColor="#320755" TextColor="White" CornerRadius="50" Margin="15" Clicked="BtnActualizar_Clicked" />
+                </StackLayout>
+            </ScrollView>
+        </Frame>
+    </StackLayout>
+</popup:PopupPage>

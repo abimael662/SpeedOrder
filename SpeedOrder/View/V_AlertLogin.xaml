@@ -6,12 +6,11 @@
                  BackgroundColor="Transparent">
 
     <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-        <Frame BackgroundColor="#400B4B" Padding="20" CornerRadius="10" HasShadow="True" WidthRequest="300" HeightRequest="160"><!---Es 120 para que se vea bien-->
+        <Frame BackgroundColor="#400B4B" Padding="20" CornerRadius="10" HasShadow="True" WidthRequest="300" HeightRequest="160">
             <StackLayout>
                 <Image Source="Error" IsAnimationPlaying="True" WidthRequest="50" HeightRequest="50" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,-20,0,0"/>
-                
-                <Label Text="Esta mal" FontSize="Large" HorizontalOptions="StartAndExpand" TextColor="#FFF"/>
-                <Label Text="Esta mal en algo. 😬" FontSize="Large" HorizontalOptions="StartAndExpand" TextColor="#FFF"/>
+
+                <Label Text="Correo y/o Contraseña Incorectas Intente de nuevo" FontSize="Small" HorizontalOptions="StartAndExpand" TextColor="#FFF"/>
 
                 <Button Text="Aceptar" BackgroundColor="#6D1D4E" TextColor="White" CornerRadius="10" WidthRequest="100" HorizontalOptions="EndAndExpand" Clicked="BtnCerrar_Clicked"/>
             </StackLayout>

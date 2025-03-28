@@ -72,9 +72,9 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Frame Padding="0" HasShadow="True" BorderColor="Black">
+            <!--<Frame Padding="0" HasShadow="True" BorderColor="Black">
                 <Image x:Name="imagenQR"/>
-            </Frame>
+            </Frame>-->
         </StackLayout>
     </ScrollView>
 </ContentPage>

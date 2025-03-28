@@ -28,5 +28,16 @@ namespace SpeedOrder.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+        public override void OnBackPressed()
+        {
+            if (Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopupStack.Count > 0)
+            {
+                Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
+            }
+            else
+            {
+                base.OnBackPressed();
+            }
+        }
     }
 }

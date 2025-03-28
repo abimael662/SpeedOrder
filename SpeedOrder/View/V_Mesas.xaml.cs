@@ -69,6 +69,7 @@ namespace SpeedOrder.View
                         HeightRequest = mesa.Tamano == "Grande" ? 50 : mesa.Tamano == "Mediana" ? 35 : 20,
                         HorizontalOptions = LayoutOptions.Start,
                         VerticalOptions = LayoutOptions.Start,
+                        CornerRadius = 10,
                         AutomationId = mesaName,
                         Content = label
                     };

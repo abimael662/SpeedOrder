@@ -37,16 +37,16 @@
             <Frame BackgroundColor="Transparent" Grid.Row="3" Grid.RowSpan="2" Grid.Column="0" WidthRequest="50" Margin="0" Padding="0">
                 <Image Source="Email"  />
             </Frame>
-            <Label Text="Correo Electronico" IsEnabled="False" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" TextColor="White" />
+            <Label Text="Correo Electronico" IsEnabled="False" Grid.Row="3" Grid.Column="1" FontAttributes="Bold" Grid.ColumnSpan="4" TextColor="White" />
             <Label Text="{Binding Correo}" x:Name="Correo" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" TextColor="White" />
 
             <Frame BackgroundColor="Transparent" Grid.Row="5" Grid.RowSpan="2" Grid.Column="0" WidthRequest="50" Margin="0" Padding="0">
                 <Image Source="Platillos"  />
             </Frame>
-
             <Button Text="Editar Platillos" BackgroundColor="Transparent" VerticalOptions="Start" HorizontalOptions="Start" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" CornerRadius="10" Margin="0" Padding="0"/>
-
         </Grid>
-        <Button Text="Eliminar Cuenta" CornerRadius="10" BackgroundColor="Red" Margin="20"/>
+        
+        <Button Text="Editar Cuenta" x:Name="TxtEdit" CornerRadius="10" BackgroundColor="#5F1890" Margin="20,0,20,10" Clicked="TxtEdit_Clicked"/>
+        <Button Text="Eliminar Cuenta" x:Name="TxtDelete" CornerRadius="10" BackgroundColor="Red" Margin="20,10,20,0" Clicked="TxtDelete_Clicked"/>
     </StackLayout>
 </ContentPage>

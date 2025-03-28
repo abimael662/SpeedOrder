@@ -81,7 +81,7 @@ namespace SpeedOrder.Tables
 
     public class Orden
     {
-        //[PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement]
         public int Id_Orden { get; set; }
         [MaxLength(10)]
         public string Nombre_Cliente { get; set; }

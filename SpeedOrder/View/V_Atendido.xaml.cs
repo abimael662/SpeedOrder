@@ -16,7 +16,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.TizenSpecific;
@@ -101,19 +101,29 @@ namespace SpeedOrder.View
                 {
                     Alignment = iTextSharp.text.Element.ALIGN_CENTER
                 };
+                /*
+
+                string rutaImagen = DependencyService.Get<IFileService>().ObtenerRutaImagen("MAELDEVS");
+
+                iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(rutaImagen);
+                imagen.BorderWidth = 0;
+                imagen.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                float percentage = 150 / imagen.Width;
+                imagen.ScalePercent(percentage * 100);
+                document.Add(imagen);
+                */
 
                 document.Add(title);
                 Paragraph spe = new Paragraph("SPEED ORDER", sub);
                 spe.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
                 document.Add(spe);
 
-                string creationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); 
+                string creationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 document.Add(new Paragraph($"Fecha y Hora: {creationDate}", font));
                 document.Add(new Paragraph($"No.Ticket: ", font));
 
                 document.Add(new Paragraph($"Mesa: {IdMesa}", font));
                 document.Add(new Paragraph($"Mesero: \n{TxtMesero.Text} \nCliente: \n{TxtCliente.Text}", font));
-                //document.Add(new Paragraph($"Comida: \n$25 Soda\n$250 Sopa", font));
                 foreach (var platillo in _platillo)
                 {
                     nombre = platillo.Nombre_Platillo;
@@ -169,8 +179,16 @@ namespace SpeedOrder.View
             }
         }
 
-        private void QR_Clicked(object sender, EventArgs e)
+        private async void QR_Clicked(object sender, EventArgs e)
         {
+            string creationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string mesero = TxtMesero.Text;
+            string cliente = TxtCliente.Text;
+
+            string cadena = $"Fecha: {creationDate}\nMesa: {IdMesa}\nMesero: {mesero}\nCliente: {cliente}\nTotal: ${total}\nGracias por su compra";
+
+            await PopupNavigation.Instance.PushAsync(new V_QR(cadena));
+            /*
             string creationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string mesero = TxtMesero.Text;
             string cliente = TxtCliente.Text;
@@ -182,7 +200,7 @@ namespace SpeedOrder.View
             PngByteQRCode qRCode = new PngByteQRCode(qrCodeData);
             byte[] qrCodeBytes = qRCode.GetGraphic(20);
             var stream = new MemoryStream(qrCodeBytes);
-            imagenQR.Source = ImageSource.FromStream(() => new MemoryStream(qrCodeBytes));
+            //imagenQR.Source = ImageSource.FromStream(() => new MemoryStream(qrCodeBytes));*/
         }
     }
 }

@@ -4,7 +4,6 @@
              x:Class="SpeedOrder.View.V_Register"
              NavigationPage.HasNavigationBar="False">
     <ScrollView>
-        <!--<StackLayout Padding="0" BackgroundColor="#CB53C1">-->
         <StackLayout Padding="0">
             <Grid>
                 <BoxView>
@@ -57,7 +56,6 @@
                                         <Frame WidthRequest="35" HeightRequest="35" CornerRadius="50" Padding="0" HorizontalOptions="Start" Margin="7">
                                             <Image Source="Calendar.gif" IsAnimationPlaying="True"/>
                                         </Frame>
-                                        <!--<Entry x:Name="TxtEdad" MaxLength="2" Placeholder="Edad:" Keyboard="Numeric" TextColor="White" PlaceholderColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>-->
                                         <DatePicker x:Name="TxtEdad" TextColor="White" HorizontalOptions="FillAndExpand" Margin="0,0,15,0"/>
                                     </StackLayout>
                                 </Frame>

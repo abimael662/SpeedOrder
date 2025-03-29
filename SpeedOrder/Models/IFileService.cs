@@ -6,6 +6,6 @@ namespace SpeedOrder.Models
 {
     public interface IFileService
     {
-        string ObtenerRutaImagen(string nombreArchivo);
+        string ObtenerRutaImagen();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using SpeedOrder.Droid;
@@ -9,27 +10,26 @@ namespace SpeedOrder.Droid
 {
     public class FileService_Android : IFileService
     {
-        
-        public string ObtenerRutaImagen(string nombreArchivo)
+        public string ObtenerRutaImagen()
         {
+            // Obtén la ID del recurso de la imagen
+            int id = Resource.Drawable.MAELDEVS;
 
-            string rutaDestino = Path.Combine(FileSystem.CacheDirectory, nombreArchivo);
+            // Verifica si se encontró el recurso
+            if (id == 0)
+                throw new FileNotFoundException("No se encontró la imagen en drawable");
 
-            if (!File.Exists(rutaDestino))
+            // Ruta temporal en el directorio de caché
+            string rutaDestino = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "MAELDEVS.png");
+
+            // Copiar la imagen desde los recursos a la ruta de destino
+            using (var inputStream = Android.App.Application.Context.Resources.OpenRawResource(id))
+            using (var outputStream = new FileStream(rutaDestino, FileMode.Create))
             {
-                int id = Android.App.Application.Context.Resources.GetIdentifier(Path.GetFileNameWithoutExtension(nombreArchivo),"drawable",Android.App.Application.Context.PackageName);
-                //Android.App.Application.Context.Resources.GetDrawable(Path.GetFileName(nombreArchivo,rutaDestino));
-
-                if (id == 0)
-                    throw new FileNotFoundException("No se encontró la imagen en drawable", nombreArchivo);
-
-                using (var inputStream = Android.App.Application.Context.Resources.OpenRawResource(id))
-                using (var outputStream = File.Create(rutaDestino))
-                {   
-                    inputStream.CopyTo(outputStream);
-                }
+                inputStream.CopyTo(outputStream);
             }
 
+            // Devuelve la ruta donde se encuentra la imagen copiada
             return rutaDestino;
         }
     }

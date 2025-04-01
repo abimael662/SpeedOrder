@@ -4,7 +4,8 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              android:TabbedPage.ToolbarPlacement="Bottom"
              xmlns:local="clr-namespace:SpeedOrder.View"
-             x:Class="SpeedOrder.View.V_Tabulador">
+             x:Class="SpeedOrder.View.V_Tabulador"
+            Style="{DynamicResource PageTheme}">
     <local:V_Inicio/>
     <local:V_Menu/>
     <local:V_Mesas/>

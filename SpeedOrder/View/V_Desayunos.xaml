@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SpeedOrder.View.V_Desayunos"
-             Title="Desayunos">
+             Title="Desayunos"
+             Style="{DynamicResource PageTheme}">
     <StackLayout Padding="20">
         <ListView x:Name="ListaDesayunos" VerticalOptions="FillAndExpand" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="Gray">
             <ListView.ItemTemplate>
@@ -41,6 +42,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Agregar Desayuno" x:Name="BtnI" BackgroundColor="#C44C89" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="15" Clicked="Registrar_Clicked"/>
+        <Button Text="Agregar Desayuno" x:Name="BtnI" BackgroundColor="#C44C89" Style="{DynamicResource LabelTheme}" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="15" Clicked="Registrar_Clicked"/>
     </StackLayout>
 </ContentPage>

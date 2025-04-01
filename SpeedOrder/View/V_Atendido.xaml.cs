@@ -7,6 +7,7 @@ using SpeedOrder.Models;
 using SpeedOrder.Tables;
 using SQLite;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -34,13 +35,16 @@ namespace SpeedOrder.View
         public List<Tables.Menu> MenuList = Menus.Datos();
         public Gestion g;
         public Meseros _mesero;
+        private List<Orden> _orden = new List<Orden>();
         public Orden o;
         public Mesa ms;
         public Ticket t;
         public Atender a;
+        //private List<Platillo_Orden> _porden = new List<Platillo_Orden>();
         public Platillo_Orden po;
         private Platillo PlatilloSeleccionado;
         private float total = 0;
+        private decimal finaltotal = 0;
         private string nombre;
         private double precio = 0;
         int IdMesa;
@@ -76,10 +80,7 @@ namespace SpeedOrder.View
                     TxtMesero.Text = $"{_mesero.Nombre} {_mesero.Ape_paterno} {_mesero.Ape_materno}";
                 }
             }
-            else
-            {
-                TxtMesero.Text = "No se ha proporcionado correo.";
-            }
+            ObtenerOrden();
             base.OnAppearing();
         }
         private async void PDF_Clicked(object sender, EventArgs e)
@@ -302,7 +303,37 @@ namespace SpeedOrder.View
                 await DisplayAlert("Error", "No se pudo obtener el ID del platillo.", "OK");
             }
         }
+        public async void Orden()
+        {
+            if (Propina.IsChecked)
+            {
+                finaltotal = Convert.ToDecimal(total) * 1.15m;
+            }
+            else
+            {
+                finaltotal = Convert.ToDecimal(total);
+            }
 
+            o = new Orden
+            {
+                Fecha = DateTime.Now,
+                Nombre_Cliente = TxtCliente.Text,
+                Subtotal = Convert.ToDecimal(total),
+                Total = finaltotal,
+            };
+            await _db.InsertAsync(o);
+        }
+        public async void ObtenerOrden()
+        {
+            var registro = await _db.Table<Orden>().ToListAsync();
+
+            if (registro.Any())
+            {
+                var ultimaOrden = registro.Last();
+
+                po = await _db.Table<Platillo_Orden>().FirstOrDefaultAsync(m => m.Id_Orden == ultimaOrden.Id_Orden);
+            }
+        }
         private async void QR_Clicked(object sender, EventArgs e)
         {
             string creationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");

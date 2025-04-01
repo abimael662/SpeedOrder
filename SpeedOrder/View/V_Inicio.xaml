@@ -5,7 +5,8 @@
              NavigationPage.HasNavigationBar="False"
              xmlns:local="clr-namespace:SpeedOrder.ViewModel"
              x:DataType="local:LoginViewModel"
-             x:Class="SpeedOrder.View.V_Inicio">
+             x:Class="SpeedOrder.View.V_Inicio"
+             Style="{DynamicResource PageTheme}">
     <ContentPage.BindingContext>
         <local:LoginViewModel/>
     </ContentPage.BindingContext>

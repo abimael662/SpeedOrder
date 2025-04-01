@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              IconImageSource="Restaurante"
-             x:Class="SpeedOrder.View.V_Mesas">
+             x:Class="SpeedOrder.View.V_Mesas"
+             Style="{DynamicResource PageTheme}">
     <StackLayout Padding="10">
 
         <Frame BackgroundColor="#5F1890" CornerRadius="10" Padding="10">

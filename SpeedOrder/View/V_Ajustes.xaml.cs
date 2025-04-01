@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,6 +17,8 @@ namespace SpeedOrder.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class V_Ajustes : ContentPage
     {
+        private bool isDarkTheme = false;
+
         public readonly SQLiteAsyncConnection _db;
         public Meseros _mesero;
         public V_Ajustes()
@@ -57,6 +59,27 @@ namespace SpeedOrder.View
         private async void TxtDelete_Clicked(object sender, EventArgs e)
         {
             await PopupNavigation.Instance.PushAsync(new V_EliminarCuenta());
+        }
+        private void OnThemeToggle(object sender, EventArgs e)
+        {
+            isDarkTheme = !isDarkTheme;
+
+            if (isDarkTheme)
+            {
+                Application.Current.Resources["PageTheme"] = Application.Current.Resources["DarkTheme"];
+                Application.Current.Resources["LabelTheme"] = Application.Current.Resources["DarkLabel"];
+                Application.Current.Resources["ButtonTheme"] = Application.Current.Resources["DarkButton"];
+                Application.Current.UserAppTheme = OSAppTheme.Dark;
+                Preferences.Set("UserTheme", "Dark");  // ✅ Guarda el tema oscuro
+            }
+            else
+            {
+                Application.Current.Resources["PageTheme"] = Application.Current.Resources["LightTheme"];
+                Application.Current.Resources["LabelTheme"] = Application.Current.Resources["LightLabel"];
+                Application.Current.Resources["ButtonTheme"] = Application.Current.Resources["LightButton"];
+                Application.Current.UserAppTheme = OSAppTheme.Light;
+                Preferences.Set("UserTheme", "Light"); // ✅ Guarda el tema claro
+            }
         }
     }
 }

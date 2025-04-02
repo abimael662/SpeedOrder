@@ -31,195 +31,90 @@ namespace SpeedOrder.View
         }
         private async void BtnRegistrar_Clicked(object sender, System.EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TxtPlatillo.Text) || string.IsNullOrWhiteSpace(TxtPrecio.Text))
+            try
             {
-                await DisplayAlert("Error", "Todos los campos son obligatorios", "OK");
-                return;
-            }
+                if (string.IsNullOrWhiteSpace(TxtPlatillo.Text) || string.IsNullOrWhiteSpace(TxtPrecio.Text))
+                {
+                    await DisplayAlert("Error", "Todos los campos son obligatorios", "OK");
+                    return;
+                }
 
-            if (TipoComida.SelectedIndex == 0)
-            {
-                await DisplayAlert("Error", "Selecciona un tipo de comida", "OK");
-                return;
-            }
+                if (TipoComida.SelectedIndex <= 0) // Mejor validación
+                {
+                    await DisplayAlert("Error", "Selecciona un tipo de comida válido", "OK");
+                    return;
+                }
 
-            if (!double.TryParse(TxtPrecio.Text, out double precio))
-            {
-                await DisplayAlert("Error", "El precio debe ser un número válido", "OK");
-                return;
-            }
+                if (!double.TryParse(TxtPrecio.Text, out double precio) || precio <= 0)
+                {
+                    await DisplayAlert("Error", "Ingresa un precio válido (número positivo)", "OK");
+                    return;
+                }
 
-            var menuSeleccionado = (Tables.Menu)TipoComida.SelectedItem;
+                var menuSeleccionado = (Tables.Menu)TipoComida.SelectedItem;
 
-            string categoria;
-            switch (menuSeleccionado.Id_Menu)
-            {
-                case 1:
-                    categoria = "Bebidas";
-                    break;
-                case 2:
-                    categoria = "Desayuno";
-                    break;
-                case 3:
-                    categoria = "Comidas";
-                    break;
-                case 4:
-                    categoria = "Cenas";
-                    break;
-                case 5:
-                    categoria = "Postres";
-                    break;
-                default:
-                    throw new InvalidOperationException("Tipo de comida no válido");
-            }
+                // Mapeo más seguro
+                var categorias = new Dictionary<int, string>
+        {
+            {1, "Bebidas"},
+            {2, "Desayuno"},
+            {3, "Comidas"},
+            {4, "Cenas"},
+            {5, "Postres"}
+        };
+                if (!categorias.TryGetValue(menuSeleccionado.Id_Menu, out string categoria))
+                {
+                    await DisplayAlert("Error", "Tipo de comida no válido", "OK");
+                    return;
+                }
 
-            p = new Platillo
-            {
-                Nombre_Platillo = TxtPlatillo.Text,
-                Precio_Platillo = precio,
-                Disponible = TxtDisponible.IsChecked,
-                Photo = categoria 
-            };
+                p = new Platillo
+                {
+                    Nombre_Platillo = TxtPlatillo.Text,
+                    Precio_Platillo = precio,
+                    Disponible = TxtDisponible.IsChecked,
+                    Photo = categoria
+                };
 
-            await _db.InsertAsync(p);
+                await _db.InsertAsync(p);
 
-            // Obtener el último platillo insertado
-            var platilloInsertado = await _db.Table<Platillo>().OrderByDescending(x => x.Id_Platillo).FirstOrDefaultAsync();
+                var platilloInsertado = await _db.Table<Platillo>()
+                                               .OrderByDescending(x => x.Id_Platillo)
+                                               .FirstOrDefaultAsync();
 
-            if (platilloInsertado != null)
-            {
+                if (platilloInsertado == null)
+                {
+                    await DisplayAlert("Error", "Hubo un problema al insertar el platillo", "OK");
+                    return;
+                }
+
                 tm = new Tipo_Menu
                 {
                     Id_Platillo = platilloInsertado.Id_Platillo,
                     Id_Menu = menuSeleccionado.Id_Menu
                 };
 
-                // Insertar la relación entre el platillo y el tipo de menú
                 await _db.InsertAsync(tm);
-
                 await DisplayAlert("Éxito", "Platillo registrado correctamente", "OK");
                 await PopupNavigation.Instance.PopAsync();
             }
-            else
+            catch (Exception ex)
             {
-                await DisplayAlert("Error", "Hubo un problema al insertar el platillo", "OK");
+                await DisplayAlert("Error", $"Ocurrió un error: {ex.Message}", "OK");
             }
         }
-        /*
-        private async void BtnRegistrar_Clicked(object sender, System.EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(TxtPlatillo.Text) || string.IsNullOrWhiteSpace(TxtPrecio.Text))
-            {
-                await DisplayAlert("Error", "Todos los campos son obligatorios", "OK");
-                return;
-            }
-
-            if (TipoComida.SelectedIndex == 0)
-            {
-                await DisplayAlert("Error", "Selecciona un tipo de comida", "OK");
-                return;
-            }
-
-            var menuSeleccionado = (Tables.Menu)TipoComida.SelectedItem;
-
-            p = new Platillo
-            {
-                Nombre_Platillo = TxtPlatillo.Text,
-                Precio_Platillo = Convert.ToDouble(TxtPrecio.Text),
-                Disponible = TxtDisponible.IsChecked
-            };
-
-            await _db.InsertAsync(p);
-
-            var platilloInsertado = await _db.Table<Platillo>().OrderByDescending(x => x.Id_Platillo).FirstOrDefaultAsync();
-
-            if (platilloInsertado != null)
-            {
-                tm = new Tipo_Menu
-                {
-                    Id_Platillo = platilloInsertado.Id_Platillo,
-                    Id_Menu = menuSeleccionado.Id_Menu
-                };
-
-                await _db.InsertAsync(tm);
-            }
-            
-
-            if (menuSeleccionado.Id_Menu == 1)
-            {
-                p = new Platillo
-                {
-                    Id_Platillo = platilloInsertado.Id_Platillo,
-                    Nombre_Platillo = TxtPlatillo.Text,
-                    Precio_Platillo = Convert.ToDouble(TxtPrecio.Text),
-                    Photo = "Bebidas",
-                    Disponible = TxtDisponible.IsChecked
-                };
-                await _db.UpdateAsync(p);
-            } else if (menuSeleccionado.Id_Menu == 2)
-            {
-                p = new Platillo
-                {
-                    Id_Platillo = platilloInsertado.Id_Platillo,
-                    Nombre_Platillo = TxtPlatillo.Text,
-                    Precio_Platillo = Convert.ToDouble(TxtPrecio.Text),
-                    Photo = "Desayunos",
-                    Disponible = TxtDisponible.IsChecked
-                };
-                await _db.UpdateAsync(p);
-            }
-            else if (menuSeleccionado.Id_Menu == 3)
-            {
-                p = new Platillo
-                {
-                    Id_Platillo = platilloInsertado.Id_Platillo,
-                    Nombre_Platillo = TxtPlatillo.Text,
-                    Precio_Platillo = Convert.ToDouble(TxtPrecio.Text),
-                    Photo = "Comidas",
-                    Disponible = TxtDisponible.IsChecked
-                };
-                await _db.UpdateAsync(p);
-            }
-            else if (menuSeleccionado.Id_Menu == 4)
-            {
-                p = new Platillo
-                {
-                    Id_Platillo = platilloInsertado.Id_Platillo,
-                    Nombre_Platillo = TxtPlatillo.Text,
-                    Precio_Platillo = Convert.ToDouble(TxtPrecio.Text),
-                    Photo = "Cenas",
-                    Disponible = TxtDisponible.IsChecked
-                };
-                await _db.UpdateAsync(p);
-            }
-            else if (menuSeleccionado.Id_Menu == 5)
-            {
-                p = new Platillo
-                {
-                    Id_Platillo = platilloInsertado.Id_Platillo,
-                    Nombre_Platillo = TxtPlatillo.Text,
-                    Precio_Platillo = Convert.ToDouble(TxtPrecio.Text),
-                    Photo = "Postres",
-                    Disponible = TxtDisponible.IsChecked
-                };
-                await _db.UpdateAsync(p);
-            }
-
-            await DisplayAlert("Éxito", "Platillo registrado correctamente", "OK");
-            await PopupNavigation.Instance.PopAsync();
-        }*/
         private async void BtnCerrar_Clicked(object sender, System.EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
         }
         protected override bool OnBackButtonPressed()
-    {
-        if (PopupNavigation.Instance.PopupStack.Count > 0)
         {
-            PopupNavigation.Instance.PopAsync();
-            return true;
+            if (PopupNavigation.Instance.PopupStack.Count > 0)
+            {
+                PopupNavigation.Instance.PopAsync();
+                return true;
+            }
+            return base.OnBackButtonPressed();
         }
-        return base.OnBackButtonPressed();
-    }
     }
 }

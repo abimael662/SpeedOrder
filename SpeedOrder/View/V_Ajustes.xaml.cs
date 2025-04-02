@@ -50,6 +50,16 @@ namespace SpeedOrder.View
             {
                 TxtNombre.Text = "No se ha proporcionado correo.";
             }
+
+            string savedTheme = Preferences.Get("UserTheme", "Default");
+
+            if (savedTheme == "Default")
+            {
+                OSAppTheme systemTheme = Application.Current.RequestedTheme;
+                savedTheme = systemTheme == OSAppTheme.Dark ? "Dark" : "Light";
+            }
+
+            Tema.IconImageSource = savedTheme == "Dark" ? "Sun" : "Moon";
         }
         private async void TxtEdit_Clicked(object sender, EventArgs e)
         {
@@ -70,7 +80,8 @@ namespace SpeedOrder.View
                 Application.Current.Resources["LabelTheme"] = Application.Current.Resources["DarkLabel"];
                 Application.Current.Resources["ButtonTheme"] = Application.Current.Resources["DarkButton"];
                 Application.Current.UserAppTheme = OSAppTheme.Dark;
-                Preferences.Set("UserTheme", "Dark");  // ✅ Guarda el tema oscuro
+                Preferences.Set("UserTheme", "Dark");
+                Tema.IconImageSource = "Sun"; // 🌞 Icono de Sol para modo oscuro
             }
             else
             {
@@ -78,8 +89,16 @@ namespace SpeedOrder.View
                 Application.Current.Resources["LabelTheme"] = Application.Current.Resources["LightLabel"];
                 Application.Current.Resources["ButtonTheme"] = Application.Current.Resources["LightButton"];
                 Application.Current.UserAppTheme = OSAppTheme.Light;
-                Preferences.Set("UserTheme", "Light"); // ✅ Guarda el tema claro
+                Preferences.Set("UserTheme", "Light");
+                Tema.IconImageSource = "Moon"; // 🌙 Icono de Luna para modo claro
             }
         }
+        protected override bool OnBackButtonPressed()
+        {
+            // Regresar a la pantalla de inicio
+            Application.Current.MainPage = new V_IceCream();
+            return true; // Evita la navegación predeterminada
+        }
+
     }
 }

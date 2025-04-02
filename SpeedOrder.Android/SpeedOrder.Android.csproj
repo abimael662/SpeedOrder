@@ -64,6 +64,12 @@
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.9.172</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2662" />
     <PackageReference Include="Xamarin.Essentials" Version="1.8.1" />
     <PackageReference Include="Xamarin.Forms.PancakeView">
@@ -164,7 +170,11 @@
     <AndroidResource Include="Resources\drawable\Purueba.gif" />
     <AndroidResource Include="Resources\drawable\abierto.png" />
     <AndroidResource Include="Resources\drawable\esconder.png" />
+    <AndroidResource Include="Resources\drawable\luna.png" />
+    <AndroidResource Include="Resources\drawable\soleado.png" />
+    <AndroidResource Include="Resources\drawable\moon.png" />
     <Content Include="Resources\drawable\Splash.xml" />
+    <AndroidResource Include="Resources\drawable\Sun.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

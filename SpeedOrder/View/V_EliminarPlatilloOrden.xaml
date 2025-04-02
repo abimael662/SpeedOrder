@@ -2,23 +2,18 @@
 <popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             x:Class="SpeedOrder.View.V_PlatilloOrden">
-    
+             x:Class="SpeedOrder.View.V_EliminarPlatilloOrden">
     <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-        <Frame BackgroundColor="#FFDEED" Padding="20" CornerRadius="10" HasShadow="True" WidthRequest="250" HeightRequest="300">
+        <Frame BackgroundColor="#FFDEED" Padding="20" CornerRadius="10" HasShadow="True" WidthRequest="250" HeightRequest="250">
             <StackLayout>
                 <Label Text="Cantidad" FontSize="Large" HorizontalOptions="Center" TextColor="#000"/>
-                <Label Text="Id_Platillo:" TextColor="#000" x:Name="TxtIdPlatillo" IsVisible="False"/>
-
-                <Label Text="Mesa:" TextColor="#000" />
-                <Picker x:Name="TxtIdMenu" TextColor="#190231" />
-
-                <Label Text="Id_Orden:" TextColor="#000" x:Name="TxtIdOrden" IsVisible="False"/>
+                <Label Text="Id_Platillo:" TextColor="#000" x:Name="TxtIdPlatilloOrden" IsVisible="False"/>
 
                 <Label Text="Cantidad:" TextColor="#000"/>
                 <Entry TextColor="Black" x:Name="TxtCantidad" Keyboard="Numeric" />
 
-                <Button Text="Solicitar" Clicked="BtnRegistrar_Clicked" BackgroundColor="#CB53C1" TextColor="White"  CornerRadius="10"/>
+                <Button Text="Editar" Clicked="BtnActualizar_Clicked" BackgroundColor="#CB53C1" TextColor="White"  CornerRadius="10"/>
+                <Button Text="Eliminar" Clicked="BtnEliminarClicked" BackgroundColor="#5F1890" TextColor="White"  CornerRadius="10"/>
                 <Button Text="Cerrar" Clicked="BtnCerrar_Clicked" BackgroundColor="#6D1D4E" TextColor="White" CornerRadius="10"/>
             </StackLayout>
         </Frame>

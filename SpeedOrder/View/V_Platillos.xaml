@@ -23,7 +23,7 @@
 
                                             <StackLayout Grid.Column="1" Padding="10">
                                                 <Grid ColumnDefinitions="*,*" VerticalOptions="Center">
-                                                    <CheckBox Grid.Column="0" IsChecked="{Binding Disponible}"/>
+                                                    <CheckBox Grid.Column="0" IsChecked="{Binding Disponible}" IsEnabled="False"/>
                                                     <Label Text="Agotado" TextColor="Black" Margin="30,5,0,0"/>
                                                     <Label Text="{Binding Precio_Platillo, StringFormat='${0:F2}'}" TextColor="#000" HorizontalOptions="End" FontSize="20" Grid.Column="1"/>
                                                 </Grid>
@@ -31,12 +31,7 @@
                                                     <Frame Grid.Column="0" HasShadow="True" BackgroundColor="#CB53C1" Padding="0">
                                                         <Label Text="{Binding Nombre_Platillo}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White" Padding="0" />
                                                     </Frame>
-                                                    <!--<Button Grid.Column="1" 
-                                        Text="+" 
-                                        BackgroundColor="#5F1890" 
-                                        Command="{Binding AgregarCommand}"
-                                        HorizontalOptions="End" 
-                                        VerticalOptions="Center"/>-->
+                                                    <Button Grid.Column="1" Text="+" BackgroundColor="#5F1890" HorizontalOptions="End" VerticalOptions="Center" Clicked="TxtCantidad_Clicked" CommandParameter="{Binding Id_Platillo}"  />
                                                 </Grid>
                                             </StackLayout>
                                         </Grid>

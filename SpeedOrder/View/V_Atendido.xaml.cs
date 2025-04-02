@@ -32,6 +32,7 @@ namespace SpeedOrder.View
         public readonly SQLiteAsyncConnection _db;
         public ObservableCollection<Platillo> TPlatillos;
         private List<Platillo> _platillo = new List<Platillo>();
+        private List<Platillo_Orden> _platilloOr = new List<Platillo_Orden>();
         public List<Tables.Menu> MenuList = Menus.Datos();
         public Gestion g;
         public Meseros _mesero;
@@ -40,14 +41,16 @@ namespace SpeedOrder.View
         public Mesa ms;
         public Ticket t;
         public Atender a;
-        //private List<Platillo_Orden> _porden = new List<Platillo_Orden>();
         public Platillo_Orden po;
-        private Platillo PlatilloSeleccionado;
         private float total = 0;
         private decimal finaltotal = 0;
         private string nombre;
         private double precio = 0;
         int IdMesa;
+        string nomcliente;
+        int numtiket;
+        int cantidad;
+        float subtotal;
         public V_Atendido(int Id_Mesa)
         {
             InitializeComponent();
@@ -66,23 +69,90 @@ namespace SpeedOrder.View
         }
         protected async override void OnAppearing()
         {
-            var Registros = await _db.Table<Platillo>().ToListAsync();
-            _platillo = Registros.ToList();
-            ListaPlatillos.ItemsSource = _platillo;
-            var correo = App.ViewModelGlobal.Correo;
-
-            if (!string.IsNullOrEmpty(correo))
+            base.OnAppearing();
+            try
             {
-                _mesero = (await _db.Table<Meseros>().FirstOrDefaultAsync(m => m.Email == correo));
+                var correo = App.ViewModelGlobal.Correo;
 
-                if (_mesero != null)
+                if (!string.IsNullOrEmpty(correo))
                 {
-                    TxtMesero.Text = $"{_mesero.Nombre} {_mesero.Ape_paterno} {_mesero.Ape_materno}";
+                    _mesero = await _db.Table<Meseros>().FirstOrDefaultAsync(m => m.Email == correo);
+                    ObtenerOrden();
+                    if (_mesero != null)
+                    {
+                        TxtMesero.Text = $"{_mesero.Nombre} {_mesero.Ape_paterno} {_mesero.Ape_materno}";
+                        var atender = (await _db.Table<Atender>().FirstOrDefaultAsync(a => a.Id_Mesero == _mesero.Id_Mesero));
+                        var ticket = (await _db.Table<Ticket>().FirstOrDefaultAsync(a => a.Id_Mesa == atender.Id_Mesa));
+                        var orden = (await _db.Table<Orden>().FirstOrDefaultAsync(a => a.Id_Orden == ticket.Id_Orden));
+                        if (orden != null)
+                        {
+                            TxtCliente.Text = $"{orden.Nombre_Cliente}";
+                            nomcliente = orden.Nombre_Cliente;
+                            numtiket = ticket.Id_Ticket;
+                        }
+                    }
                 }
             }
-            ObtenerOrden();
-            base.OnAppearing();
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Error al cargar datos: {ex.Message}", "OK");
+            }
         }
+
+        public async void ObtenerOrden()
+        {
+            try
+            {
+                if (_mesero == null)
+                {
+                    await DisplayAlert("Error", "No se encontró el mesero.", "OK");
+                    return;
+                }
+
+                var atender = await _db.Table<Atender>().FirstOrDefaultAsync(a => a.Id_Mesero == _mesero.Id_Mesero);
+                if (atender == null)
+                {
+                    await DisplayAlert("Error", "No se encontró la mesa atendida.", "OK");
+                    return;
+                }
+
+                var ticket = await _db.Table<Ticket>().FirstOrDefaultAsync(a => a.Id_Mesa == atender.Id_Mesa);
+                if (ticket == null)
+                {
+                    await DisplayAlert("Error", "No se encontró el ticket.", "OK");
+                    return;
+                }
+
+                var ordenPlatillos = await _db.Table<Platillo_Orden>().Where(po => po.Id_Orden == ticket.Id_Orden).ToListAsync();
+                if (ordenPlatillos == null || !ordenPlatillos.Any())
+                {
+                    await DisplayAlert("Error", "No hay platillos en la orden.", "OK");
+                    return;
+                }
+
+                var platillos = new List<Platillo>();
+                subtotal = 0;
+
+                foreach (var po in ordenPlatillos)
+                {
+                    var platillo = await _db.Table<Platillo>().FirstOrDefaultAsync(p => p.Id_Platillo == po.Id_Platillo);
+                    if (platillo != null)
+                        platillos.Add(platillo);
+
+                    subtotal += (float)(platillo.Precio_Platillo * po.Cantidad);
+                }
+
+                _platillo = platillos;
+                ListaPlatillos.ItemsSource = null;  // Resetear lista
+                ListaPlatillos.ItemsSource = _platillo;
+                CalcularTotales();
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Error al obtener orden: {ex.Message}", "OK");
+            }
+        }
+
         private async void PDF_Clicked(object sender, EventArgs e)
         {
             // Resetear el total para que no se acumule entre tickets
@@ -158,11 +228,11 @@ namespace SpeedOrder.View
 
                 string creationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 document.Add(new Paragraph($"Fecha y Hora: {creationDate} \n", font));
-                
-                PdfPTable tableInicio = new PdfPTable(2); 
+
+                PdfPTable tableInicio = new PdfPTable(2);
                 tableInicio.WidthPercentage = 100;
 
-                PdfPCell ticket = new PdfPCell(new Phrase("No.Ticket: ", font))
+                PdfPCell ticket = new PdfPCell(new Phrase($"No.Ticket:{numtiket} ", font))
                 {
                     Border = iTextSharp.text.Rectangle.NO_BORDER,
                     HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT,
@@ -185,8 +255,7 @@ namespace SpeedOrder.View
                 document.Add(separatorTable);
 
                 // Asegurarse de que el cliente tenga un valor asignado en TxtCliente
-                string cliente = string.IsNullOrEmpty(TxtCliente.Text) ? "Cliente no especificado" : TxtCliente.Text;
-                document.Add(new Paragraph($"Mesero: {TxtMesero.Text} \nCliente: {cliente} \n\n", font));
+                document.Add(new Paragraph($"Mesero: {TxtMesero.Text} \nCliente: {nomcliente} \n\n", font));
 
                 document.Add(separatorTable);
                 // Crear la tabla para mostrar Producto y Precio
@@ -200,28 +269,32 @@ namespace SpeedOrder.View
                 // Agregar los encabezados a la tabla
                 table.AddCell(cellProducto);
                 table.AddCell(cellPrecio);
-
-                // Agregar los platillos a la tabla
-                foreach (var platillo in _platillo)
+                foreach (var po in await _db.Table<Platillo_Orden>().Where(po => po.Id_Orden == numtiket).ToListAsync())
                 {
-                    nombre = platillo.Nombre_Platillo;
-                    precio = platillo.Precio_Platillo;
-
-                    // Agregar las celdas para el platillo
-                    table.AddCell(new PdfPCell(new Phrase(nombre, font))
+                    var platillo = await _db.Table<Platillo>().FirstOrDefaultAsync(p => p.Id_Platillo == po.Id_Platillo);
+                    if (platillo != null)
                     {
-                        Border = iTextSharp.text.Rectangle.NO_BORDER, // Sin borde
-                        HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT, // Alinear a la izquierda
-                        VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE
-                    });
-                    table.AddCell(new PdfPCell(new Phrase($"${precio:F2}", font)) {
-                        Border = iTextSharp.text.Rectangle.NO_BORDER, // Sin borde
-                        HorizontalAlignment = iTextSharp.text.Element.ALIGN_RIGHT,
-                        VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE
-                    });
+                        nombre = platillo.Nombre_Platillo;
+                        precio = platillo.Precio_Platillo;
+                        cantidad = po.Cantidad;  // Obtener la cantidad del platillo ordenado
+                        subtotal = (float)(precio * cantidad); // Calcular el subtotal por platillo
 
-                        // Sumar al total
-                        total += Convert.ToInt32(platillo.Precio_Platillo);
+                        // Agregar platillo y su subtotal al PDF
+                        table.AddCell(new PdfPCell(new Phrase($"{nombre} (x{cantidad})", font))
+                        {
+                            Border = iTextSharp.text.Rectangle.NO_BORDER,
+                            HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT,
+                            VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE
+                        });
+                        table.AddCell(new PdfPCell(new Phrase($"${subtotal:F2}", font))
+                        {
+                            Border = iTextSharp.text.Rectangle.NO_BORDER,
+                            HorizontalAlignment = iTextSharp.text.Element.ALIGN_RIGHT,
+                            VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE
+                        });
+
+                        total += subtotal;  // ✅ Ahora sumamos correctamente la cantidad * precio
+                    }
                 }
 
                 // Agregar la tabla al documento
@@ -230,28 +303,60 @@ namespace SpeedOrder.View
                 // Agregar la tabla con la línea al documento
                 document.Add(separatorTable);
 
-                PdfPTable totalTable = new PdfPTable(2); // Dos columnas: una para TOTAL y otra para el resultado
-                totalTable.WidthPercentage = 100; // Ancho completo de la página
-
-                // Configurar las celdas para TOTAL y el total numérico
-                PdfPCell cellTotalLabel = new PdfPCell(new Phrase("TOTAL:", totalFont))
+                // Agregar subtotal al ticket
+                PdfPTable subtotalTable = new PdfPTable(2);
+                subtotalTable.WidthPercentage = 100;
+                subtotalTable.AddCell(new PdfPCell(new Phrase("Subtotal:", totalFont))
                 {
-                    Border = iTextSharp.text.Rectangle.NO_BORDER, // Sin borde
-                    HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT, // Alinear a la izquierda
-                    VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE
-                };
-
-                PdfPCell cellTotalValue = new PdfPCell(new Phrase($"${total:F2}", totalFont))
+                    Border = iTextSharp.text.Rectangle.NO_BORDER,
+                    HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT
+                });
+                subtotalTable.AddCell(new PdfPCell(new Phrase($"${total:F2}", totalFont)) // Usamos 'total' que ya tiene la suma de los subtotales
                 {
-                    Border = iTextSharp.text.Rectangle.NO_BORDER, // Sin borde
-                    HorizontalAlignment = iTextSharp.text.Element.ALIGN_RIGHT, // Alinear a la derecha
-                    VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE
-                };
+                    Border = iTextSharp.text.Rectangle.NO_BORDER,
+                    HorizontalAlignment = iTextSharp.text.Element.ALIGN_RIGHT
+                });
+                document.Add(subtotalTable);
 
-                // Agregar las celdas a la tabla del total
-                totalTable.AddCell(cellTotalLabel);
-                totalTable.AddCell(cellTotalValue);
+                // Agregar propina si está activada
+                if (Propina.IsChecked)
+                {
+                    decimal propina = (decimal)total * 0.15m; // Propina del 15%
+                    PdfPTable propinaTable = new PdfPTable(2);
+                    propinaTable.WidthPercentage = 100;
+                    propinaTable.AddCell(new PdfPCell(new Phrase("Propina (15%):", totalFont))
+                    {
+                        Border = iTextSharp.text.Rectangle.NO_BORDER,
+                        HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT
+                    });
+                    propinaTable.AddCell(new PdfPCell(new Phrase($"${propina:F2}", totalFont))
+                    {
+                        Border = iTextSharp.text.Rectangle.NO_BORDER,
+                        HorizontalAlignment = iTextSharp.text.Element.ALIGN_RIGHT
+                    });
+                    document.Add(propinaTable);
+                }
 
+                // Calcular el total final (subtotal + propina, si aplica)
+                finaltotal = (decimal)total;
+                if (Propina.IsChecked)
+                {
+                    finaltotal += (decimal)total * 0.15m; // Agregar la propina al total final
+                }
+
+                // Agregar total final
+                PdfPTable totalTable = new PdfPTable(2);
+                totalTable.WidthPercentage = 100;
+                totalTable.AddCell(new PdfPCell(new Phrase("TOTAL:", totalFont))
+                {
+                    Border = iTextSharp.text.Rectangle.NO_BORDER,
+                    HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT
+                });
+                totalTable.AddCell(new PdfPCell(new Phrase($"${finaltotal:F2}", totalFont))
+                {
+                    Border = iTextSharp.text.Rectangle.NO_BORDER,
+                    HorizontalAlignment = iTextSharp.text.Element.ALIGN_RIGHT
+                });
                 document.Add(totalTable);
 
                 // Agregar un mensaje final
@@ -282,60 +387,50 @@ namespace SpeedOrder.View
                 await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Error", $"Error al imprimir: {ex.Message}", "OK");
             }
         }
-
-        private void ListaPlatillos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            if (e.SelectedItem == null)
-                return;
-
-            PlatilloSeleccionado = e.SelectedItem as Platillo;
-            ListaPlatillos.SelectedItem = null;
-        }
         private async void TxtCantidad_Clicked(object sender, EventArgs e)
         {
             var button = sender as Button;
             if (button?.CommandParameter is int idPlatillo)
             {
-                await PopupNavigation.Instance.PushAsync(new V_PlatilloOrden(idPlatillo));
+                var atender = await _db.Table<Atender>().FirstOrDefaultAsync(a => a.Id_Mesero == _mesero.Id_Mesero);
+                if (atender == null)
+                {
+                    await DisplayAlert("Error", "No se encontró el mesero asociado.", "OK");
+                    return;
+                }
+
+                var ticket = await _db.Table<Ticket>().FirstOrDefaultAsync(a => a.Id_Mesa == atender.Id_Mesa);
+                if (ticket == null)
+                {
+                    await DisplayAlert("Error", "No se encontró el ticket para esta mesa.", "OK");
+                    return;
+                }
+
+                var orden = await _db.Table<Orden>().FirstOrDefaultAsync(a => a.Id_Orden == ticket.Id_Orden);
+                if (orden == null)
+                {
+                    await DisplayAlert("Error", "No se encontró la orden asociada a este ticket.", "OK");
+                    return;
+                }
+
+                var platillorden = await _db.Table<Platillo_Orden>().FirstOrDefaultAsync(a => a.Id_Orden == ticket.Id_Orden && a.Id_Platillo == idPlatillo);
+                if (platillorden == null)
+                {
+                    await DisplayAlert("Error", "No se encontró el platillo en esta orden.", "OK");
+                    return;
+                }
+
+                int pla = platillorden.Id_Platillo_Orden;
+                await PopupNavigation.Instance.PushAsync(new V_EliminarPlatilloOrden(pla));
             }
             else
             {
                 await DisplayAlert("Error", "No se pudo obtener el ID del platillo.", "OK");
             }
         }
-        public async void Orden()
-        {
-            if (Propina.IsChecked)
-            {
-                finaltotal = Convert.ToDecimal(total) * 1.15m;
-            }
-            else
-            {
-                finaltotal = Convert.ToDecimal(total);
-            }
-
-            o = new Orden
-            {
-                Fecha = DateTime.Now,
-                Nombre_Cliente = TxtCliente.Text,
-                Subtotal = Convert.ToDecimal(total),
-                Total = finaltotal,
-            };
-            await _db.InsertAsync(o);
-        }
-        public async void ObtenerOrden()
-        {
-            var registro = await _db.Table<Orden>().ToListAsync();
-
-            if (registro.Any())
-            {
-                var ultimaOrden = registro.Last();
-
-                po = await _db.Table<Platillo_Orden>().FirstOrDefaultAsync(m => m.Id_Orden == ultimaOrden.Id_Orden);
-            }
-        }
         private async void QR_Clicked(object sender, EventArgs e)
         {
+
             string creationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string mesero = TxtMesero.Text;
             string cliente = TxtCliente.Text;
@@ -343,6 +438,22 @@ namespace SpeedOrder.View
             string cadena = $"Fecha: {creationDate}\nMesa: {IdMesa}\nMesero: {mesero}\nCliente: {cliente}\nTotal: ${total}\nGracias por su compra";
 
             await PopupNavigation.Instance.PushAsync(new V_QR(cadena));
+        }
+        private void CalcularTotales()
+        {
+            // Aplicar propina del 15% si el checkbox está marcado
+            decimal propina = Propina.IsChecked ? (decimal)subtotal * 0.15m : 0m;
+
+            // Calcular el total final
+            finaltotal = (decimal)subtotal + propina;
+
+            // Mostrar los valores en los Entries
+            TxtSubtotal.Text = $"${subtotal:F2}";
+            TxtTotal.Text = $"${finaltotal:F2}";
+        }
+        private void Propina_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            CalcularTotales();
         }
     }
 }

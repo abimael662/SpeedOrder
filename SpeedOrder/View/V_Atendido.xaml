@@ -19,7 +19,7 @@
             <Frame Padding="0" HasShadow="False" CornerRadius="5" BackgroundColor="Transparent">
                 <Grid>
                     <Label x:Name="LblCliente" Text="Nombre del Cliente:" FontSize="18" TextColor="#C44C89" FontAttributes="Bold" Margin="2,5,0,0" VerticalOptions="Start"/>
-                    <Entry x:Name="TxtCliente" MaxLength="10" Margin="0,20,0,20" FontSize="18" Style="{DynamicResource LabelTheme}" />
+                    <Entry x:Name="TxtCliente" Margin="0,20,0,20" FontSize="18" Style="{DynamicResource LabelTheme}" IsReadOnly="True" />
                 </Grid>
             </Frame>
 
@@ -28,78 +28,31 @@
                 <Button Grid.Column="1" Text="QR" x:Name="QR"  Clicked="QR_Clicked" BackgroundColor="#C44C89" TextColor="White" CornerRadius="10" VerticalOptions="CenterAndExpand" />
             </Grid>
 
-            <ListView x:Name="ListaPlatillos" VerticalOptions="FillAndExpand" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="Gray"  ItemSelected="ListaPlatillos_ItemSelected">
+            <ListView x:Name="ListaPlatillos" VerticalOptions="FillAndExpand" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="Gray" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ContentView>
                                 <ScrollView>
                                     <StackLayout Padding="10">
-                                        <Frame BorderColor="Gray" CornerRadius="5" Padding="10" HeightRequest="100" WidthRequest="300" IsClippedToBounds="True" BackgroundColor="#FFDEED">
+                                        <Frame BorderColor="Gray" CornerRadius="5" Padding="10" BackgroundColor="#FFDEED">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="100" />
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
 
-                                                <Image Source="{Binding Photo}" x:Name="ImgFoto" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                                                <Image Source="{Binding Photo}" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="100" WidthRequest="100" Grid.Column="0"/>
 
-                                                <StackLayout Grid.Column="1" Padding="0">
-                                                    <Grid ColumnDefinitions="*,*">
-                                                        <CheckBox Grid.Column="0" IsChecked="{Binding Disponible}"/>
-                                                        <Label Text="Agotado" TextColor="Black" Margin="30,5,0,0"/>
-                                                        <Label Text="{Binding Precio_Platillo, StringFormat='${0:F2}'}" TextColor="#000" HorizontalOptions="End" Grid.Column="1" FontSize="20"/>
+                                                <StackLayout Grid.Column="1" Padding="10">
+                                                    <Grid ColumnDefinitions="*,*" VerticalOptions="Center">
+                                                        <Label Text="{Binding Precio_Platillo, StringFormat='${0:F2}'}" TextColor="#000" HorizontalOptions="End" FontSize="20" Grid.Column="1"/>
                                                     </Grid>
-                                                    <Grid ColumnDefinitions="*,Auto" VerticalOptions="EndAndExpand">
+                                                    <Grid ColumnDefinitions="*,Auto">
                                                         <Frame Grid.Column="0" HasShadow="True" BackgroundColor="#CB53C1" Padding="0">
-                                                            <Label Text="{Binding Nombre_Platillo}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White" Padding="0"/>
+                                                            <Label Text="{Binding Nombre_Platillo}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White" Padding="0" />
                                                         </Frame>
-                                                        <Button Grid.Column="1" 
-                                                            Text="+" 
-                                                            TextColor="White" 
-                                                            BackgroundColor="#5F1890"  
-                                                            Clicked="TxtCantidad_Clicked" 
-                                                            CommandParameter="{Binding Id_Platillo}" 
-                                                            HorizontalOptions="End" 
-                                                            VerticalOptions="Center" />
-                                                    </Grid>
-                                                </StackLayout>
-                                            </Grid>
-                                        </Frame>
-                                    </StackLayout>
-                                </ScrollView>
-                            </ContentView>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView x:Name="ListaPedido" VerticalOptions="FillAndExpand" RowHeight="150" SeparatorVisibility="Default" SeparatorColor="Gray">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ContentView>
-                                <ScrollView>
-                                    <StackLayout Padding="10">
-                                        <Frame BorderColor="Gray" CornerRadius="5" Padding="10" HeightRequest="100" WidthRequest="300" IsClippedToBounds="True" BackgroundColor="#FFDEED">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Image Source="Cenas" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Column="0"/>
-
-                                                <StackLayout Grid.Column="1" Padding="0">
-                                                    <Grid ColumnDefinitions="*,*">
-                                                        <CheckBox Grid.Column="0" IsChecked="{Binding Disponible}"/>
-                                                        <Label Text="Agotado" TextColor="Black" Margin="30,5,0,0"/>
-                                                        <Label Text="{Binding Precio_Platillo, StringFormat='${0:F2}'}" TextColor="#000" HorizontalOptions="End" Grid.Column="1" FontSize="20"/>
-                                                    </Grid>
-                                                    <Grid>
-                                                        <Frame HasShadow="True" BackgroundColor="#CB53C1">
-                                                            <Label Text="{Binding Nombre_Platillo}" HorizontalOptions="Center" FontSize="18" TextColor="White" />
-                                                        </Frame>
-                                                        <Label Text="{Binding Tipo}"/>
+                                                        <Button Grid.Column="1" Text="-" x:Name="TxtHola" BackgroundColor="#5F1890" HorizontalOptions="End" VerticalOptions="Center" Clicked="TxtCantidad_Clicked" CommandParameter="{Binding Id_Platillo}"  />
                                                     </Grid>
                                                 </StackLayout>
                                             </Grid>
@@ -130,7 +83,7 @@
                     <Entry x:Name="TxtTotal" Grid.Column="1" Grid.Row="1" TextColor="White" IsReadOnly="True" />
 
                     <Label Text="Dar Propina del 15%:" Grid.ColumnSpan="2" Grid.Row="2" VerticalOptions="CenterAndExpand" TextColor="White" />
-                    <CheckBox x:Name="Propina" Grid.Column="1" Grid.Row="2" HorizontalOptions="CenterAndExpand" Color="White" />
+                    <CheckBox x:Name="Propina" Grid.Column="1" Grid.Row="2" HorizontalOptions="CenterAndExpand" Color="White" CheckedChanged="Propina_CheckedChanged"/>
                 </Grid>
             </Frame>
         </StackLayout>

@@ -1,4 +1,5 @@
 ﻿using iTextSharp.text;
+using Rg.Plugins.Popup.Services;
 using SpeedOrder.Tables;
 using SpeedOrder.ViewModel;
 using SQLite;
@@ -41,20 +42,18 @@ namespace SpeedOrder.View
             _platillo = Registros.ToList();
             ListaPlatillos.ItemsSource = _platillo;
             base.OnAppearing();
-        }/*
-        public void ActualizarImagen()
+        }
+        private async void TxtCantidad_Clicked(object sender, EventArgs e)
         {
-            var menu = MenuList.FirstOrDefault(m => m.Tipo == "Comidas" || m.Tipo == "Desayunos" || m.Tipo == "Cenas" || m.Tipo == "Bebidas" || m.Tipo == "Postres");
-            foreach (var platillo in _platillo)
+            var button = sender as Button;
+            if (button?.CommandParameter is int idPlatillo)
             {
-                var foto = FotoList.FirstOrDefault(f => f.Name == menu.Tipo);
-                if (foto != null)
-                {
-                    platillo.Photo = foto.Photo;
-                }
+                await PopupNavigation.Instance.PushAsync(new V_PlatilloOrden(idPlatillo));
             }
-            ListaPlatillos.ItemsSource = null;
-            ListaPlatillos.ItemsSource = _platillo;
-        }*/
+            else
+            {
+                await DisplayAlert("Error", "No se pudo obtener el ID del platillo.", "OK");
+            }
+        }
     }
 }

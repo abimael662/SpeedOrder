@@ -67,29 +67,19 @@ namespace SpeedOrder.View
                         BackgroundColor = mesa.Tipo == "Circular" ? Color.Red : Color.Blue,
                         WidthRequest = mesa.Tamano == "Grande" ? 50 : mesa.Tamano == "Mediana" ? 35 : 20,
                         HeightRequest = mesa.Tamano == "Grande" ? 50 : mesa.Tamano == "Mediana" ? 35 : 20,
+                        TranslationX = mesa.Ejex,
+                        TranslationY = mesa.EjeY,
                         HorizontalOptions = LayoutOptions.Start,
                         VerticalOptions = LayoutOptions.Start,
                         CornerRadius = 10,
                         AutomationId = mesaName,
                         Content = label
                     };
-                    /*
-                    var boxView = new BoxView
-                    {
-                        Color = mesa.Tipo == "Circular" ? Color.Red : Color.Blue,
-                        WidthRequest = 100,
-                        HeightRequest = 100,
-                        HorizontalOptions = LayoutOptions.Start,
-                        VerticalOptions = LayoutOptions.Start,
-                        AutomationId = mesaName
-                    };
-                    */
+
                     if (mesa.Tipo == "Circular")
                         boxView.CornerRadius = 100;
                     else
                         boxView.CornerRadius = 0;
-
-                    Canvas.Children.Add(boxView);
 
                     var panGesture = new PanGestureRecognizer();
                     panGesture.PanUpdated += (s, args) => OnPanUpdated(s, args);
@@ -102,14 +92,15 @@ namespace SpeedOrder.View
                     var tapGesture = new TapGestureRecognizer();
                     tapGesture.Tapped += async (s, args) =>
                     {
-                        //await Navigation.PushAsync(new V_Atendido());
                         await Navigation.PushAsync(new V_Atendido(mesa.Id_Mesa));
                     };
                     boxView.GestureRecognizers.Add(tapGesture);
+                    
+                    Canvas.Children.Add(boxView);
                 }
             }
         }
-        private void OnPanUpdated(object sender, PanUpdatedEventArgs args)
+        private async void OnPanUpdated(object sender, PanUpdatedEventArgs args)
         {
             if (sender is Frame boxView)
             {
@@ -127,6 +118,15 @@ namespace SpeedOrder.View
                         boxView.TranslationX = newX;
                         boxView.TranslationY = newY;
                         break;
+
+                    case GestureStatus.Completed:
+                        // Aquí se guarda la posición en la base de datos
+                        string idMesaStr = boxView.AutomationId?.Replace("Mesa ", "");
+                        if (int.TryParse(idMesaStr, out int idMesa))
+                        {
+                            await GuardarPosicionMesa(idMesa, boxView.TranslationX, boxView.TranslationY);
+                        }
+                        break;
                 }
             }
         }
@@ -143,6 +143,17 @@ namespace SpeedOrder.View
                 {
                     scale = boxView.Scale;
                 }
+            }
+        }
+        private async Task GuardarPosicionMesa(int idMesa, double ejex, double ejey)
+        {
+            // Obtiene la mesa de acuerdo al id y agrega los nuevos valores de x y
+            var mesa = await _db.Table<Mesa>().Where(m => m.Id_Mesa == idMesa).FirstOrDefaultAsync();
+            if (mesa != null)
+            {
+                mesa.Ejex = ejex;
+                mesa.EjeY = ejey;
+                await _db.UpdateAsync(mesa);
             }
         }
         protected override void OnAppearing()

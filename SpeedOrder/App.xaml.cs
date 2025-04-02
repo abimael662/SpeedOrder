@@ -19,24 +19,34 @@ namespace SpeedOrder
         }
         private void SetTheme()
         {
-            // Obtiene el tema guardado o usa "Light" si no hay ninguno
-            string savedTheme = Preferences.Get("UserTheme", "Light");
+            // Obtiene el tema guardado o usa el tema del sistema si no hay ninguno guardado
+            string savedTheme = Preferences.Get("UserTheme", "Default");
 
+            if (savedTheme == "Default")
+            {
+                OSAppTheme systemTheme = Application.Current.RequestedTheme;
+                savedTheme = systemTheme == OSAppTheme.Dark ? "Dark" : "Light";
+            }
+
+            // Aplica el tema
             if (savedTheme == "Dark")
             {
                 Application.Current.Resources["PageTheme"] = Application.Current.Resources["DarkTheme"];
                 Application.Current.Resources["LabelTheme"] = Application.Current.Resources["DarkLabel"];
                 Application.Current.Resources["ButtonTheme"] = Application.Current.Resources["DarkButton"];
-                Application.Current.UserAppTheme = OSAppTheme.Dark; // Aplica tema oscuro
+                Application.Current.UserAppTheme = OSAppTheme.Dark;
+                Preferences.Set("UserTheme", "Dark");
             }
             else
             {
                 Application.Current.Resources["PageTheme"] = Application.Current.Resources["LightTheme"];
                 Application.Current.Resources["LabelTheme"] = Application.Current.Resources["LightLabel"];
                 Application.Current.Resources["ButtonTheme"] = Application.Current.Resources["LightButton"];
-                Application.Current.UserAppTheme = OSAppTheme.Light; // Aplica tema claro
+                Application.Current.UserAppTheme = OSAppTheme.Light;
+                Preferences.Set("UserTheme", "Light");
             }
         }
+
         protected override void OnStart()
         {
         }

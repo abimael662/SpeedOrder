@@ -1,14 +1,12 @@
 ﻿using Rg.Plugins.Popup.Services;
+using SpeedOrder.Models;
 using SpeedOrder.Tables;
 using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,6 +18,7 @@ namespace SpeedOrder.View
         public readonly SQLiteAsyncConnection _db;
         private List<Platillo> _platillo = new List<Platillo>();
         List<Tables.Menu> lista = Menus.Datos();
+
         public V_Cenas()
         {
             InitializeComponent();
@@ -28,13 +27,14 @@ namespace SpeedOrder.View
             _db.CreateTableAsync<Platillo>().Wait();
             _db.CreateTableAsync<Tipo_Menu>().Wait();
         }
+
         private async void Registrar_Clicked(object sender, System.EventArgs e)
         {
             await PopupNavigation.Instance.PushAsync(new V_RegistroPlatillo());
         }
+
         protected async override void OnAppearing()
         {
-            //var cenas = lista.FirstOrDefault(m => m.Tipo == "Cenas");
             var cenas = lista.FirstOrDefault(m => m.Tipo?.Trim() == "Cenas");
 
             if (cenas != null)
@@ -49,6 +49,15 @@ namespace SpeedOrder.View
                 ListaCenas.ItemsSource = new List<Platillo>();
             }
             base.OnAppearing();
+        }
+
+        private async void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            var checkBox = sender as CheckBox;
+            if (checkBox != null)
+            {
+                await CheckBoxHelper.HandleCheckBoxChangedAsync(checkBox, e, _db);
+            }
         }
     }
 }

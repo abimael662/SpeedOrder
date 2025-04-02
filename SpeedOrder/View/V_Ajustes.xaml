@@ -8,6 +8,14 @@
     <ContentPage.BindingContext>
         <local:LoginViewModel/>
     </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="OnThemeToggle"
+                 x:Name="Tema"
+                 Order="Primary"
+                 Priority="0"/>
+    </ContentPage.ToolbarItems>
+
     <StackLayout>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -30,7 +38,7 @@
 
 
             <Frame BackgroundColor="Transparent" Grid.Row="1" Grid.Column="0" WidthRequest="50" Margin="0" Padding="0">
-                <Image Source="user"  />
+                <Image Source="user" />
             </Frame>
             <Label Text="" x:Name="TxtNombre" FontSize="Medium" FontAttributes="Bold" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,3,0,0" Style="{DynamicResource LabelTheme}" />
 
@@ -45,8 +53,7 @@
             </Frame>
             <Button Text="Editar Platillos" Style="{DynamicResource LabelTheme}" BackgroundColor="Transparent" VerticalOptions="Start" HorizontalOptions="Start" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" CornerRadius="10" Margin="0" Padding="0"/>
         </Grid>
-        <Button Text="Cambiar Tema" Clicked="OnThemeToggle" CornerRadius="10" Style="{DynamicResource ButtonTheme}" Margin="20,10,20,10" />
         <Button Text="Editar Cuenta" x:Name="TxtEdit" CornerRadius="10" BackgroundColor="#5F1890" TextColor="White" Margin="20,10,20,10" Clicked="TxtEdit_Clicked"/>
-        <Button Text="Eliminar Cuenta" x:Name="TxtDelete" CornerRadius="10" BackgroundColor="Red" TextColor="White" Margin="20,10,20,10" Clicked="TxtDelete_Clicked"/>
+        <Button Text="Eliminar Cuenta" x:Name="TxtDelete" CornerRadius="10" BackgroundColor="Red" TextColor="White" Margin="20,10,20,10" Clicked="TxtDelete_Clicked" />
     </StackLayout>
 </ContentPage>

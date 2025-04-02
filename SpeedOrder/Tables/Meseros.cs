@@ -70,6 +70,8 @@ namespace SpeedOrder.Tables
         public int Id_Mesa { get; set; }
         public string Tipo { get; set; }
         public string Tamano { get; set; }
+        public double EjeY { get; set; }
+        public double Ejex { get; set; }
     }
     public class Ticket
     {
@@ -83,7 +85,6 @@ namespace SpeedOrder.Tables
     {
         [PrimaryKey, AutoIncrement]
         public int Id_Orden { get; set; }
-        [MaxLength(10)]
         public string Nombre_Cliente { get; set; }
         public DateTime Fecha {  get; set; }
         public Decimal Total {  get; set; }

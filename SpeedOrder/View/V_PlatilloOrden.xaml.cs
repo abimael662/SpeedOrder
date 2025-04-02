@@ -31,9 +31,11 @@ namespace SpeedOrder.View
         public Platillo _p;
         public Atender _a;
         public Platillo_Orden po;
+        int ordennum;
         public V_PlatilloOrden (int idPlatillo)
 		{
 			InitializeComponent ();
+            BindingContext = App.ViewModelGlobal;
             var rutaBD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpeedOrder.db3");
             _db = new SQLiteAsyncConnection(rutaBD);
             _db.CreateTableAsync<Platillo>().Wait();
@@ -45,13 +47,32 @@ namespace SpeedOrder.View
             _db.CreateTableAsync<Ticket>().Wait();
             _db.CreateTableAsync<Atender>().Wait();
             _db.CreateTableAsync<Platillo_Orden>().Wait();
-            //_p = p;
             TxtIdPlatillo.Text = idPlatillo.ToString();
+            CargarMesas();
+        }
+        private async void CargarMesas()
+        {
+            try
+            {
+                var mesas = await _db.Table<Mesa>().ToListAsync();
+                TxtIdMenu.ItemsSource = mesas.Select(m => m.Id_Mesa.ToString()).ToList();
+                var correo = App.ViewModelGlobal.Correo;
+                _m = await _db.Table<Meseros>().FirstOrDefaultAsync(m => m.Email == correo);
+                var atender = (await _db.Table<Atender>().FirstOrDefaultAsync(a => a.Id_Mesero == _m.Id_Mesero));
+                var ticket = (await _db.Table<Ticket>().FirstOrDefaultAsync(a => a.Id_Mesa == atender.Id_Mesa));
+                var orden = (await _db.Table<Orden>().FirstOrDefaultAsync(a => a.Id_Orden == ticket.Id_Orden));
+                ordennum = orden.Id_Orden;
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"No se pudo cargar las mesas: {ex.Message}", "OK");
+            }
         }
         private async void BtnRegistrar_Clicked(object sender, System.EventArgs e)
 		{
             po = new Platillo_Orden
             {
+                Id_Orden = Convert.ToInt32(ordennum),
                 Id_Platillo = Convert.ToInt32(TxtIdPlatillo.Text),
                 Cantidad = Convert.ToInt32(TxtCantidad.Text)
             };

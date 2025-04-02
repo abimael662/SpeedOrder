@@ -1,4 +1,5 @@
 ﻿using Rg.Plugins.Popup.Services;
+using SpeedOrder.Models;
 using SpeedOrder.Tables;
 using SQLite;
 using System;
@@ -52,9 +53,13 @@ namespace SpeedOrder.View
             }
             base.OnAppearing();
         }
-        public void Actualizar()
+        private async void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
-
+            var checkBox = sender as CheckBox;
+            if (checkBox != null)
+            {
+                await CheckBoxHelper.HandleCheckBoxChangedAsync(checkBox, e, _db);
+            }
         }
     }
 }
